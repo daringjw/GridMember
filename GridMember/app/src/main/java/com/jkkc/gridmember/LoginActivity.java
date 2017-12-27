@@ -111,7 +111,7 @@ public class LoginActivity extends AppCompatActivity {
 
                         if (loginInfo.getCode().equals("200")){
 
-                            Toast.makeText(getApplicationContext(),"登陆成功",Toast.LENGTH_SHORT).show();
+//                            Toast.makeText(getApplicationContext(),"登陆成功",Toast.LENGTH_SHORT).show();
 
                             //登陆环信
                             EMClient.getInstance().login("18518030828", "12345678", new EMCallBack() {//回调

@@ -9,6 +9,7 @@ import android.util.Log;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.hyphenate.EMCallBack;
 import com.hyphenate.EMMessageListener;
 import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMMessage;
@@ -57,7 +58,7 @@ public class HomeActivity extends AppCompatActivity {
         @Override
         public void onMessageReceived(List<EMMessage> messages) {
             //收到消息
-            Log.d(TAG,messages.get(0).toString());
+            Log.d(TAG,messages.get(0).getBody().toString());
 
 
         }
@@ -99,7 +100,27 @@ public class HomeActivity extends AppCompatActivity {
     @OnClick(R.id.btnLogout)
     public void onViewClicked() {
 
-        EMClient.getInstance().logout(true);
+        EMClient.getInstance().logout(true, new EMCallBack() {
+
+            @Override
+            public void onSuccess() {
+                // TODO Auto-generated method stub
+                Log.d(TAG,"环信账号退出");
+
+            }
+
+            @Override
+            public void onProgress(int progress, String status) {
+                // TODO Auto-generated method stub
+
+            }
+
+            @Override
+            public void onError(int code, String message) {
+                // TODO Auto-generated method stub
+
+            }
+        });
 
         new Handler().postDelayed(new Runnable() {
             @Override
