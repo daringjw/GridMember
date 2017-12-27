@@ -24,12 +24,12 @@
         "source": "C:\\Users\\VULCAN\\.android\\build-cache\\7c2c24547dc80ce86cfcd93db1cbef71f9ff4cdd\\output\\res\\drawable-mdpi\\ic_plusone_tall_off_client.png"
     },
     {
-        "merged": "F:\\projects2\\YangLao\\GridMember\\easeui\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-mdpi\\ic_plusone_medium_off_client.png",
-        "source": "C:\\Users\\VULCAN\\.android\\build-cache\\7c2c24547dc80ce86cfcd93db1cbef71f9ff4cdd\\output\\res\\drawable-mdpi\\ic_plusone_medium_off_client.png"
-    },
-    {
         "merged": "F:\\projects2\\YangLao\\GridMember\\easeui\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-mdpi\\common_full_open_on_phone.png",
         "source": "C:\\Users\\VULCAN\\.android\\build-cache\\7c2c24547dc80ce86cfcd93db1cbef71f9ff4cdd\\output\\res\\drawable-mdpi\\common_full_open_on_phone.png"
+    },
+    {
+        "merged": "F:\\projects2\\YangLao\\GridMember\\easeui\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-mdpi\\ic_plusone_medium_off_client.png",
+        "source": "C:\\Users\\VULCAN\\.android\\build-cache\\7c2c24547dc80ce86cfcd93db1cbef71f9ff4cdd\\output\\res\\drawable-mdpi\\ic_plusone_medium_off_client.png"
     },
     {
         "merged": "F:\\projects2\\YangLao\\GridMember\\easeui\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-mdpi\\common_signin_btn_icon_pressed_light.9.png",
