@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.hyphenate.EMCallBack;
 import com.hyphenate.EMMessageListener;
@@ -16,6 +17,11 @@ import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMMessage;
 import com.jkkc.gridmember.LoginActivity;
 import com.jkkc.gridmember.R;
+import com.jkkc.gridmember.common.Config;
+import com.jkkc.gridmember.utils.PrefUtils;
+import com.lzy.okgo.OkGo;
+import com.lzy.okgo.callback.StringCallback;
+import com.lzy.okgo.model.Response;
 
 import java.util.List;
 
@@ -192,18 +198,87 @@ public class HomeActivity extends AppCompatActivity {
 
 
                 break;
+
             case R.id.btnStartOff:
+                //出动
+                OkGo.<String>post(Config.GRIDMAN_URL+Config.STARTOFF_URL)
+                        .tag(this)
+                        .params("token", PrefUtils.getString(getApplicationContext(),"Token",null))
+                        .params("operatorName",PrefUtils.getString(getApplicationContext(),"Name",null))
+                        .params("latBD",39.875365)
+                        .params("lngBD",116.107056)
+                        .params("handleFlag",1)
+                        .params("sosId",1)
+                        .execute(new StringCallback() {
+                            @Override
+                            public void onSuccess(Response<String> response) {
+
+                                String result = response.body().toString();
+                                Log.d(TAG,result);
+                                Toast.makeText(getApplicationContext(),"出动成功",Toast.LENGTH_SHORT).show();
+
+
+                            }
+
+                        });
+
+
 
 
                 break;
             case R.id.btnRefuseStartOff:
 
+                //拒绝出动
+                OkGo.<String>post(Config.GRIDMAN_URL+Config.REFUSESTARTOFF_URL)
+                        .tag(this)
+                        .params("token", PrefUtils.getString(getApplicationContext(),"Token",null))
+                        .params("sosId",1)
+                        .params("operatorName",PrefUtils.getString(getApplicationContext(),"Name",null))
+                        .params("operatorDesc","operatorDesc")
+                        .params("handleFlag",2)
+                        .params("latBD",39.875365)
+                        .params("lngBD",116.107056)
+                        .execute(new StringCallback() {
+                            @Override
+                            public void onSuccess(Response<String> response) {
+
+                                String result = response.body().toString();
+                                Log.d(TAG,result);
+                                Toast.makeText(getApplicationContext(),"拒绝出动成功",Toast.LENGTH_SHORT).show();
+
+
+                            }
+
+                        });
+
 
                 break;
             case R.id.btnArrive:
 
+                //到达
+                OkGo.<String>post(Config.GRIDMAN_URL+Config.ARRIVE_URL)
+                        .tag(this)
+                        .params("token", PrefUtils.getString(getApplicationContext(),"Token",null))
+                        .params("sosId",1)
+                        .params("operatorName",PrefUtils.getString(getApplicationContext(),"Name",null))
+                        .params("operatorDesc","operatorDesc")
+                        .params("handleFlag",3)
+                        .params("latBD",39.875365)
+                        .params("lngBD",116.107056)
+                        .execute(new StringCallback() {
+                            @Override
+                            public void onSuccess(Response<String> response) {
+
+                                String result = response.body().toString();
+                                Log.d(TAG,result);
+                                Toast.makeText(getApplicationContext(),"到达成功",Toast.LENGTH_SHORT).show();
+
+                            }
+
+                        });
 
                 break;
+
         }
     }
 }
