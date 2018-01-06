@@ -6,6 +6,7 @@ import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -34,6 +35,18 @@ public class HomeActivity extends AppCompatActivity {
     TextView mTvReceive;
     @BindView(R.id.btnLogout)
     Button mBtnLogout;
+    @BindView(R.id.btnMsgPush)
+    Button mBtnMsgPush;
+    @BindView(R.id.btnStartOff)
+    Button mBtnStartOff;
+    @BindView(R.id.btnRefuseStartOff)
+    Button mBtnRefuseStartOff;
+    @BindView(R.id.btnArrive)
+    Button mBtnArrive;
+    @BindView(R.id.btnPersonalInfo)
+    Button mBtnPersonalInfo;
+    @BindView(R.id.btnPic)
+    Button mBtnPic;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -48,6 +61,23 @@ public class HomeActivity extends AppCompatActivity {
         EMClient.getInstance().chatManager().addMessageListener(msgListener);
 
 
+        mBtnPersonalInfo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getApplicationContext(),PersonalInfoActivity.class));
+
+            }
+        });
+
+        mBtnPic.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                startActivity(new Intent(getApplicationContext(),SweetActivity.class));
+
+            }
+        });
+
 
 
     }
@@ -56,9 +86,20 @@ public class HomeActivity extends AppCompatActivity {
     EMMessageListener msgListener = new EMMessageListener() {
 
         @Override
-        public void onMessageReceived(List<EMMessage> messages) {
+        public void onMessageReceived(final List<EMMessage> messages) {
             //收到消息
-            Log.d(TAG,messages.get(0).getBody().toString());
+            Log.d(TAG, messages.get(0).getBody().toString());
+
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+
+                    mTvReceive.setText(messages.get(0).getBody().toString());
+
+                    mBtnMsgPush.setText("你有新消息");
+
+                }
+            });
 
 
         }
@@ -77,6 +118,7 @@ public class HomeActivity extends AppCompatActivity {
         public void onMessageDelivered(List<EMMessage> message) {
             //收到已送达回执
         }
+
         @Override
         public void onMessageRecalled(List<EMMessage> messages) {
             //消息被撤回
@@ -89,7 +131,7 @@ public class HomeActivity extends AppCompatActivity {
     };
 
 
-//    记得在不需要的时候移除listener，如在activity的onDestroy()时
+    //    记得在不需要的时候移除listener，如在activity的onDestroy()时
     @Override
     protected void onDestroy() {
 
@@ -105,7 +147,7 @@ public class HomeActivity extends AppCompatActivity {
             @Override
             public void onSuccess() {
                 // TODO Auto-generated method stub
-                Log.d(TAG,"环信账号退出");
+                Log.d(TAG, "环信账号退出");
 
             }
 
@@ -132,11 +174,36 @@ public class HomeActivity extends AppCompatActivity {
 
             }
 
-        },1000);
-
+        }, 1000);
 
 
     }
 
 
+    @OnClick({R.id.btnMsgPush, R.id.btnStartOff, R.id.btnRefuseStartOff, R.id.btnArrive})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.btnMsgPush:
+
+                mBtnMsgPush.setText("消息推送");
+//                OkGo.<String>post(Config.GRIDMAN_URL+Config.PUSHSOSMSG_URL)
+//                        .tag(this)
+//                        .params()
+
+
+                break;
+            case R.id.btnStartOff:
+
+
+                break;
+            case R.id.btnRefuseStartOff:
+
+
+                break;
+            case R.id.btnArrive:
+
+
+                break;
+        }
+    }
 }

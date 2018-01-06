@@ -77,8 +77,20 @@
             android:launchMode="singleInstance"
             android:screenOrientation="portrait"
             >
+        </activity>
 
+        <activity
+            android:name=".ui.PersonalInfoActivity"
+            android:launchMode="singleInstance"
+            android:screenOrientation="portrait"
+            >
+        </activity>
 
+        <activity
+            android:name=".ui.SweetActivity"
+            android:launchMode="singleInstance"
+            android:screenOrientation="portrait"
+            >
         </activity>
 
 

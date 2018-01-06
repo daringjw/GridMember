@@ -18,6 +18,8 @@ import com.hyphenate.util.NetUtils;
 import com.jkkc.gridmember.bean.LoginInfo;
 import com.jkkc.gridmember.common.Config;
 import com.jkkc.gridmember.ui.HomeActivity;
+import com.jkkc.gridmember.utils.MD5;
+import com.jkkc.gridmember.utils.PrefUtils;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
@@ -94,10 +96,11 @@ public class LoginActivity extends AppCompatActivity {
     public void onViewClicked(View view) {
 
 
+
         OkGo.<String>post(Config.GRIDMAN_URL+Config.LOGIN_URL)
                 .tag(this)
                 .params("account","18518030828")
-                .params("pwd","25d55ad283aa400af464c76d713c07ad")
+                .params("pwd", MD5.md5Encode("12345678"))
                 .execute(new StringCallback() {
                     @Override
                     public void onSuccess(Response<String> response) {
@@ -108,6 +111,20 @@ public class LoginActivity extends AppCompatActivity {
                         Gson gson = new Gson();
                         LoginInfo loginInfo = gson.fromJson(result, LoginInfo.class);
                         Log.d(TAG,loginInfo.getCode());
+
+                        LoginInfo.DataBean data = loginInfo.getData();
+                        PrefUtils.setString(getApplicationContext(),"data",result+"");
+                        PrefUtils.setString(getApplicationContext(),"Address",data.getAddress());
+                        PrefUtils.setString(getApplicationContext(),"Name",data.getName());
+                        PrefUtils.setString(getApplicationContext(),"Phone",data.getPhone());
+                        PrefUtils.setString(getApplicationContext(),"Sex",data.getSex());
+                        PrefUtils.setString(getApplicationContext(),"Token",data.getToken());
+                        PrefUtils.setString(getApplicationContext(),"Age",data.getAge()+"");
+                        PrefUtils.setString(getApplicationContext(),"Id",data.getId()+"");
+
+
+
+
 
                         if (loginInfo.getCode().equals("200")){
 

@@ -1,11 +1,11 @@
 [
     {
-        "merged": "F:\\projects2\\YangLao\\GridMember\\easeui\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_ic_clear_material.xml",
-        "source": "C:\\Users\\VULCAN\\.android\\build-cache\\dfa37e42b56a916790612f50ce536deeddf7ce7f\\output\\res\\drawable\\abc_ic_clear_material.xml"
-    },
-    {
         "merged": "F:\\projects2\\YangLao\\GridMember\\easeui\\build\\intermediates\\res\\merged\\debug\\drawable\\ease_btn_blue_normal_shape.xml",
         "source": "F:\\projects2\\YangLao\\GridMember\\easeui\\src\\main\\res\\drawable\\ease_btn_blue_normal_shape.xml"
+    },
+    {
+        "merged": "F:\\projects2\\YangLao\\GridMember\\easeui\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_ic_clear_material.xml",
+        "source": "C:\\Users\\VULCAN\\.android\\build-cache\\dfa37e42b56a916790612f50ce536deeddf7ce7f\\output\\res\\drawable\\abc_ic_clear_material.xml"
     },
     {
         "merged": "F:\\projects2\\YangLao\\GridMember\\easeui\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_cab_background_internal_bg.xml",
@@ -20,16 +20,16 @@
         "source": "C:\\Users\\VULCAN\\.android\\build-cache\\dfa37e42b56a916790612f50ce536deeddf7ce7f\\output\\res\\drawable\\abc_ic_ab_back_material.xml"
     },
     {
-        "merged": "F:\\projects2\\YangLao\\GridMember\\easeui\\build\\intermediates\\res\\merged\\debug\\drawable\\ease_recording_text_hint_bg.xml",
-        "source": "F:\\projects2\\YangLao\\GridMember\\easeui\\src\\main\\res\\drawable\\ease_recording_text_hint_bg.xml"
+        "merged": "F:\\projects2\\YangLao\\GridMember\\easeui\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_vector_test.xml",
+        "source": "C:\\Users\\VULCAN\\.android\\build-cache\\dfa37e42b56a916790612f50ce536deeddf7ce7f\\output\\res\\drawable\\abc_vector_test.xml"
     },
     {
         "merged": "F:\\projects2\\YangLao\\GridMember\\easeui\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_seekbar_tick_mark_material.xml",
         "source": "C:\\Users\\VULCAN\\.android\\build-cache\\dfa37e42b56a916790612f50ce536deeddf7ce7f\\output\\res\\drawable\\abc_seekbar_tick_mark_material.xml"
     },
     {
-        "merged": "F:\\projects2\\YangLao\\GridMember\\easeui\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_vector_test.xml",
-        "source": "C:\\Users\\VULCAN\\.android\\build-cache\\dfa37e42b56a916790612f50ce536deeddf7ce7f\\output\\res\\drawable\\abc_vector_test.xml"
+        "merged": "F:\\projects2\\YangLao\\GridMember\\easeui\\build\\intermediates\\res\\merged\\debug\\drawable\\ease_recording_text_hint_bg.xml",
+        "source": "F:\\projects2\\YangLao\\GridMember\\easeui\\src\\main\\res\\drawable\\ease_recording_text_hint_bg.xml"
     },
     {
         "merged": "F:\\projects2\\YangLao\\GridMember\\easeui\\build\\intermediates\\res\\merged\\debug\\drawable\\common_signin_btn_icon_dark.xml",
@@ -40,12 +40,12 @@
         "source": "F:\\projects2\\YangLao\\GridMember\\easeui\\src\\main\\res\\drawable\\ease_common_tab_bg.xml"
     },
     {
-        "merged": "F:\\projects2\\YangLao\\GridMember\\easeui\\build\\intermediates\\res\\merged\\debug\\drawable\\common_signin_btn_text_dark.xml",
-        "source": "C:\\Users\\VULCAN\\.android\\build-cache\\7c2c24547dc80ce86cfcd93db1cbef71f9ff4cdd\\output\\res\\drawable\\common_signin_btn_text_dark.xml"
-    },
-    {
         "merged": "F:\\projects2\\YangLao\\GridMember\\easeui\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_edit_text_material.xml",
         "source": "C:\\Users\\VULCAN\\.android\\build-cache\\dfa37e42b56a916790612f50ce536deeddf7ce7f\\output\\res\\drawable\\abc_edit_text_material.xml"
+    },
+    {
+        "merged": "F:\\projects2\\YangLao\\GridMember\\easeui\\build\\intermediates\\res\\merged\\debug\\drawable\\common_signin_btn_text_dark.xml",
+        "source": "C:\\Users\\VULCAN\\.android\\build-cache\\7c2c24547dc80ce86cfcd93db1cbef71f9ff4cdd\\output\\res\\drawable\\common_signin_btn_text_dark.xml"
     },
     {
         "merged": "F:\\projects2\\YangLao\\GridMember\\easeui\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_dialog_material_background.xml",
@@ -76,12 +76,12 @@
         "source": "F:\\projects2\\YangLao\\GridMember\\easeui\\src\\main\\res\\drawable\\ease_btn_cancel_normal_shape.xml"
     },
     {
-        "merged": "F:\\projects2\\YangLao\\GridMember\\easeui\\build\\intermediates\\res\\merged\\debug\\drawable\\common_signin_btn_icon_light.xml",
-        "source": "C:\\Users\\VULCAN\\.android\\build-cache\\7c2c24547dc80ce86cfcd93db1cbef71f9ff4cdd\\output\\res\\drawable\\common_signin_btn_icon_light.xml"
-    },
-    {
         "merged": "F:\\projects2\\YangLao\\GridMember\\easeui\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_ic_search_api_material.xml",
         "source": "C:\\Users\\VULCAN\\.android\\build-cache\\dfa37e42b56a916790612f50ce536deeddf7ce7f\\output\\res\\drawable\\abc_ic_search_api_material.xml"
+    },
+    {
+        "merged": "F:\\projects2\\YangLao\\GridMember\\easeui\\build\\intermediates\\res\\merged\\debug\\drawable\\common_signin_btn_icon_light.xml",
+        "source": "C:\\Users\\VULCAN\\.android\\build-cache\\7c2c24547dc80ce86cfcd93db1cbef71f9ff4cdd\\output\\res\\drawable\\common_signin_btn_icon_light.xml"
     },
     {
         "merged": "F:\\projects2\\YangLao\\GridMember\\easeui\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_text_cursor_material.xml",

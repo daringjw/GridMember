@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
+              android:background="@mipmap/splash"
               android:orientation="vertical">
 
     <TextView
@@ -15,5 +16,47 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="退出"/>
+
+
+    <Button
+        android:id="@+id/btnMsgPush"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="消息推送"/>
+
+
+    <Button
+        android:id="@+id/btnStartOff"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="出动接口"/>
+
+    <Button
+        android:id="@+id/btnRefuseStartOff"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="拒绝出动接口"/>
+
+
+    <Button
+        android:id="@+id/btnArrive"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="到达现场"/>
+
+    <Button
+        android:id="@+id/btnPersonalInfo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="个人信息"/>
+
+    <Button
+        android:id="@+id/btnPic"
+        android:text="图片"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+
+
 
 </LinearLayout>
