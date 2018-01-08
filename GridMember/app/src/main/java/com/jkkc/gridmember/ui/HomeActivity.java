@@ -61,7 +61,6 @@ public class HomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_home);
         ButterKnife.bind(this);
 
-
 //        通过注册消息监听来接收消息。
 
         EMClient.getInstance().chatManager().addMessageListener(msgListener);
@@ -70,7 +69,7 @@ public class HomeActivity extends AppCompatActivity {
         mBtnPersonalInfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getApplicationContext(),PersonalInfoActivity.class));
+                startActivity(new Intent(getApplicationContext(), PersonalInfoActivity.class));
 
             }
         });
@@ -79,11 +78,10 @@ public class HomeActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                startActivity(new Intent(getApplicationContext(),SweetActivity.class));
+                startActivity(new Intent(getApplicationContext(), SweetActivity.class));
 
             }
         });
-
 
 
     }
@@ -201,21 +199,21 @@ public class HomeActivity extends AppCompatActivity {
 
             case R.id.btnStartOff:
                 //出动
-                OkGo.<String>post(Config.GRIDMAN_URL+Config.STARTOFF_URL)
+                OkGo.<String>post(Config.GRIDMAN_URL + Config.STARTOFF_URL)
                         .tag(this)
-                        .params("token", PrefUtils.getString(getApplicationContext(),"Token",null))
-                        .params("operatorName",PrefUtils.getString(getApplicationContext(),"Name",null))
-                        .params("latBD",39.875365)
-                        .params("lngBD",116.107056)
-                        .params("handleFlag",1)
-                        .params("sosId",1)
+                        .params("token", PrefUtils.getString(getApplicationContext(), "Token", null))
+                        .params("operatorName", PrefUtils.getString(getApplicationContext(), "Name", null))
+                        .params("latBD", 39.875365)
+                        .params("lngBD", 116.107056)
+                        .params("handleFlag", 1)
+                        .params("sosId", 1)
                         .execute(new StringCallback() {
                             @Override
                             public void onSuccess(Response<String> response) {
 
                                 String result = response.body().toString();
-                                Log.d(TAG,result);
-                                Toast.makeText(getApplicationContext(),"出动成功",Toast.LENGTH_SHORT).show();
+                                Log.d(TAG, result);
+                                Toast.makeText(getApplicationContext(), "出动成功", Toast.LENGTH_SHORT).show();
 
 
                             }
@@ -223,28 +221,26 @@ public class HomeActivity extends AppCompatActivity {
                         });
 
 
-
-
                 break;
             case R.id.btnRefuseStartOff:
 
                 //拒绝出动
-                OkGo.<String>post(Config.GRIDMAN_URL+Config.REFUSESTARTOFF_URL)
+                OkGo.<String>post(Config.GRIDMAN_URL + Config.REFUSESTARTOFF_URL)
                         .tag(this)
-                        .params("token", PrefUtils.getString(getApplicationContext(),"Token",null))
-                        .params("sosId",1)
-                        .params("operatorName",PrefUtils.getString(getApplicationContext(),"Name",null))
-                        .params("operatorDesc","operatorDesc")
-                        .params("handleFlag",2)
-                        .params("latBD",39.875365)
-                        .params("lngBD",116.107056)
+                        .params("token", PrefUtils.getString(getApplicationContext(), "Token", null))
+                        .params("sosId", 1)
+                        .params("operatorName", PrefUtils.getString(getApplicationContext(), "Name", null))
+                        .params("operatorDesc", "operatorDesc")
+                        .params("handleFlag", 2)
+                        .params("latBD", 39.875365)
+                        .params("lngBD", 116.107056)
                         .execute(new StringCallback() {
                             @Override
                             public void onSuccess(Response<String> response) {
 
                                 String result = response.body().toString();
-                                Log.d(TAG,result);
-                                Toast.makeText(getApplicationContext(),"拒绝出动成功",Toast.LENGTH_SHORT).show();
+                                Log.d(TAG, result);
+                                Toast.makeText(getApplicationContext(), "拒绝出动成功", Toast.LENGTH_SHORT).show();
 
 
                             }
@@ -256,22 +252,22 @@ public class HomeActivity extends AppCompatActivity {
             case R.id.btnArrive:
 
                 //到达
-                OkGo.<String>post(Config.GRIDMAN_URL+Config.ARRIVE_URL)
+                OkGo.<String>post(Config.GRIDMAN_URL + Config.ARRIVE_URL)
                         .tag(this)
-                        .params("token", PrefUtils.getString(getApplicationContext(),"Token",null))
-                        .params("sosId",1)
-                        .params("operatorName",PrefUtils.getString(getApplicationContext(),"Name",null))
-                        .params("operatorDesc","operatorDesc")
-                        .params("handleFlag",3)
-                        .params("latBD",39.875365)
-                        .params("lngBD",116.107056)
+                        .params("token", PrefUtils.getString(getApplicationContext(), "Token", null))
+                        .params("sosId", 1)
+                        .params("operatorName", PrefUtils.getString(getApplicationContext(), "Name", null))
+                        .params("operatorDesc", "operatorDesc")
+                        .params("handleFlag", 3)
+                        .params("latBD", 39.875365)
+                        .params("lngBD", 116.107056)
                         .execute(new StringCallback() {
                             @Override
                             public void onSuccess(Response<String> response) {
 
                                 String result = response.body().toString();
-                                Log.d(TAG,result);
-                                Toast.makeText(getApplicationContext(),"到达成功",Toast.LENGTH_SHORT).show();
+                                Log.d(TAG, result);
+                                Toast.makeText(getApplicationContext(), "到达成功", Toast.LENGTH_SHORT).show();
 
                             }
 

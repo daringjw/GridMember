@@ -17,6 +17,7 @@ import com.hyphenate.chat.EMClient;
 import com.hyphenate.util.NetUtils;
 import com.jkkc.gridmember.bean.LoginInfo;
 import com.jkkc.gridmember.common.Config;
+import com.jkkc.gridmember.manager.UserInfoManager;
 import com.jkkc.gridmember.ui.HomeActivity;
 import com.jkkc.gridmember.utils.MD5;
 import com.jkkc.gridmember.utils.PrefUtils;
@@ -111,6 +112,9 @@ public class LoginActivity extends AppCompatActivity {
                         Gson gson = new Gson();
                         LoginInfo loginInfo = gson.fromJson(result, LoginInfo.class);
                         Log.d(TAG,loginInfo.getCode());
+
+                        //把loginInfo存进内存
+                        UserInfoManager.getInstance().setLoginInfo(loginInfo);
 
                         LoginInfo.DataBean data = loginInfo.getData();
                         PrefUtils.setString(getApplicationContext(),"data",result+"");
