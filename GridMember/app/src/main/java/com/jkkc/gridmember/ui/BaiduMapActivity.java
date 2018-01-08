@@ -20,8 +20,10 @@ import com.jkkc.gridmember.manager.PositionManager;
 
 public class BaiduMapActivity extends AppCompatActivity {
 
+    private static final String TAG = BaiduMapActivity.class.getSimpleName();
     private TextureMapView mMapView;
     private BaiduMap mBaiduMap;
+    private PositionBean mPositionBean;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,14 +41,15 @@ public class BaiduMapActivity extends AppCompatActivity {
         // 开启定位图层
         mBaiduMap.setMyLocationEnabled(true);
 
-        PositionBean positionBean = PositionManager.getInstance().getPositionBean();
+        mPositionBean = PositionManager.getInstance().getPositionBean();
 
 // 构造定位数据
         MyLocationData locData = new MyLocationData.Builder()
-                .accuracy(positionBean.mBDLocation.getRadius())
+                .accuracy(mPositionBean.mBDLocation.getRadius())
                 // 此处设置开发者获取到的方向信息，顺时针0-360
-                .direction(100).latitude(positionBean.mBDLocation.getLatitude())
-                .longitude(positionBean.mBDLocation.getLongitude()).build();
+//                .direction(100)
+                .latitude(mPositionBean.mBDLocation.getLatitude())
+                .longitude(mPositionBean.mBDLocation.getLongitude()).build();
 
 // 设置定位数据
         mBaiduMap.setMyLocationData(locData);
@@ -64,10 +67,11 @@ public class BaiduMapActivity extends AppCompatActivity {
 
         mBaiduMap.setMyLocationConfiguration(config);
 
-// 当不需要定位图层时关闭定位图层
-//        mBaiduMap.setMyLocationEnabled(false);
+
 
     }
+
+
 
     @Override
     protected void onDestroy() {

@@ -19,7 +19,6 @@ import com.baidu.location.BDLocation;
 import com.baidu.location.BDLocationListener;
 import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
-import com.baidu.mapapi.SDKInitializer;
 import com.hyphenate.EMCallBack;
 import com.hyphenate.EMMessageListener;
 import com.hyphenate.chat.EMClient;
@@ -89,7 +88,7 @@ public class HomeActivity extends AppCompatActivity {
             positionBean.mBDLocation = location;
             PositionManager.getInstance().setPositionBean(positionBean);
 
-
+            Log.d(TAG,"++++++++++++++");
             Log.d(TAG, "latitude=" + latitude + "longitude=" + longitude);
 
             float radius = location.getRadius();    //获取定位精度，默认值为0.0f
@@ -128,7 +127,6 @@ public class HomeActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        SDKInitializer.initialize(getApplicationContext());
 
         setContentView(R.layout.activity_home);
         ButterKnife.bind(this);
