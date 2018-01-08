@@ -52,11 +52,15 @@
 
     <Button
         android:id="@+id/btnPic"
-        android:text="图片"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:text="图片"/>
 
-
+    <Button
+        android:id="@+id/btnMap"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="地图位置"/>
 
 
 </LinearLayout>

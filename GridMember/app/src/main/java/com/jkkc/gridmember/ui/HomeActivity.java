@@ -53,6 +53,8 @@ public class HomeActivity extends AppCompatActivity {
     Button mBtnPersonalInfo;
     @BindView(R.id.btnPic)
     Button mBtnPic;
+    @BindView(R.id.btnMap)
+    Button mBtnMap;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -79,6 +81,16 @@ public class HomeActivity extends AppCompatActivity {
             public void onClick(View view) {
 
                 startActivity(new Intent(getApplicationContext(), SweetActivity.class));
+
+            }
+        });
+
+
+        mBtnMap.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                startActivity(new Intent(getApplicationContext(),BaiduMapActivity.class));
 
             }
         });
