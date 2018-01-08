@@ -1,5 +1,6 @@
 package com.jkkc.gridmember;
 
+import android.Manifest;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -28,6 +29,8 @@ import com.lzy.okgo.model.Response;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import kr.co.namee.permissiongen.PermissionGen;
+import kr.co.namee.permissiongen.PermissionSuccess;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -41,17 +44,66 @@ public class LoginActivity extends AppCompatActivity {
     Button mBtnLogin;
 
     @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                                           int[] grantResults) {
+
+        PermissionGen.onRequestPermissionsResult(this, requestCode, permissions, grantResults);
+
+        //开始定位
+
+
+
+
+    }
+
+//    When it succeeded in obtaining permission
+
+    @PermissionSuccess(requestCode = 100)
+    public void doSomething() {
+        Toast.makeText(this, "granted", Toast.LENGTH_LONG).show();
+        //开始定位
+
+
+    }
+//    When it failed in obtaining permission
+
+   /* @PermissionFail(requestCode = 100)
+    public void doFailSomething(){
+
+        Toast.makeText(this, "Contact permission is not granted", Toast.LENGTH_SHORT).show();
+
+
+    }*/
+
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
 
+        //6.0权限
+        PermissionGen.with(LoginActivity.this)
+                .addRequestCode(100)
+                .permissions(
+                        Manifest.permission.READ_PHONE_STATE,
+                        Manifest.permission.ACCESS_COARSE_LOCATION,
+                        Manifest.permission.ACCESS_FINE_LOCATION,
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                        Manifest.permission.ACCESS_LOCATION_EXTRA_COMMANDS,
+                        Manifest.permission.CAMERA,
+                        Manifest.permission.WRITE_CONTACTS,
+                        Manifest.permission.READ_CONTACTS,
+                        Manifest.permission.RECORD_AUDIO,
+                        Manifest.permission.GET_ACCOUNTS
+
+                )
+                .request();
+
+
         //注册一个监听连接状态的listener
         EMClient.getInstance().addConnectionListener(new MyConnectionListener());
-
-
-
 
 
     }
@@ -62,7 +114,7 @@ public class LoginActivity extends AppCompatActivity {
         @Override
         public void onConnected() {
 
-            Log.d(TAG,"已连接上");
+            Log.d(TAG, "已连接上");
             startActivity(new Intent(getApplicationContext(), HomeActivity.class));
             finish();
 
@@ -97,40 +149,36 @@ public class LoginActivity extends AppCompatActivity {
     public void onViewClicked(View view) {
 
 
-
-        OkGo.<String>post(Config.GRIDMAN_URL+Config.LOGIN_URL)
+        OkGo.<String>post(Config.GRIDMAN_URL + Config.LOGIN_URL)
                 .tag(this)
-                .params("account","18518030828")
+                .params("account", "18518030828")
                 .params("pwd", MD5.md5Encode("12345678"))
                 .execute(new StringCallback() {
                     @Override
                     public void onSuccess(Response<String> response) {
 
                         String result = response.body().toString();
-                        Log.d(TAG,result);
+                        Log.d(TAG, result);
 
                         Gson gson = new Gson();
                         LoginInfo loginInfo = gson.fromJson(result, LoginInfo.class);
-                        Log.d(TAG,loginInfo.getCode());
+                        Log.d(TAG, loginInfo.getCode());
 
                         //把loginInfo存进内存
                         UserInfoManager.getInstance().setLoginInfo(loginInfo);
 
                         LoginInfo.DataBean data = loginInfo.getData();
-                        PrefUtils.setString(getApplicationContext(),"data",result+"");
-                        PrefUtils.setString(getApplicationContext(),"Address",data.getAddress());
-                        PrefUtils.setString(getApplicationContext(),"Name",data.getName());
-                        PrefUtils.setString(getApplicationContext(),"Phone",data.getPhone());
-                        PrefUtils.setString(getApplicationContext(),"Sex",data.getSex());
-                        PrefUtils.setString(getApplicationContext(),"Token",data.getToken());
-                        PrefUtils.setString(getApplicationContext(),"Age",data.getAge()+"");
-                        PrefUtils.setString(getApplicationContext(),"Id",data.getId()+"");
+                        PrefUtils.setString(getApplicationContext(), "data", result + "");
+                        PrefUtils.setString(getApplicationContext(), "Address", data.getAddress());
+                        PrefUtils.setString(getApplicationContext(), "Name", data.getName());
+                        PrefUtils.setString(getApplicationContext(), "Phone", data.getPhone());
+                        PrefUtils.setString(getApplicationContext(), "Sex", data.getSex());
+                        PrefUtils.setString(getApplicationContext(), "Token", data.getToken());
+                        PrefUtils.setString(getApplicationContext(), "Age", data.getAge() + "");
+                        PrefUtils.setString(getApplicationContext(), "Id", data.getId() + "");
 
 
-
-
-
-                        if (loginInfo.getCode().equals("200")){
+                        if (loginInfo.getCode().equals("200")) {
 
 //                            Toast.makeText(getApplicationContext(),"登陆成功",Toast.LENGTH_SHORT).show();
 
@@ -161,7 +209,7 @@ public class LoginActivity extends AppCompatActivity {
                                     runOnUiThread(new Runnable() {
                                         @Override
                                         public void run() {
-                                            Toast.makeText(getApplicationContext(),"环信服务器出错",
+                                            Toast.makeText(getApplicationContext(), "环信服务器出错",
                                                     Toast.LENGTH_SHORT)
                                                     .show();
                                         }
@@ -172,13 +220,9 @@ public class LoginActivity extends AppCompatActivity {
                             });
 
 
+                        } else {
 
-
-
-
-                        }else {
-
-                            Toast.makeText(getApplicationContext(),"用户名或密码错误",Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(), "用户名或密码错误", Toast.LENGTH_SHORT).show();
 
                         }
 
@@ -190,11 +234,9 @@ public class LoginActivity extends AppCompatActivity {
                         super.onError(response);
 
 
-
                     }
                 })
         ;
-
 
 
     }

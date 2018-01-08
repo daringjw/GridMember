@@ -55,7 +55,7 @@
 
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
-            android:value="开发者 key" />
+            android:value="As1msIK7wIpv6yu7vXozqUHghMPb9Xiu" />
 
         <!-- 设置环信应用的AppKey -->
         <meta-data

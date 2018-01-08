@@ -4,8 +4,15 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
 import com.baidu.mapapi.SDKInitializer;
-import com.baidu.mapapi.map.MapView;
+import com.baidu.mapapi.map.BaiduMap;
+import com.baidu.mapapi.map.BitmapDescriptor;
+import com.baidu.mapapi.map.BitmapDescriptorFactory;
+import com.baidu.mapapi.map.MyLocationConfiguration;
+import com.baidu.mapapi.map.MyLocationData;
+import com.baidu.mapapi.map.TextureMapView;
 import com.jkkc.gridmember.R;
+import com.jkkc.gridmember.bean.PositionBean;
+import com.jkkc.gridmember.manager.PositionManager;
 
 /**
  * Created by Guan on 2018/1/8.
@@ -13,7 +20,8 @@ import com.jkkc.gridmember.R;
 
 public class BaiduMapActivity extends AppCompatActivity {
 
-    private MapView mMapView = null;
+    private TextureMapView mMapView;
+    private BaiduMap mBaiduMap;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,8 +31,41 @@ public class BaiduMapActivity extends AppCompatActivity {
         SDKInitializer.initialize(getApplicationContext());
         setContentView(R.layout.activity_baidu_map);
         //获取地图控件引用
-        mMapView = (MapView) findViewById(R.id.bmapView);
+        mMapView = (TextureMapView) findViewById(R.id.mTexturemap);
+        mBaiduMap = mMapView.getMap();
 
+
+        //显示定位
+        // 开启定位图层
+        mBaiduMap.setMyLocationEnabled(true);
+
+        PositionBean positionBean = PositionManager.getInstance().getPositionBean();
+
+// 构造定位数据
+        MyLocationData locData = new MyLocationData.Builder()
+                .accuracy(positionBean.mBDLocation.getRadius())
+                // 此处设置开发者获取到的方向信息，顺时针0-360
+                .direction(100).latitude(positionBean.mBDLocation.getLatitude())
+                .longitude(positionBean.mBDLocation.getLongitude()).build();
+
+// 设置定位数据
+        mBaiduMap.setMyLocationData(locData);
+
+// 设置定位图层的配置（定位模式，是否允许方向信息，用户自定义定位图标）
+//        mCurrentMarker = BitmapDescriptorFactory
+//                .fromResource(R.drawable.icon_geo);
+        BitmapDescriptor mCurrentMarker = BitmapDescriptorFactory
+                .fromResource(R.mipmap.icon_location_3);
+
+
+        MyLocationConfiguration config = new MyLocationConfiguration(
+                MyLocationConfiguration.LocationMode.FOLLOWING,
+                true, mCurrentMarker);
+
+        mBaiduMap.setMyLocationConfiguration(config);
+
+// 当不需要定位图层时关闭定位图层
+//        mBaiduMap.setMyLocationEnabled(false);
 
     }
 
