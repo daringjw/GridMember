@@ -123,10 +123,10 @@ public class HomeActivity extends AppCompatActivity {
             //收到已送达回执
         }
 
-        @Override
+       /* @Override
         public void onMessageRecalled(List<EMMessage> messages) {
             //消息被撤回
-        }
+        }*/
 
         @Override
         public void onMessageChanged(EMMessage message, Object change) {

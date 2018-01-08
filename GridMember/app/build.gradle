@@ -1,6 +1,17 @@
 apply plugin: 'com.android.application'
 
 android {
+
+    // productFlavors是为了避免每次运行都把DEX重新加载一遍而设置的两套运行配置
+    productFlavors {
+        dev {
+            minSdkVersion 21
+        }
+        prod {
+            minSdkVersion 14
+        }
+    }
+
     compileSdkVersion 26
     buildToolsVersion "26.0.2"
     defaultConfig {
@@ -10,6 +21,9 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+        // 设置MultiDex可用
+        multiDexEnabled true
     }
     buildTypes {
         release {
@@ -17,30 +31,56 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+    // 保证其他的lib没有被preDex
+    dexOptions {
+
+        javaMaxHeapSize "4g"
+        preDexLibraries = false
+
+    }
+
 }
 
 apply plugin: 'com.neenbedankt.android-apt'
+apply plugin: 'dexknifePlus'
 
+dexKnife{
+    //必选参数
+    enabled true //if false,禁用分包插件
+    //可选参数
+    //1.如果没有可选参数，将根据enabled决定是否分包。
+    //2.如果有可选参数，需满足必选参数和可选参数的条件才允许分包
+    productFlavor 'mock'
+    buildType 'debug'
+
+    /*
+    *eg:当前productFlavors = dev，buildType = debug，
+    *参数组合1：enabled = true，productFlavor = dev，buildType = debug 分包
+    *参数组合2：enabled = true，productFlavor = mock，buildType = debug 不分包
+    *参数组合1：enabled = true，buildType = debug 所有buildType = debug分包
+    *参数组合1：enabled = true，productFlavor = dev 所有productFlavor = dev分包
+    * */
+}
 
 dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
     compile fileTree(include: ['*.jar'], dir: 'libs')
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    compile 'com.android.support:appcompat-v7:26.+'
+    //    compile 'com.android.support:appcompat-v7:26.+'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     testCompile 'junit:junit:4.12'
-    compile project(':easeui')
-
     compile 'com.android.support:design:26.0.0-alpha1'
     //必须使用
     compile 'com.lzy.net:okgo:3.0.4'
-
     compile 'com.google.code.gson:gson:2.6.+'
-
     apt 'com.jakewharton:butterknife-compiler:8.0.1'
     compile 'com.jakewharton:butterknife:8.0.1'
+    compile files('libs/BaiduLBS_Android.jar')
+    // MultiDex的依赖
+    compile 'com.android.support:multidex:1.0.0'
 
-
-
+    compile 'com.hyphenate:hyphenate-sdk:3.3.0'
 }
