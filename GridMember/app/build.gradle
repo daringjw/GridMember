@@ -92,4 +92,7 @@ dependencies {
     compile 'com.hyphenate:hyphenate-sdk:3.3.0'
 
     compile 'com.lovedise:permissiongen:0.0.6'
+
+    compile 'cn.pedant.sweetalert:library:1.3'
+
 }

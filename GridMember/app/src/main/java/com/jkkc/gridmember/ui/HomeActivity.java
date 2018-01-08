@@ -3,6 +3,7 @@ package com.jkkc.gridmember.ui;
 import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
@@ -38,6 +39,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import cn.pedant.SweetAlert.SweetAlertDialog;
 
 /**
  * Created by Guan on 2017/12/27.
@@ -68,7 +70,8 @@ public class HomeActivity extends AppCompatActivity {
 
     public LocationClient mLocationClient = null;
     private MyLocationListener myListener = new MyLocationListener();
-//BDAbstractLocationListener为7.2版本新增的Abstract类型的监听接口
+    private SweetAlertDialog mPDialog;
+    //BDAbstractLocationListener为7.2版本新增的Abstract类型的监听接口
 //原有BDLocationListener接口暂时同步保留。具体介绍请参考后文中的说明
 
     public class MyLocationListener implements BDLocationListener {
@@ -303,6 +306,13 @@ public class HomeActivity extends AppCompatActivity {
     @OnClick(R.id.btnLogout)
     public void onViewClicked() {
 
+        mPDialog = new SweetAlertDialog(this, SweetAlertDialog.PROGRESS_TYPE);
+        mPDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
+        mPDialog.setTitleText("用户正在退出...");
+        mPDialog.setCancelable(false);
+        mPDialog.show();
+
+
         EMClient.getInstance().logout(true, new EMCallBack() {
 
             @Override
@@ -329,6 +339,7 @@ public class HomeActivity extends AppCompatActivity {
             @Override
             public void run() {
 
+                mPDialog.dismiss();
                 startActivity(new Intent(getApplicationContext(), LoginActivity.class));
                 finish();
 

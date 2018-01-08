@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+          xmlns:tools="http://schemas.android.com/tools"
           package="com.jkkc.gridmember">
 
     <!-- Required -->
@@ -45,6 +46,7 @@
     //使用步行AR导航，配置Camera权限
 
     <application
+        tools:replace="android:icon"
         android:name=".common.MyApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"

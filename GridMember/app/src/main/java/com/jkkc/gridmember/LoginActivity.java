@@ -2,6 +2,7 @@ package com.jkkc.gridmember;
 
 import android.Manifest;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -29,6 +30,7 @@ import com.lzy.okgo.model.Response;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import cn.pedant.SweetAlert.SweetAlertDialog;
 import kr.co.namee.permissiongen.PermissionGen;
 import kr.co.namee.permissiongen.PermissionSuccess;
 
@@ -42,6 +44,7 @@ public class LoginActivity extends AppCompatActivity {
     EditText mEtPwd;
     @BindView(R.id.btnLogin)
     Button mBtnLogin;
+    private SweetAlertDialog mPDialog;
 
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions,
@@ -149,6 +152,12 @@ public class LoginActivity extends AppCompatActivity {
     public void onViewClicked(View view) {
 
 
+        mPDialog = new SweetAlertDialog(this, SweetAlertDialog.PROGRESS_TYPE);
+        mPDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
+        mPDialog.setTitleText("用户正在登录...");
+        mPDialog.setCancelable(false);
+        mPDialog.show();
+
         OkGo.<String>post(Config.GRIDMAN_URL + Config.LOGIN_URL)
                 .tag(this)
                 .params("account", "18518030828")
@@ -189,7 +198,7 @@ public class LoginActivity extends AppCompatActivity {
                                     EMClient.getInstance().groupManager().loadAllGroups();
                                     EMClient.getInstance().chatManager().loadAllConversations();
                                     Log.d(TAG, "登录聊天服务器成功！");
-
+                                    mPDialog.dismiss();
                                     startActivity(new Intent(getApplicationContext(), HomeActivity.class));
                                     finish();
 
