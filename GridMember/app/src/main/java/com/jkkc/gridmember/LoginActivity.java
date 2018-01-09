@@ -155,7 +155,7 @@ public class LoginActivity extends AppCompatActivity {
         mPDialog = new SweetAlertDialog(this, SweetAlertDialog.PROGRESS_TYPE);
         mPDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
         mPDialog.setTitleText("用户正在登录...");
-        mPDialog.setCancelable(false);
+        mPDialog.setCancelable(true);
         mPDialog.show();
 
         OkGo.<String>post(Config.GRIDMAN_URL + Config.LOGIN_URL)

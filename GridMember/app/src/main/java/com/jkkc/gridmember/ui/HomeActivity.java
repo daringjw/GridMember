@@ -28,11 +28,14 @@ import com.jkkc.gridmember.LoginActivity;
 import com.jkkc.gridmember.R;
 import com.jkkc.gridmember.bean.PositionBean;
 import com.jkkc.gridmember.common.Config;
+import com.jkkc.gridmember.event.PositionEvent;
 import com.jkkc.gridmember.manager.PositionManager;
 import com.jkkc.gridmember.utils.PrefUtils;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.List;
 
@@ -90,9 +93,11 @@ public class HomeActivity extends AppCompatActivity {
             positionBean.longtitude = longitude;
             positionBean.mBDLocation = location;
             PositionManager.getInstance().setPositionBean(positionBean);
-
-            Log.d(TAG,"++++++++++++++");
-            Log.d(TAG, "latitude=" + latitude + "longitude=" + longitude);
+//            Log.d(TAG,"++++++++++++++");
+//            Log.d(TAG, "latitude=" + latitude + "longitude=" + longitude);
+            PositionEvent positionEvent = new PositionEvent();
+            positionEvent.setPositionBean(positionBean);
+            EventBus.getDefault().post(positionEvent);
 
             float radius = location.getRadius();    //获取定位精度，默认值为0.0f
 
@@ -309,7 +314,7 @@ public class HomeActivity extends AppCompatActivity {
         mPDialog = new SweetAlertDialog(this, SweetAlertDialog.PROGRESS_TYPE);
         mPDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
         mPDialog.setTitleText("用户正在退出...");
-        mPDialog.setCancelable(false);
+        mPDialog.setCancelable(true);
         mPDialog.show();
 
 
