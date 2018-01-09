@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -20,15 +21,18 @@ import com.baidu.location.BDLocation;
 import com.baidu.location.BDLocationListener;
 import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
+import com.google.gson.Gson;
 import com.hyphenate.EMCallBack;
 import com.hyphenate.EMMessageListener;
 import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMMessage;
 import com.jkkc.gridmember.LoginActivity;
 import com.jkkc.gridmember.R;
+import com.jkkc.gridmember.bean.CallerBean;
 import com.jkkc.gridmember.bean.PositionBean;
 import com.jkkc.gridmember.common.Config;
 import com.jkkc.gridmember.event.PositionEvent;
+import com.jkkc.gridmember.manager.CallerInfoManager;
 import com.jkkc.gridmember.manager.PositionManager;
 import com.jkkc.gridmember.utils.PrefUtils;
 import com.lzy.okgo.OkGo;
@@ -76,6 +80,8 @@ public class HomeActivity extends AppCompatActivity {
     private SweetAlertDialog mPDialog;
     private PositionBean mPositionBean;
     private PositionEvent mPositionEvent;
+    private String mMsg;
+    private CallerBean mCallerBean;
     //BDAbstractLocationListener为7.2版本新增的Abstract类型的监听接口
 //原有BDLocationListener接口暂时同步保留。具体介绍请参考后文中的说明
 
@@ -259,6 +265,15 @@ public class HomeActivity extends AppCompatActivity {
         });
 
 
+        String caller_info = PrefUtils.getString(getApplicationContext(), "caller_info", null);
+        if (!TextUtils.isEmpty(caller_info)) {
+            Gson gson = new Gson();
+            mCallerBean = gson.fromJson(caller_info, CallerBean.class);
+            Log.d(TAG, "getHomeKeyPlace=" + mCallerBean.getHomeKeyPlace());
+
+        }
+
+
     }
 
 
@@ -267,13 +282,29 @@ public class HomeActivity extends AppCompatActivity {
         @Override
         public void onMessageReceived(final List<EMMessage> messages) {
             //收到消息
-            Log.d(TAG, messages.get(0).getBody().toString());
+            mMsg = messages.get(0).getBody().toString();
+            mMsg = mMsg.replace("txt", "");
+            mMsg = mMsg.substring(2, mMsg.length() - 1);
+
+            Log.d(TAG, mMsg);
+
+            Gson gson = new Gson();
+            CallerBean callerBean = gson.fromJson(mMsg, CallerBean.class);
+
+            //数据存在内存
+            CallerInfoManager.getInstance().setCallerBean(callerBean);
+            CallerBean callerBean1 = CallerInfoManager.getInstance().getCallerBean();
+            Log.d(TAG, callerBean1.getSosId() + "");
+            //求助者 数据存sp
+            PrefUtils.setString(getApplicationContext(), "caller_info", mMsg);
+
 
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
 
-                    mTvReceive.setText(messages.get(0).getBody().toString());
+
+                    mTvReceive.setText(mMsg);
 
                     mBtnMsgPush.setText("你有新消息");
 
@@ -286,6 +317,8 @@ public class HomeActivity extends AppCompatActivity {
         @Override
         public void onCmdMessageReceived(List<EMMessage> messages) {
             //收到透传消息
+
+
         }
 
         @Override
@@ -321,7 +354,9 @@ public class HomeActivity extends AppCompatActivity {
     @OnClick(R.id.btnLogout)
     public void onViewClicked() {
 
-        mPDialog = new SweetAlertDialog(this, SweetAlertDialog.PROGRESS_TYPE);
+        if (mPDialog == null) {
+            mPDialog = new SweetAlertDialog(this, SweetAlertDialog.PROGRESS_TYPE);
+        }
         mPDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
         mPDialog.setTitleText("用户正在退出...");
         mPDialog.setCancelable(true);
@@ -385,6 +420,11 @@ public class HomeActivity extends AppCompatActivity {
                 Log.d(TAG, "出动成功" + mPositionBean.mBDLocation.getLatitude());
                 Log.d(TAG, "出动成功" + mPositionBean.mBDLocation.getLongitude());
 
+                if (mCallerBean!=null){
+                    Log.d(TAG,mCallerBean.getSosId()+"");
+                }
+
+
                 //出动
                 OkGo.<String>post(Config.GRIDMAN_URL + Config.STARTOFF_URL)
                         .tag(this)
@@ -393,7 +433,7 @@ public class HomeActivity extends AppCompatActivity {
                         .params("latBD", mPositionBean.mBDLocation.getLatitude())
                         .params("lngBD", mPositionBean.mBDLocation.getLongitude())
                         .params("handleFlag", 1)
-                        .params("sosId", 1)
+                        .params("sosId", mCallerBean == null ? 110 : mCallerBean.getSosId())
                         .execute(new StringCallback() {
                             @Override
                             public void onSuccess(Response<String> response) {
@@ -415,11 +455,15 @@ public class HomeActivity extends AppCompatActivity {
                 Log.d(TAG, "拒绝出动成功" + mPositionBean.mBDLocation.getLatitude());
                 Log.d(TAG, "拒绝出动成功" + mPositionBean.mBDLocation.getLongitude());
 
+                if (mCallerBean!=null){
+                    Log.d(TAG,mCallerBean.getSosId()+"");
+                }
+
                 //拒绝出动
                 OkGo.<String>post(Config.GRIDMAN_URL + Config.REFUSESTARTOFF_URL)
                         .tag(this)
                         .params("token", PrefUtils.getString(getApplicationContext(), "Token", null))
-                        .params("sosId", 1)
+                        .params("sosId", mCallerBean == null ? 110 : mCallerBean.getSosId())
                         .params("operatorName", PrefUtils.getString(getApplicationContext(), "Name", null))
                         .params("operatorDesc", "operatorDesc")
                         .params("handleFlag", 2)
@@ -445,11 +489,15 @@ public class HomeActivity extends AppCompatActivity {
                 Log.d(TAG, "到达成功" + mPositionBean.mBDLocation.getLatitude());
                 Log.d(TAG, "到达成功" + mPositionBean.mBDLocation.getLongitude());
 
+                if (mCallerBean!=null){
+                    Log.d(TAG,mCallerBean.getSosId()+"");
+                }
+
                 //到达
                 OkGo.<String>post(Config.GRIDMAN_URL + Config.ARRIVE_URL)
                         .tag(this)
                         .params("token", PrefUtils.getString(getApplicationContext(), "Token", null))
-                        .params("sosId", 1)
+                        .params("sosId", mCallerBean == null ? 110 : mCallerBean.getSosId())
                         .params("operatorName", PrefUtils.getString(getApplicationContext(), "Name", null))
                         .params("operatorDesc", "operatorDesc")
                         .params("handleFlag", 3)

@@ -151,8 +151,9 @@ public class LoginActivity extends AppCompatActivity {
     @OnClick(R.id.btnLogin)
     public void onViewClicked(View view) {
 
-
-        mPDialog = new SweetAlertDialog(this, SweetAlertDialog.PROGRESS_TYPE);
+        if (mPDialog==null){
+            mPDialog = new SweetAlertDialog(this, SweetAlertDialog.PROGRESS_TYPE);
+        }
         mPDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
         mPDialog.setTitleText("用户正在登录...");
         mPDialog.setCancelable(true);
