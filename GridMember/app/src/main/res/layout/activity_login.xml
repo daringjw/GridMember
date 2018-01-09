@@ -18,9 +18,11 @@
         android:id="@+id/etUserName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:text="18518030828"
         android:hint="请输入用户名"/>
 
     <EditText
+        android:text="12345678"
         android:id="@+id/etPwd"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

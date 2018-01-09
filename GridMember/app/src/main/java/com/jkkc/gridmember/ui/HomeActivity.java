@@ -74,6 +74,8 @@ public class HomeActivity extends AppCompatActivity {
     public LocationClient mLocationClient = null;
     private MyLocationListener myListener = new MyLocationListener();
     private SweetAlertDialog mPDialog;
+    private PositionBean mPositionBean;
+    private PositionEvent mPositionEvent;
     //BDAbstractLocationListener为7.2版本新增的Abstract类型的监听接口
 //原有BDLocationListener接口暂时同步保留。具体介绍请参考后文中的说明
 
@@ -88,16 +90,24 @@ public class HomeActivity extends AppCompatActivity {
             double longitude = location.getLongitude();    //获取经度信息
 
             //将位置信息存进 内存中
-            PositionBean positionBean = new PositionBean();
-            positionBean.latitude = latitude;
-            positionBean.longtitude = longitude;
-            positionBean.mBDLocation = location;
-            PositionManager.getInstance().setPositionBean(positionBean);
+            if (mPositionBean == null) {
+
+                mPositionBean = new PositionBean();
+
+            }
+//            mPositionBean.latitude = latitude;
+//            mPositionBean.longtitude = longitude;
+            mPositionBean.mBDLocation = location;
+            PositionManager.getInstance().setPositionBean(mPositionBean);
 //            Log.d(TAG,"++++++++++++++");
 //            Log.d(TAG, "latitude=" + latitude + "longitude=" + longitude);
-            PositionEvent positionEvent = new PositionEvent();
-            positionEvent.setPositionBean(positionBean);
-            EventBus.getDefault().post(positionEvent);
+            if (mPositionEvent == null) {
+
+                mPositionEvent = new PositionEvent();
+
+            }
+            mPositionEvent.setPositionBean(mPositionBean);
+            EventBus.getDefault().post(mPositionEvent);
 
             float radius = location.getRadius();    //获取定位精度，默认值为0.0f
 
@@ -371,13 +381,17 @@ public class HomeActivity extends AppCompatActivity {
                 break;
 
             case R.id.btnStartOff:
+
+                Log.d(TAG, "出动成功" + mPositionBean.mBDLocation.getLatitude());
+                Log.d(TAG, "出动成功" + mPositionBean.mBDLocation.getLongitude());
+
                 //出动
                 OkGo.<String>post(Config.GRIDMAN_URL + Config.STARTOFF_URL)
                         .tag(this)
                         .params("token", PrefUtils.getString(getApplicationContext(), "Token", null))
                         .params("operatorName", PrefUtils.getString(getApplicationContext(), "Name", null))
-                        .params("latBD", 39.875365)
-                        .params("lngBD", 116.107056)
+                        .params("latBD", mPositionBean.mBDLocation.getLatitude())
+                        .params("lngBD", mPositionBean.mBDLocation.getLongitude())
                         .params("handleFlag", 1)
                         .params("sosId", 1)
                         .execute(new StringCallback() {
@@ -386,7 +400,8 @@ public class HomeActivity extends AppCompatActivity {
 
                                 String result = response.body().toString();
                                 Log.d(TAG, result);
-                                Toast.makeText(getApplicationContext(), "出动成功", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getApplicationContext(), "出动成功",
+                                        Toast.LENGTH_SHORT).show();
 
 
                             }
@@ -397,6 +412,9 @@ public class HomeActivity extends AppCompatActivity {
                 break;
             case R.id.btnRefuseStartOff:
 
+                Log.d(TAG, "拒绝出动成功" + mPositionBean.mBDLocation.getLatitude());
+                Log.d(TAG, "拒绝出动成功" + mPositionBean.mBDLocation.getLongitude());
+
                 //拒绝出动
                 OkGo.<String>post(Config.GRIDMAN_URL + Config.REFUSESTARTOFF_URL)
                         .tag(this)
@@ -405,8 +423,8 @@ public class HomeActivity extends AppCompatActivity {
                         .params("operatorName", PrefUtils.getString(getApplicationContext(), "Name", null))
                         .params("operatorDesc", "operatorDesc")
                         .params("handleFlag", 2)
-                        .params("latBD", 39.875365)
-                        .params("lngBD", 116.107056)
+                        .params("latBD", mPositionBean.mBDLocation.getLatitude())
+                        .params("lngBD", mPositionBean.mBDLocation.getLongitude())
                         .execute(new StringCallback() {
                             @Override
                             public void onSuccess(Response<String> response) {
@@ -424,6 +442,9 @@ public class HomeActivity extends AppCompatActivity {
                 break;
             case R.id.btnArrive:
 
+                Log.d(TAG, "到达成功" + mPositionBean.mBDLocation.getLatitude());
+                Log.d(TAG, "到达成功" + mPositionBean.mBDLocation.getLongitude());
+
                 //到达
                 OkGo.<String>post(Config.GRIDMAN_URL + Config.ARRIVE_URL)
                         .tag(this)
@@ -432,15 +453,18 @@ public class HomeActivity extends AppCompatActivity {
                         .params("operatorName", PrefUtils.getString(getApplicationContext(), "Name", null))
                         .params("operatorDesc", "operatorDesc")
                         .params("handleFlag", 3)
-                        .params("latBD", 39.875365)
-                        .params("lngBD", 116.107056)
+                        .params("latBD", mPositionBean.mBDLocation.getLatitude())
+                        .params("lngBD", mPositionBean.mBDLocation.getLongitude())
                         .execute(new StringCallback() {
+
                             @Override
                             public void onSuccess(Response<String> response) {
 
                                 String result = response.body().toString();
                                 Log.d(TAG, result);
-                                Toast.makeText(getApplicationContext(), "到达成功", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getApplicationContext(), "到达成功",
+                                        Toast.LENGTH_SHORT).show();
+
 
                             }
 

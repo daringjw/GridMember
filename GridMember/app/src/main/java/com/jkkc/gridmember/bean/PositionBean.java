@@ -8,8 +8,8 @@ import com.baidu.location.BDLocation;
 
 public class PositionBean {
 
-    public double latitude; //纬度
-    public double longtitude; //经度
+//    public double latitude; //纬度
+//    public double longtitude; //经度
 
     public BDLocation  mBDLocation;
 
