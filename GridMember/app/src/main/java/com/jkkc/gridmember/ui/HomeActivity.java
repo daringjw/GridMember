@@ -8,6 +8,7 @@ import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
@@ -42,6 +43,8 @@ import com.lzy.okgo.model.Response;
 import org.greenrobot.eventbus.EventBus;
 
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -147,6 +150,62 @@ public class HomeActivity extends AppCompatActivity {
     }
 
 
+    private int minute = 30;//这是分钟
+    private int second = 0;//这是分钟后面的秒数。这里是以30分钟为例的，所以，minute是30，second是0
+    private TextView timeView;
+    private Timer timer;
+    private TimerTask timerTask;
+    //这是接收回来处理的消息
+    private Handler handler = new Handler() {
+        public void handleMessage(Message msg) {
+            if (minute == 0) {
+                if (second == 0) {
+                    timeView.setText("Time out !");
+                    if (timer != null) {
+                        timer.cancel();
+                        timer = null;
+                    }
+                    if (timerTask != null) {
+                        timerTask = null;
+                    }
+                } else {
+                    second--;
+                    if (second >= 10) {
+                        timeView.setText("0" + minute + ":" + second);
+                    } else {
+                        timeView.setText("0" + minute + ":0" + second);
+                    }
+                }
+            } else {
+                if (second == 0) {
+                    second = 59;
+                    minute--;
+                    if (minute >= 10) {
+                        timeView.setText(minute + ":" + second);
+                    } else {
+                        timeView.setText("0" + minute + ":" + second);
+                    }
+                } else {
+                    second--;
+                    if (second >= 10) {
+                        if (minute >= 10) {
+                            timeView.setText(minute + ":" + second);
+                        } else {
+                            timeView.setText("0" + minute + ":" + second);
+                        }
+                    } else {
+                        if (minute >= 10) {
+                            timeView.setText(minute + ":0" + second);
+                        } else {
+                            timeView.setText("0" + minute + ":0" + second);
+                        }
+                    }
+                }
+            }
+        }
+
+    };
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -154,6 +213,25 @@ public class HomeActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_home);
         ButterKnife.bind(this);
+
+
+        timeView = (TextView) findViewById(R.id.tvTimeView);
+
+        timeView.setText(minute + ":" + second);
+
+        timerTask = new TimerTask() {
+
+            @Override
+            public void run() {
+                Message msg = new Message();
+                msg.what = 0;
+                handler.sendMessage(msg);
+            }
+        };
+
+        timer = new Timer();
+        timer.schedule(timerTask, 0, 1000);
+
 
         LocationManager locManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         if (!locManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
@@ -273,6 +351,18 @@ public class HomeActivity extends AppCompatActivity {
 
         }
 
+        Button btnTimingActivity = (Button) findViewById(R.id.btnTimingActivity);
+        btnTimingActivity.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                startActivity(new Intent(getApplicationContext(),TimingActivity.class));
+
+
+            }
+
+        });
+
 
     }
 
@@ -348,6 +438,17 @@ public class HomeActivity extends AppCompatActivity {
     protected void onDestroy() {
 
         EMClient.getInstance().chatManager().removeMessageListener(msgListener);
+
+        if (timer != null) {
+            timer.cancel();
+            timer = null;
+        }
+        if (timerTask != null) {
+            timerTask = null;
+        }
+        minute = -1;
+        second = -1;
+
         super.onDestroy();
     }
 
@@ -420,8 +521,8 @@ public class HomeActivity extends AppCompatActivity {
                 Log.d(TAG, "出动成功" + mPositionBean.mBDLocation.getLatitude());
                 Log.d(TAG, "出动成功" + mPositionBean.mBDLocation.getLongitude());
 
-                if (mCallerBean!=null){
-                    Log.d(TAG,mCallerBean.getSosId()+"");
+                if (mCallerBean != null) {
+                    Log.d(TAG, mCallerBean.getSosId() + "");
                 }
 
 
@@ -455,8 +556,8 @@ public class HomeActivity extends AppCompatActivity {
                 Log.d(TAG, "拒绝出动成功" + mPositionBean.mBDLocation.getLatitude());
                 Log.d(TAG, "拒绝出动成功" + mPositionBean.mBDLocation.getLongitude());
 
-                if (mCallerBean!=null){
-                    Log.d(TAG,mCallerBean.getSosId()+"");
+                if (mCallerBean != null) {
+                    Log.d(TAG, mCallerBean.getSosId() + "");
                 }
 
                 //拒绝出动
@@ -489,8 +590,8 @@ public class HomeActivity extends AppCompatActivity {
                 Log.d(TAG, "到达成功" + mPositionBean.mBDLocation.getLatitude());
                 Log.d(TAG, "到达成功" + mPositionBean.mBDLocation.getLongitude());
 
-                if (mCallerBean!=null){
-                    Log.d(TAG,mCallerBean.getSosId()+"");
+                if (mCallerBean != null) {
+                    Log.d(TAG, mCallerBean.getSosId() + "");
                 }
 
                 //到达
