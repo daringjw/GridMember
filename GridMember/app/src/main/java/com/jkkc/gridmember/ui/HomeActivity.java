@@ -356,7 +356,7 @@ public class HomeActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                startActivity(new Intent(getApplicationContext(),TimingActivity.class));
+                startActivity(new Intent(getApplicationContext(), TimingActivity.class));
 
 
             }
@@ -448,6 +448,10 @@ public class HomeActivity extends AppCompatActivity {
         }
         minute = -1;
         second = -1;
+
+        if (mPDialog!=null){
+            mPDialog.dismiss();
+        }
 
         super.onDestroy();
     }

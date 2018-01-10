@@ -55,8 +55,6 @@ public class LoginActivity extends AppCompatActivity {
         //开始定位
 
 
-
-
     }
 
 //    When it succeeded in obtaining permission
@@ -151,13 +149,14 @@ public class LoginActivity extends AppCompatActivity {
     @OnClick(R.id.btnLogin)
     public void onViewClicked(View view) {
 
-        if (mPDialog==null){
+        if (mPDialog == null) {
             mPDialog = new SweetAlertDialog(this, SweetAlertDialog.PROGRESS_TYPE);
         }
         mPDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
         mPDialog.setTitleText("用户正在登录...");
         mPDialog.setCancelable(true);
         mPDialog.show();
+
 
         OkGo.<String>post(Config.GRIDMAN_URL + Config.LOGIN_URL)
                 .tag(this)
@@ -250,4 +249,15 @@ public class LoginActivity extends AppCompatActivity {
 
 
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        if (mPDialog!=null){
+            mPDialog.dismiss();
+        }
+    }
+
+
 }
