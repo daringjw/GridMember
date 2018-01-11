@@ -61,7 +61,8 @@ public class LoginActivity extends AppCompatActivity {
 
     @PermissionSuccess(requestCode = 100)
     public void doSomething() {
-        Toast.makeText(this, "granted", Toast.LENGTH_LONG).show();
+
+//        Toast.makeText(this, "已经授权", Toast.LENGTH_LONG).show();
         //开始定位
 
 

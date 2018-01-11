@@ -1,10 +1,13 @@
 package com.jkkc.gridmember.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.ZoomControls;
 
 import com.baidu.mapapi.SDKInitializer;
@@ -22,6 +25,8 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import cn.pedant.SweetAlert.SweetAlertDialog;
+
 /**
  * Created by Guan on 2018/1/8.
  */
@@ -32,6 +37,8 @@ public class BaiduMapActivity extends AppCompatActivity {
     private TextureMapView mMapView;
     private BaiduMap mBaiduMap;
     private PositionBean mPositionBean;
+    private TextView mTvBack;
+    private TextView mTvGuide;
 
 
     @Override
@@ -58,6 +65,16 @@ public class BaiduMapActivity extends AppCompatActivity {
         if (child != null && (child instanceof ImageView || child instanceof ZoomControls)) {
             child.setVisibility(View.INVISIBLE);
         }
+
+
+        mTvBack = (TextView) findViewById(R.id.tvBack);
+        mTvBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                finish();
+            }
+        });
 
     }
 
@@ -92,6 +109,50 @@ public class BaiduMapActivity extends AppCompatActivity {
                 true, mCurrentMarker);
 
         mBaiduMap.setMyLocationConfiguration(config);
+
+        //导航
+        mTvGuide = (TextView) findViewById(R.id.tvGuide);
+        mTvGuide.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+
+                new SweetAlertDialog(BaiduMapActivity.this, SweetAlertDialog.WARNING_TYPE)
+                        .setTitleText("导航?")
+                        .setContentText("进入百度地图进行导航")
+                        .setCancelText("取消")
+                        .setConfirmText("确定")
+                        .showCancelButton(true)
+                        .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                            @Override
+                            public void onClick(SweetAlertDialog sDialog) {
+
+                                //确定，进入百度地图进行导航
+                                Intent intent = getPackageManager().getLaunchIntentForPackage("com.baidu.BaiduMap");
+                                if (intent != null) {
+                                    startActivity(intent);
+                                } else {
+                                    Toast.makeText(BaiduMapActivity.this, "你还没有安装百度地图", Toast.LENGTH_SHORT).show();
+                                }
+
+
+                            }
+                        })
+                        .setCancelClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                            @Override
+                            public void onClick(SweetAlertDialog sDialog) {
+                                sDialog.cancel();
+
+
+                            }
+                        })
+
+
+                        .show();
+
+            }
+        });
+
 
     }
 
