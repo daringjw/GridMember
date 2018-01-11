@@ -104,6 +104,11 @@ public class TimingActivity extends AppCompatActivity {
     private TextView mTvKeyPosition;
     private TextView mTvAddress;
     private TextView mTvMedicalHistory;
+    private ImageView mIvScene;
+    private LinearLayout mLlTheScene;
+    private ImageView mIvFamilyScene;
+    private ImageView mIvScene120;
+    private ImageView mIvSceneEnd;
 
 
     @Override
@@ -129,6 +134,14 @@ public class TimingActivity extends AppCompatActivity {
         mTvKeyPosition = (TextView) findViewById(R.id.tvKeyPosition);
         mTvAddress = (TextView) findViewById(R.id.tvAddress);
         mTvMedicalHistory = (TextView) findViewById(R.id.tvMedicalHistory);
+
+        mIvScene = (ImageView) findViewById(R.id.ivScene);
+        mLlTheScene = (LinearLayout) findViewById(R.id.llTheScene);
+        mIvFamilyScene = (ImageView) findViewById(R.id.ivFamilyScene);
+        mIvScene120 = (ImageView) findViewById(R.id.ivScene120);
+        mIvSceneEnd = (ImageView) findViewById(R.id.ivSceneEnd);
+
+
 
 
 
@@ -183,8 +196,11 @@ public class TimingActivity extends AppCompatActivity {
 
                 mIvStartoff.setImageResource(R.mipmap.startoff_nor);
                 mIvHelp.setImageResource(R.mipmap.help_pre);
+                mIvScene.setImageResource(R.mipmap.help_nor);
                 mLlHelp.setVisibility(View.VISIBLE);
                 mLlStartoff.setVisibility(View.GONE);
+                mLlTheScene.setVisibility(View.GONE);
+
 
             }
         });
@@ -196,9 +212,25 @@ public class TimingActivity extends AppCompatActivity {
 
                 mIvStartoff.setImageResource(R.mipmap.startoff_pre);
                 mIvHelp.setImageResource(R.mipmap.help_nor);
+                mIvScene.setImageResource(R.mipmap.help_nor);
                 mLlHelp.setVisibility(View.GONE);
                 mLlStartoff.setVisibility(View.VISIBLE);
+                mLlTheScene.setVisibility(View.GONE);
 
+            }
+        });
+
+
+        mIvScene.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                mIvStartoff.setImageResource(R.mipmap.startoff_nor);
+                mIvHelp.setImageResource(R.mipmap.help_nor);
+                mIvScene.setImageResource(R.mipmap.help_pre);
+                mLlHelp.setVisibility(View.GONE);
+                mLlStartoff.setVisibility(View.GONE);
+                mLlTheScene.setVisibility(View.VISIBLE);
 
             }
         });

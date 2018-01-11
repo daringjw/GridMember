@@ -165,28 +165,28 @@
     </LinearLayout>
 
     <TextView
+        android:id="@+id/tvAddress"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="35dp"
         android:layout_marginTop="16dp"
-        android:textColor="#000"
-        android:id="@+id/tvAddress"
-        android:text="住址：桔园新村五号2单元301室"/>
+        android:text="住址：桔园新村五号2单元301室"
+        android:textColor="#000"/>
 
     <TextView
-        android:textColor="#000"
+        android:id="@+id/tvMedicalHistory"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="35dp"
         android:layout_marginTop="16dp"
-        android:id="@+id/tvMedicalHistory"
-        android:text="病史：高血压、冠心病、心梗"/>
+        android:text="病史：高血压、冠心病、心梗"
+        android:textColor="#000"/>
 
 
     <LinearLayout
-        android:layout_marginTop="30dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
         android:orientation="horizontal">
 
         <ImageView
@@ -201,39 +201,45 @@
             android:layout_height="wrap_content"
             android:src="@mipmap/startoff_nor"/>
 
+
+        <ImageView
+            android:id="@+id/ivScene"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/help_nor"/>
+
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/llHelp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@mipmap/bottom_bg"
         android:orientation="horizontal"
         android:visibility="visible"
         >
 
         <ImageView
-            android:layout_marginTop="10dp"
             android:id="@+id/btnHelpStartoff"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="22dp"
+            android:layout_marginTop="10dp"
             android:src="@mipmap/startoff_help"/>
 
         <ImageView
-            android:layout_marginTop="10dp"
             android:id="@+id/btnHelpRefuseStartoff"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="42dp"
+            android:layout_marginTop="10dp"
             android:src="@mipmap/refuse_help"/>
 
         <ImageView
-            android:layout_marginTop="10dp"
             android:id="@+id/ivHelpGuide"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="42dp"
+            android:layout_marginTop="10dp"
             android:src="@mipmap/guide_help"/>
 
 
@@ -241,12 +247,13 @@
 
 
     <LinearLayout
-        android:visibility="gone"
         android:id="@+id/llStartoff"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@mipmap/bottom_bg"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:visibility="gone"
+        >
 
 
         <LinearLayout
@@ -278,24 +285,57 @@
 
         <LinearLayout
             android:id="@+id/tabGuide"
-            android:layout_marginTop="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
             android:orientation="horizontal">
 
             <ImageView
-                android:clickable="true"
                 android:id="@+id/ivStartoffGuide"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:clickable="true"
                 android:src="@mipmap/guide_nor"/>
-
 
             <ImageView
                 android:layout_width="wrap_content"
-                android:src="@mipmap/arrive_nor"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:src="@mipmap/arrive_nor"/>
         </LinearLayout>
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:visibility="gone"
+        android:id="@+id/llTheScene"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/ivFamilyScene"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="22dp"
+            android:layout_marginTop="10dp"
+            android:src="@mipmap/family_nor_scene"/>
+
+        <ImageView
+            android:id="@+id/ivScene120"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="42dp"
+            android:layout_marginTop="10dp"
+            android:src="@mipmap/nor_the_scene_120"/>
+
+        <ImageView
+            android:id="@+id/ivSceneEnd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="42dp"
+            android:layout_marginTop="10dp"
+            android:src="@mipmap/end_nor"/>
 
 
     </LinearLayout>
