@@ -3,6 +3,9 @@ package com.jkkc.gridmember.ui;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.ZoomControls;
 
 import com.baidu.mapapi.SDKInitializer;
 import com.baidu.mapapi.map.BaiduMap;
@@ -50,6 +53,11 @@ public class BaiduMapActivity extends AppCompatActivity {
         // 开启定位图层
         mBaiduMap.setMyLocationEnabled(true);
 
+//         隐藏logo
+        View child = mMapView.getChildAt(1);
+        if (child != null && (child instanceof ImageView || child instanceof ZoomControls)) {
+            child.setVisibility(View.INVISIBLE);
+        }
 
     }
 
