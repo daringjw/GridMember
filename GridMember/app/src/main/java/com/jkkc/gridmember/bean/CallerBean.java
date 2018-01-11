@@ -8,15 +8,16 @@ public class CallerBean {
 
 
     /**
-     * address : 197-4-312
+     * address : 1-5-308
      * age : 68
      * bloodType :
-     * homeKeyPlace : 0000013F
+     * homeKeyPlace : 0000011F
+     * imgPath : 111111
      * jibing :
      * lat : 116.789
      * lng : 39.1234
-     * name : 张丽杰
-     * sex : 1
+     * name : 高金选
+     * sex : 0
      * sosId : 1
      */
 
@@ -24,6 +25,7 @@ public class CallerBean {
     private int age;
     private String bloodType;
     private String homeKeyPlace;
+    private String imgPath;
     private String jibing;
     private String lat;
     private String lng;
@@ -61,6 +63,14 @@ public class CallerBean {
 
     public void setHomeKeyPlace(String homeKeyPlace) {
         this.homeKeyPlace = homeKeyPlace;
+    }
+
+    public String getImgPath() {
+        return imgPath;
+    }
+
+    public void setImgPath(String imgPath) {
+        this.imgPath = imgPath;
     }
 
     public String getJibing() {

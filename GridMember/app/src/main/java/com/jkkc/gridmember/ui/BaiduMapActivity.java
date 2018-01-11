@@ -14,6 +14,8 @@ import com.baidu.mapapi.SDKInitializer;
 import com.baidu.mapapi.map.BaiduMap;
 import com.baidu.mapapi.map.BitmapDescriptor;
 import com.baidu.mapapi.map.BitmapDescriptorFactory;
+import com.baidu.mapapi.map.MapStatus;
+import com.baidu.mapapi.map.MapStatusUpdateFactory;
 import com.baidu.mapapi.map.MyLocationConfiguration;
 import com.baidu.mapapi.map.MyLocationData;
 import com.baidu.mapapi.map.TextureMapView;
@@ -66,6 +68,11 @@ public class BaiduMapActivity extends AppCompatActivity {
             child.setVisibility(View.INVISIBLE);
         }
 
+        //放大地图
+        MapStatus.Builder builder = new MapStatus.Builder(mBaiduMap.getMapStatus());
+        builder.zoom(20.0f);
+        mBaiduMap.animateMapStatus(MapStatusUpdateFactory.newMapStatus(builder.build()));
+
 
         mTvBack = (TextView) findViewById(R.id.tvBack);
         mTvBack.setOnClickListener(new View.OnClickListener() {
@@ -117,7 +124,7 @@ public class BaiduMapActivity extends AppCompatActivity {
             public void onClick(View view) {
 
 
-                new SweetAlertDialog(BaiduMapActivity.this, SweetAlertDialog.WARNING_TYPE)
+                new SweetAlertDialog(BaiduMapActivity.this)
                         .setTitleText("导航?")
                         .setContentText("进入百度地图进行导航")
                         .setCancelText("取消")
@@ -128,7 +135,8 @@ public class BaiduMapActivity extends AppCompatActivity {
                             public void onClick(SweetAlertDialog sDialog) {
 
                                 //确定，进入百度地图进行导航
-                                Intent intent = getPackageManager().getLaunchIntentForPackage("com.baidu.BaiduMap");
+                                Intent intent = getPackageManager()
+                                        .getLaunchIntentForPackage("com.baidu.BaiduMap");
                                 if (intent != null) {
                                     startActivity(intent);
                                 } else {

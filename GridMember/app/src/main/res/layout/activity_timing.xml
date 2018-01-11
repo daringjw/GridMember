@@ -39,7 +39,7 @@
             />
 
         <TextView
-            android:id="@+id/tvCountDown"
+            android:id="@+id/timeView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
@@ -119,42 +119,45 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/tvOldManName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="杨中保"
-                android:textColor="#666"/>
+                android:textColor="#000"
+                />
 
             <TextView
+                android:id="@+id/tvGender"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:text="男"
-                android:textColor="#666"/>
+                android:textColor="#000"
+                />
 
             <TextView
+                android:id="@+id/tvAge"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-
                 android:text="72"
-                android:textColor="#666"/>
+                android:textColor="#000"/>
 
             <TextView
+                android:id="@+id/tvBloodType"
                 android:layout_width="wrap_content"
-
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:text="AB"
-                android:textColor="#666"/>
+                android:textColor="#000"/>
 
             <TextView
+                android:id="@+id/tvKeyPosition"
                 android:layout_width="wrap_content"
-
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:text="5-10-101"
-                android:textColor="#666"/>
-
+                android:textColor="#000"/>
 
         </LinearLayout>
 
@@ -166,13 +169,17 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="35dp"
         android:layout_marginTop="16dp"
+        android:textColor="#000"
+        android:id="@+id/tvAddress"
         android:text="住址：桔园新村五号2单元301室"/>
 
     <TextView
+        android:textColor="#000"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="35dp"
         android:layout_marginTop="16dp"
+        android:id="@+id/tvMedicalHistory"
         android:text="病史：高血压、冠心病、心梗"/>
 
 
