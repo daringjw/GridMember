@@ -170,7 +170,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="35dp"
         android:layout_marginTop="16dp"
-        android:text="住址：桔园新村五号2单元301室"
+        android:text="住址：深圳市西乡汇潮科技大厦"
         android:textColor="#000"/>
 
     <TextView
@@ -206,7 +206,7 @@
             android:id="@+id/ivScene"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@mipmap/help_nor"/>
+            android:src="@mipmap/the_scene_nor"/>
 
     </LinearLayout>
 
