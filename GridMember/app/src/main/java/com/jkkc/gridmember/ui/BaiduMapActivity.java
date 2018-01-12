@@ -165,15 +165,30 @@ public class BaiduMapActivity extends AppCompatActivity {
             mBdLocation.setLatitude(22.5857814798);
             mBdLocation.setLongitude(113.8761278926);
 
-
             // 构造定位数据
-
             mLocData = new MyLocationData.Builder()
                     .accuracy(mBdLocation.getRadius())
                     .latitude(mBdLocation.getLatitude())
                     .longitude(mBdLocation.getLongitude())
                     .build();
+            // 设置定位数据
+            mBaiduMap.setMyLocationData(mLocData);
 
+        }else {
+
+            if (mBdLocation==null){
+                mBdLocation = new BDLocation();
+                //22.5857814798,113.8761278926
+                mBdLocation.setLatitude(22.5857814798);
+                mBdLocation.setLongitude(113.8761278926);
+            }
+
+            // 构造定位数据
+            mLocData = new MyLocationData.Builder()
+                    .accuracy(mBdLocation.getRadius())
+                    .latitude(mBdLocation.getLatitude())
+                    .longitude(mBdLocation.getLongitude())
+                    .build();
             // 设置定位数据
             mBaiduMap.setMyLocationData(mLocData);
 
@@ -223,6 +238,14 @@ public class BaiduMapActivity extends AppCompatActivity {
                                 double mLon1 = mPositionBean.mBDLocation.getLongitude();
 
                                 // 百度大厦坐标
+
+                                if (mBdLocation==null){
+                                    mBdLocation = new BDLocation();
+                                    //22.5857814798,113.8761278926
+                                    mBdLocation.setLatitude(22.5857814798);
+                                    mBdLocation.setLongitude(113.8761278926);
+                                }
+
                                 double mLat2 = mBdLocation.getLatitude();
                                 double mLon2 = mBdLocation.getLongitude();
                                 LatLng pt_start = new LatLng(mLat1, mLon1);
