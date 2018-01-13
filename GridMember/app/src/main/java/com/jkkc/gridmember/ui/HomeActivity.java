@@ -363,6 +363,16 @@ public class HomeActivity extends AppCompatActivity {
 
         });
 
+        Button btnHome = (Button) findViewById(R.id.btnHome);
+        btnHome.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                startActivity(new Intent(getApplicationContext(),HomeActivity1.class));
+
+            }
+        });
+
 
     }
 

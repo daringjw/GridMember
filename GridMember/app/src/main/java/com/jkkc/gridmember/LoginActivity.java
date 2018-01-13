@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.blankj.utilcode.util.AppUtils;
 import com.google.gson.Gson;
 import com.hyphenate.EMCallBack;
 import com.hyphenate.EMConnectionListener;
@@ -26,6 +27,7 @@ import com.jkkc.gridmember.utils.PrefUtils;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
+import com.tencent.bugly.Bugly;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -53,6 +55,17 @@ public class LoginActivity extends AppCompatActivity {
         PermissionGen.onRequestPermissionsResult(this, requestCode, permissions, grantResults);
 
         //开始定位
+        if (AppUtils.isAppDebug()) {
+
+            //内测版本
+            Bugly.init(getApplicationContext(), "8711747843", false);
+
+        } else {
+            //正式版本
+            Bugly.init(getApplicationContext(),"001e1b77fe",false);
+
+
+        }
 
 
     }

@@ -4,6 +4,7 @@ import android.app.Application;
 import android.content.Context;
 import android.support.multidex.MultiDex;
 
+import com.blankj.utilcode.util.Utils;
 import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMOptions;
 import com.lzy.okgo.OkGo;
@@ -21,6 +22,10 @@ public class MyApplication extends Application{
     @Override
     public void onCreate() {
         super.onCreate();
+
+
+        // init it in the function of onCreate in ur Application
+        Utils.init(this);
 
         EMOptions options = new EMOptions();
 // 默认添加好友时，是不需要验证的，改成需要验证

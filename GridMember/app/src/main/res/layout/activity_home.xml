@@ -32,12 +32,14 @@
 
 
     <Button
+        android:visibility="gone"
         android:id="@+id/btnStartOff"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="出动接口"/>
 
     <Button
+        android:visibility="gone"
         android:id="@+id/btnRefuseStartOff"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -45,6 +47,7 @@
 
 
     <Button
+        android:visibility="gone"
         android:id="@+id/btnArrive"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -57,6 +60,7 @@
         android:text="个人信息"/>
 
     <Button
+        android:visibility="gone"
         android:id="@+id/btnPic"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -72,9 +76,15 @@
     <Button
         android:id="@+id/btnTimingActivity"
         android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:text="timingActivity"
-        android:textAllCaps="false"
-        android:layout_height="wrap_content"/>
+        android:textAllCaps="false"/>
+
+    <Button
+        android:id="@+id/btnHome"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="主页"/>
 
 
 </LinearLayout>
