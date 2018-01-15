@@ -125,6 +125,7 @@
         </activity>
 
         <activity
+
             android:name=".ui.TimingActivity"
             android:launchMode="singleInstance"
             android:screenOrientation="portrait"
@@ -132,6 +133,7 @@
         </activity>
 
         <activity
+            android:windowSoftInputMode="stateAlwaysHidden|adjustPan"
             android:name=".ui.HomeActivity1"
             android:launchMode="singleInstance"
             android:screenOrientation="portrait"

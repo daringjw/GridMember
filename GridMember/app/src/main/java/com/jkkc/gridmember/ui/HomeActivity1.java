@@ -63,7 +63,6 @@ public class HomeActivity1 extends AppCompatActivity implements DatePickerDialog
     private MyConnectionListener mMyConnectionListener;
 
 
-
     //实现ConnectionListener接口
     private class MyConnectionListener implements EMConnectionListener {
         @Override
@@ -121,7 +120,6 @@ public class HomeActivity1 extends AppCompatActivity implements DatePickerDialog
     @Override
     protected void onDestroy() {
         super.onDestroy();
-
 
 
     }
@@ -306,7 +304,7 @@ public class HomeActivity1 extends AppCompatActivity implements DatePickerDialog
 
     }
 
-    public static interface OnRecyclerViewItemClickListener {
+    public interface OnRecyclerViewItemClickListener {
 
         void onItemClick(View view, String data);
 

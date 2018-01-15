@@ -23,6 +23,8 @@
             />
 
         <EditText
+            android:focusable="true"
+            android:focusableInTouchMode="true"
             android:id="@+id/etName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -30,6 +32,8 @@
             android:hint="姓名"/>
 
         <EditText
+            android:focusable="true"
+            android:focusableInTouchMode="true"
             android:id="@+id/etSelectDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
