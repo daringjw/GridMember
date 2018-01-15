@@ -4,7 +4,12 @@ import android.app.DatePickerDialog;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -24,6 +29,8 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import static com.jkkc.gridmember.R.id.spinner;
+
 /**
  * Created by Guan on 2018/1/12.
  */
@@ -38,7 +45,7 @@ public class HomeActivity1 extends AppCompatActivity implements DatePickerDialog
     EditText mEtName;
     @BindView(R.id.etSelectDate)
     EditText mEtSelectDate;
-    @BindView(R.id.spinner)
+    @BindView(spinner)
     Spinner mSpinner;
     @BindView(R.id.dpDatePicker)
     DatePicker mDpDatePicker;
@@ -89,6 +96,23 @@ public class HomeActivity1 extends AppCompatActivity implements DatePickerDialog
         //加载适配器
         mSpinner.setAdapter(arr_adapter);
 
+        mSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+
+                String data = data_list.get(i);//从spinner中获取被选择的数据
+                Toast.makeText(getApplicationContext(), "选中" + data, Toast.LENGTH_SHORT).show();
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+
+            }
+        });
+
+
         Calendar calendar = Calendar.getInstance();
 
         mDialog = new DatePickerDialog(this, this,
@@ -109,14 +133,116 @@ public class HomeActivity1 extends AppCompatActivity implements DatePickerDialog
             @Override
             public void onClick(View view) {
 
-                Toast.makeText(getApplicationContext(),"开始搜索",
+                Toast.makeText(getApplicationContext(), "开始搜索",
                         Toast.LENGTH_SHORT).show();
 
             }
         });
 
 
+        mRecyclerView = (RecyclerView) findViewById(R.id.my_recycler_view);
+//创建默认的线性LayoutManager
+        mLayoutManager = new LinearLayoutManager(this);
+        mRecyclerView.setLayoutManager(mLayoutManager);
+//如果可以确定每个item的高度是固定的，设置这个选项可以提高性能
+        mRecyclerView.setHasFixedSize(true);
+//创建并设置Adapter
+        mAdapter = new MyAdapter(new String[]{"北京", "上海", "深圳"});
+        mRecyclerView.setAdapter(mAdapter);
+
+        mAdapter.setOnItemClickListener(new OnRecyclerViewItemClickListener() {
+            @Override
+            public void onItemClick(View view, String data) {
+
+                Toast.makeText(getApplicationContext(), data,
+                        Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
     }
+
+    private RecyclerView mRecyclerView;
+    private LinearLayoutManager mLayoutManager;
+    private MyAdapter mAdapter;
+
+
+    public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> implements
+            View.OnClickListener {
+
+        public String[] datas = null;
+
+        public MyAdapter(String[] datas) {
+            this.datas = datas;
+        }
+
+        //创建新View，被LayoutManager所调用
+        @Override
+        public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
+            View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item, viewGroup, false);
+            ViewHolder vh = new ViewHolder(view);
+
+            //将创建的View注册点击事件
+            view.setOnClickListener(this);
+
+            return vh;
+        }
+
+        //将数据与界面进行绑定的操作
+        @Override
+        public void onBindViewHolder(ViewHolder viewHolder, int position) {
+            viewHolder.mTextView.setText(datas[position]);
+
+            //将数据保存在itemView的Tag中，以便点击时进行获取
+            viewHolder.itemView.setTag(datas[position]);
+
+        }
+
+        //获取数据的数量
+        @Override
+        public int getItemCount() {
+            return datas.length;
+        }
+
+
+        @Override
+        public void onClick(View view) {
+
+            if (mOnItemClickListener != null) {
+                //注意这里使用getTag方法获取数据
+                mOnItemClickListener.onItemClick(view, (String) view.getTag());
+            }
+
+        }
+
+
+        //自定义的ViewHolder，持有每个Item的的所有界面元素
+        public class ViewHolder extends RecyclerView.ViewHolder {
+            public TextView mTextView;
+
+            public ViewHolder(View view) {
+                super(view);
+                mTextView = (TextView) view.findViewById(R.id.tvCity);
+            }
+        }
+
+
+        private OnRecyclerViewItemClickListener mOnItemClickListener = null;
+
+        public void setOnItemClickListener(OnRecyclerViewItemClickListener listener) {
+
+            this.mOnItemClickListener = listener;
+
+        }
+
+    }
+
+    public static interface OnRecyclerViewItemClickListener {
+
+        void onItemClick(View view, String data);
+
+    }
+
 
     private List<String> data_list;
     private ArrayAdapter<String> arr_adapter;

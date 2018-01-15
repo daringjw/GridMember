@@ -136,5 +136,7 @@ dependencies {
 
     compile 'com.blankj:utilcode:1.11.1'
 
+    compile 'com.android.support:recyclerview-v7:21.0.+'
+
 
 }
