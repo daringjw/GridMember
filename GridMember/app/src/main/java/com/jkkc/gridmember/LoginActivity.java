@@ -47,6 +47,7 @@ public class LoginActivity extends AppCompatActivity {
     @BindView(R.id.btnLogin)
     Button mBtnLogin;
     private SweetAlertDialog mPDialog;
+    private MyConnectionListener mMyConnectionListener;
 
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions,
@@ -118,7 +119,9 @@ public class LoginActivity extends AppCompatActivity {
 
 
         //注册一个监听连接状态的listener
-        EMClient.getInstance().addConnectionListener(new MyConnectionListener());
+        mMyConnectionListener = new MyConnectionListener();
+        EMClient.getInstance().addConnectionListener(mMyConnectionListener);
+
 
 
     }
@@ -143,8 +146,13 @@ public class LoginActivity extends AppCompatActivity {
                 public void run() {
                     if (error == EMError.USER_REMOVED) {
                         // 显示帐号已经被移除
+
+
+
                     } else if (error == EMError.USER_LOGIN_ANOTHER_DEVICE) {
                         // 显示帐号在其他设备登录
+
+
                     } else {
                         if (NetUtils.hasNetwork(LoginActivity.this)) {
                             //连接不到聊天服务器
@@ -271,6 +279,14 @@ public class LoginActivity extends AppCompatActivity {
         if (mPDialog!=null){
             mPDialog.dismiss();
         }
+
+        if (mMyConnectionListener!=null){
+            EMClient.getInstance().removeConnectionListener(mMyConnectionListener);
+            Log.d(TAG,"removeConnectionListener");
+
+        }
+
+
     }
 
 

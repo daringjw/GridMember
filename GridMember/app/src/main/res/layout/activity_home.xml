@@ -70,7 +70,7 @@
         android:id="@+id/btnMap"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="地图位置"/>
+        android:text="导航"/>
 
 
     <Button
