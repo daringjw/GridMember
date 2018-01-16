@@ -214,7 +214,15 @@ public class HomeActivity1 extends AppCompatActivity implements DatePickerDialog
 //如果可以确定每个item的高度是固定的，设置这个选项可以提高性能
         mRecyclerView.setHasFixedSize(true);
 //创建并设置Adapter
-        mAdapter = new MyAdapter(new String[]{"北京", "上海", "深圳"});
+        ArrayList<String> itemList = new ArrayList<>();
+        itemList.add("条目1");
+        itemList.add("条目2");
+        itemList.add("条目3");
+        itemList.add("条目4");
+        itemList.add("条目5");
+        itemList.add("条目6");
+
+        mAdapter = new MyAdapter(itemList);
         mRecyclerView.setAdapter(mAdapter);
 
         mAdapter.setOnItemClickListener(new OnRecyclerViewItemClickListener() {
@@ -237,9 +245,9 @@ public class HomeActivity1 extends AppCompatActivity implements DatePickerDialog
     public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> implements
             View.OnClickListener {
 
-        public String[] datas = null;
+        public List<String> datas = null;
 
-        public MyAdapter(String[] datas) {
+        public MyAdapter(List<String> datas) {
             this.datas = datas;
         }
 
@@ -258,17 +266,17 @@ public class HomeActivity1 extends AppCompatActivity implements DatePickerDialog
         //将数据与界面进行绑定的操作
         @Override
         public void onBindViewHolder(ViewHolder viewHolder, int position) {
-            viewHolder.mTextView.setText(datas[position]);
+            viewHolder.mTextView.setText(datas.get(position));
 
             //将数据保存在itemView的Tag中，以便点击时进行获取
-            viewHolder.itemView.setTag(datas[position]);
+            viewHolder.itemView.setTag(datas.get(position));
 
         }
 
         //获取数据的数量
         @Override
         public int getItemCount() {
-            return datas.length;
+            return datas.size();
         }
 
 
@@ -289,7 +297,7 @@ public class HomeActivity1 extends AppCompatActivity implements DatePickerDialog
 
             public ViewHolder(View view) {
                 super(view);
-                mTextView = (TextView) view.findViewById(R.id.tvCity);
+                mTextView = view.findViewById(R.id.tvCity);
             }
         }
 
