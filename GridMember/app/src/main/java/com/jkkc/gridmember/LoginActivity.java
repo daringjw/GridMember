@@ -21,7 +21,7 @@ import com.hyphenate.util.NetUtils;
 import com.jkkc.gridmember.bean.LoginInfo;
 import com.jkkc.gridmember.common.Config;
 import com.jkkc.gridmember.manager.UserInfoManager;
-import com.jkkc.gridmember.ui.HomeActivity;
+import com.jkkc.gridmember.ui.MainActivity;
 import com.jkkc.gridmember.utils.MD5;
 import com.jkkc.gridmember.utils.PrefUtils;
 import com.lzy.okgo.OkGo;
@@ -63,7 +63,7 @@ public class LoginActivity extends AppCompatActivity {
 
         } else {
             //正式版本
-            Bugly.init(getApplicationContext(),"001e1b77fe",false);
+            Bugly.init(getApplicationContext(), "001e1b77fe", false);
 
 
         }
@@ -78,6 +78,17 @@ public class LoginActivity extends AppCompatActivity {
 
 //        Toast.makeText(this, "已经授权", Toast.LENGTH_LONG).show();
         //开始定位
+        if (AppUtils.isAppDebug()) {
+
+            //内测版本
+            Bugly.init(getApplicationContext(), "8711747843", false);
+
+        } else {
+            //正式版本
+            Bugly.init(getApplicationContext(), "001e1b77fe", false);
+
+
+        }
 
 
     }
@@ -123,7 +134,6 @@ public class LoginActivity extends AppCompatActivity {
         EMClient.getInstance().addConnectionListener(mMyConnectionListener);
 
 
-
     }
 
 
@@ -133,7 +143,7 @@ public class LoginActivity extends AppCompatActivity {
         public void onConnected() {
 
             Log.d(TAG, "已连接上");
-            startActivity(new Intent(getApplicationContext(), HomeActivity.class));
+            startActivity(new Intent(getApplicationContext(), MainActivity.class));
             finish();
 
         }
@@ -146,7 +156,6 @@ public class LoginActivity extends AppCompatActivity {
                 public void run() {
                     if (error == EMError.USER_REMOVED) {
                         // 显示帐号已经被移除
-
 
 
                     } else if (error == EMError.USER_LOGIN_ANOTHER_DEVICE) {
@@ -179,9 +188,19 @@ public class LoginActivity extends AppCompatActivity {
         mPDialog.setCancelable(true);
         mPDialog.show();
 
+        /*new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                mPDialog.dismiss();
+                startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                finish();
+            }
+        },1500);*/
+
 
         OkGo.<String>post(Config.GRIDMAN_URL + Config.LOGIN_URL)
                 .tag(this)
+                //
                 .params("account", "18518030828")
                 .params("pwd", MD5.md5Encode("12345678"))
                 .execute(new StringCallback() {
@@ -190,6 +209,8 @@ public class LoginActivity extends AppCompatActivity {
 
                         String result = response.body().toString();
                         Log.d(TAG, result);
+                        PrefUtils.setString(getApplicationContext(), "user_info", result);
+
 
                         Gson gson = new Gson();
                         LoginInfo loginInfo = gson.fromJson(result, LoginInfo.class);
@@ -200,18 +221,18 @@ public class LoginActivity extends AppCompatActivity {
 
                         LoginInfo.DataBean data = loginInfo.getData();
                         PrefUtils.setString(getApplicationContext(), "data", result + "");
-                        PrefUtils.setString(getApplicationContext(), "Address", data.getAddress());
-                        PrefUtils.setString(getApplicationContext(), "Name", data.getName());
-                        PrefUtils.setString(getApplicationContext(), "Phone", data.getPhone());
-                        PrefUtils.setString(getApplicationContext(), "Sex", data.getSex());
-                        PrefUtils.setString(getApplicationContext(), "Token", data.getToken());
-                        PrefUtils.setString(getApplicationContext(), "Age", data.getAge() + "");
-                        PrefUtils.setString(getApplicationContext(), "Id", data.getId() + "");
 
 
                         if (loginInfo.getCode().equals("200")) {
 
 //                            Toast.makeText(getApplicationContext(),"登陆成功",Toast.LENGTH_SHORT).show();
+                            PrefUtils.setString(getApplicationContext(), "Address", data.getAddress());
+                            PrefUtils.setString(getApplicationContext(), "Name", data.getName());
+                            PrefUtils.setString(getApplicationContext(), "Phone", data.getPhone());
+                            PrefUtils.setString(getApplicationContext(), "Sex", data.getSex());
+                            PrefUtils.setString(getApplicationContext(), "Token", data.getToken());
+                            PrefUtils.setString(getApplicationContext(), "Age", data.getAge() + "");
+                            PrefUtils.setString(getApplicationContext(), "Id", data.getId() + "");
 
                             //登陆环信
                             EMClient.getInstance().login("18518030828", "12345678", new EMCallBack() {//回调
@@ -221,7 +242,7 @@ public class LoginActivity extends AppCompatActivity {
                                     EMClient.getInstance().chatManager().loadAllConversations();
                                     Log.d(TAG, "登录聊天服务器成功！");
                                     mPDialog.dismiss();
-                                    startActivity(new Intent(getApplicationContext(), HomeActivity.class));
+                                    startActivity(new Intent(getApplicationContext(), MainActivity.class));
                                     finish();
 
 
@@ -240,7 +261,7 @@ public class LoginActivity extends AppCompatActivity {
                                     runOnUiThread(new Runnable() {
                                         @Override
                                         public void run() {
-                                            Toast.makeText(getApplicationContext(), "环信服务器出错",
+                                            Toast.makeText(getApplicationContext(), "登录聊天服务器失败！",
                                                     Toast.LENGTH_SHORT)
                                                     .show();
                                         }
@@ -276,13 +297,13 @@ public class LoginActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
 
-        if (mPDialog!=null){
+        if (mPDialog != null) {
             mPDialog.dismiss();
         }
 
-        if (mMyConnectionListener!=null){
+        if (mMyConnectionListener != null) {
             EMClient.getInstance().removeConnectionListener(mMyConnectionListener);
-            Log.d(TAG,"removeConnectionListener");
+            Log.d(TAG, "removeConnectionListener");
 
         }
 

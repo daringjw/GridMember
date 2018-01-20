@@ -1,6 +1,5 @@
 package com.jkkc.gridmember.ui;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -12,16 +11,23 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.jkkc.gridmember.R;
 import com.jkkc.gridmember.bean.CallerBean;
+import com.jkkc.gridmember.common.Config;
 import com.jkkc.gridmember.utils.PrefUtils;
+import com.lzy.okgo.OkGo;
+import com.lzy.okgo.callback.StringCallback;
+import com.lzy.okgo.model.Response;
 
 import java.util.Timer;
 import java.util.TimerTask;
 
 import butterknife.ButterKnife;
+
+import static com.jkkc.gridmember.R.id.btnHelpRefuseStartoff;
 
 /**
  * Created by Guan on 2018/1/9.
@@ -109,6 +115,9 @@ public class TimingActivity extends AppCompatActivity {
     private ImageView mIvFamilyScene;
     private ImageView mIvScene120;
     private ImageView mIvSceneEnd;
+    private ImageView mBtnHelpStartoff;
+    private ImageView mBtnHelpRefuseStartoff;
+    private ImageView mIvArrive;
 
 
     @Override
@@ -175,7 +184,6 @@ public class TimingActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                startActivity(new Intent(getApplicationContext(), BaiduMapActivity.class));
 
             }
         });
@@ -185,7 +193,6 @@ public class TimingActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                startActivity(new Intent(getApplicationContext(), BaiduMapActivity.class));
             }
         });
 
@@ -258,6 +265,107 @@ public class TimingActivity extends AppCompatActivity {
 
 
         }
+
+
+        mBtnHelpStartoff = (ImageView) findViewById(R.id.btnHelpStartoff);
+
+
+        mBtnHelpStartoff.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                //出动
+                OkGo.<String>post(Config.GRIDMAN_URL + Config.STARTOFF_URL)
+                        .tag(this)
+                        .params("token", PrefUtils.getString(getApplicationContext(), "Token", null))
+                        .params("operatorName", PrefUtils.getString(getApplicationContext(), "Name", null))
+                        //22.5581041512,113.8975656619
+                        .params("latBD", 22.5581041512)
+                        .params("lngBD", 113.8975656619)
+                        .params("handleFlag", 1)
+                        .params("sosId", mCallerBean == null ? 110 : mCallerBean.getSosId())
+                        .execute(new StringCallback() {
+                            @Override
+                            public void onSuccess(Response<String> response) {
+
+                                String result = response.body().toString();
+                                Log.d(TAG, result);
+                                Toast.makeText(getApplicationContext(), "出动成功",
+                                        Toast.LENGTH_SHORT).show();
+
+
+                            }
+
+                        });
+
+            }
+        });
+
+        mBtnHelpRefuseStartoff = (ImageView) findViewById(btnHelpRefuseStartoff);
+        mBtnHelpRefuseStartoff.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                //拒绝出动
+                OkGo.<String>post(Config.GRIDMAN_URL + Config.REFUSESTARTOFF_URL)
+                        .tag(this)
+                        .params("token", PrefUtils.getString(getApplicationContext(), "Token", null))
+                        .params("sosId", mCallerBean == null ? 110 : mCallerBean.getSosId())
+                        .params("operatorName", PrefUtils.getString(getApplicationContext(), "Name", null))
+                        .params("operatorDesc", "operatorDesc")
+                        .params("handleFlag", 2)
+                        //22.5581041512,113.8975656619
+                        .params("latBD", 22.5581041512)
+                        .params("lngBD", 113.8975656619)
+                        .execute(new StringCallback() {
+                            @Override
+                            public void onSuccess(Response<String> response) {
+
+                                String result = response.body().toString();
+                                Log.d(TAG, result);
+                                Toast.makeText(getApplicationContext(), "拒绝出动成功", Toast.LENGTH_SHORT).show();
+
+
+                            }
+
+                        });
+            }
+        });
+
+
+        mIvArrive = (ImageView) findViewById(R.id.ivArrive);
+        mIvArrive.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                //到达
+                OkGo.<String>post(Config.GRIDMAN_URL + Config.ARRIVE_URL)
+                        .tag(this)
+                        .params("token", PrefUtils.getString(getApplicationContext(), "Token", null))
+                        .params("sosId", mCallerBean == null ? 110 : mCallerBean.getSosId())
+                        .params("operatorName", PrefUtils.getString(getApplicationContext(), "Name", null))
+                        .params("operatorDesc", "operatorDesc")
+                        .params("handleFlag", 3)
+                        //22.5581041512,113.8975656619
+                        .params("latBD", 22.5581041512)
+                        .params("lngBD", 113.8975656619)
+                        .execute(new StringCallback() {
+
+                            @Override
+                            public void onSuccess(Response<String> response) {
+
+                                String result = response.body().toString();
+                                Log.d(TAG, result);
+                                Toast.makeText(getApplicationContext(), "到达成功",
+                                        Toast.LENGTH_SHORT).show();
+
+
+                            }
+
+                        });
+
+            }
+        });
 
 
     }

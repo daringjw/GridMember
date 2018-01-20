@@ -1,0 +1,67 @@
+{
+	"info": {
+		"name": "cccc",
+		"_postman_id": "6352c866-1408-27b0-3980-9fb489be0e08",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "http://123.56.65.127:8888/gridMemberApp/pushSosMsg.do",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "sosId",
+							"value": "10",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "token",
+							"value": "b4ee835c-944d-4f14-a71d-7a72529c3cd4",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "sosId",
+							"value": "1",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "lat",
+							"value": "116.789",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "lng",
+							"value": "39.1234",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "oldId",
+							"value": "101",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "imgPath",
+							"value": "111111",
+							"description": "",
+							"type": "text"
+						}
+					]
+				},
+				"url": "http://123.56.65.127:8888/gridMemberApp/pushSosMsg.do",
+				"description": "11111111111111111111111111111111111111111111"
+			},
+			"response": []
+		}
+	]
+}

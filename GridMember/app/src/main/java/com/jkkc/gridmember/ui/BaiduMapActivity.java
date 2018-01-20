@@ -158,8 +158,8 @@ public class BaiduMapActivity extends AppCompatActivity {
             Gson gson = new Gson();
             CallerBean callerBean = gson.fromJson(mCaller_info, CallerBean.class);
             Log.d(TAG, callerBean.getLat() + "longitude=" + callerBean.getLng());
-            double latitude = Double.parseDouble(callerBean.getLat());
-            double longitude = Double.parseDouble(callerBean.getLng());
+//            double latitude = Double.parseDouble(callerBean.getLat());
+//            double longitude = Double.parseDouble(callerBean.getLng());
             mBdLocation = new BDLocation();
             //22.5857814798,113.8761278926
             mBdLocation.setLatitude(22.5857814798);

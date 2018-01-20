@@ -63,7 +63,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="35dp"
-            android:src="@mipmap/old_man"/>
+            android:src="@mipmap/old_lady"/>
 
         <LinearLayout
             android:layout_width="72dp"
@@ -299,9 +299,11 @@
                 android:src="@mipmap/guide_nor"/>
 
             <ImageView
+                android:id="@+id/ivArrive"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@mipmap/arrive_nor"/>
+
         </LinearLayout>
 
     </LinearLayout>

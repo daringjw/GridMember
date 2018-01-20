@@ -140,6 +140,17 @@
             >
         </activity>
 
+        <activity
+            android:windowSoftInputMode="stateAlwaysHidden|adjustPan"
+            android:name=".ui.MainActivity"
+            android:launchMode="singleInstance"
+            android:screenOrientation="portrait"
+            >
+        </activity>
+
+
+
+
 
         <activity
             android:name="com.tencent.bugly.beta.ui.BetaActivity"

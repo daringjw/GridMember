@@ -6,7 +6,7 @@ package com.jkkc.gridmember.common;
 
 public class Config {
 
-    public static final String GRIDMAN_URL = "http://222.249.165.94:8100";
+    public static final String GRIDMAN_URL = "http://123.56.65.127:8888";
 
     public static final String LOGIN_URL = "/gridMemberApp//Login/login.do";
 

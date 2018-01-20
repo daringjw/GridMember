@@ -236,7 +236,6 @@ public class HomeActivity extends AppCompatActivity {
         LocationManager locManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         if (!locManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
             // 未打开位置开关，可能导致定位失败或定位不准，提示用户或做相应处理
-
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 requestPermissions(new String[]{Manifest.permission.READ_PHONE_STATE,
                         Manifest.permission.ACCESS_COARSE_LOCATION,
@@ -368,11 +367,21 @@ public class HomeActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                startActivity(new Intent(getApplicationContext(),HomeActivity1.class));
+                startActivity(new Intent(getApplicationContext(), HomeActivity1.class));
 
             }
         });
 
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+
+                startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                finish();
+
+            }
+        }, 100);
 
     }
 
@@ -459,11 +468,12 @@ public class HomeActivity extends AppCompatActivity {
         minute = -1;
         second = -1;
 
-        if (mPDialog!=null){
+        if (mPDialog != null) {
             mPDialog.dismiss();
         }
 
         super.onDestroy();
+
     }
 
     @OnClick(R.id.btnLogout)
@@ -496,6 +506,7 @@ public class HomeActivity extends AppCompatActivity {
             @Override
             public void onError(int code, String message) {
                 // TODO Auto-generated method stub
+
 
             }
         });
@@ -538,7 +549,6 @@ public class HomeActivity extends AppCompatActivity {
                 if (mCallerBean != null) {
                     Log.d(TAG, mCallerBean.getSosId() + "");
                 }
-
 
                 //出动
                 OkGo.<String>post(Config.GRIDMAN_URL + Config.STARTOFF_URL)
