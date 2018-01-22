@@ -1,9 +1,14 @@
 package com.jkkc.gridmember.ui;
 
+import android.Manifest;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
@@ -28,6 +33,8 @@ import java.util.TimerTask;
 import butterknife.ButterKnife;
 
 import static com.jkkc.gridmember.R.id.btnHelpRefuseStartoff;
+import static com.jkkc.gridmember.R.id.ivCallOldMan;
+import static com.jkkc.gridmember.R.id.ivStartoffFamily;
 
 /**
  * Created by Guan on 2018/1/9.
@@ -118,6 +125,9 @@ public class TimingActivity extends AppCompatActivity {
     private ImageView mBtnHelpStartoff;
     private ImageView mBtnHelpRefuseStartoff;
     private ImageView mIvArrive;
+    private ImageView mIvStartoffFamily;
+    private ImageView mIvCall120;
+    private ImageView mIvCallOldMan;
 
 
     @Override
@@ -150,8 +160,10 @@ public class TimingActivity extends AppCompatActivity {
         mIvScene120 = (ImageView) findViewById(R.id.ivScene120);
         mIvSceneEnd = (ImageView) findViewById(R.id.ivSceneEnd);
 
+        mIvStartoffFamily = (ImageView) findViewById(ivStartoffFamily);
 
-
+        mIvCall120 = (ImageView) findViewById(R.id.ivCall120);
+        mIvCallOldMan = (ImageView) findViewById(R.id.ivCallOldMan);
 
 
         timeView.setText("00:" + minute + ":" + second);
@@ -184,6 +196,7 @@ public class TimingActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
+                startActivity(new Intent(getApplicationContext(), BaiduMapActivity.class));
 
             }
         });
@@ -193,11 +206,13 @@ public class TimingActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
+                startActivity(new Intent(getApplicationContext(), BaiduMapActivity.class));
+
             }
         });
 
 
-        mIvHelp.setOnClickListener(new View.OnClickListener() {
+       /* mIvHelp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
@@ -210,10 +225,10 @@ public class TimingActivity extends AppCompatActivity {
 
 
             }
-        });
+        });*/
 
 
-        mIvStartoff.setOnClickListener(new View.OnClickListener() {
+       /* mIvStartoff.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
@@ -225,10 +240,10 @@ public class TimingActivity extends AppCompatActivity {
                 mLlTheScene.setVisibility(View.GONE);
 
             }
-        });
+        });*/
 
 
-        mIvScene.setOnClickListener(new View.OnClickListener() {
+       /* mIvScene.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
@@ -240,7 +255,7 @@ public class TimingActivity extends AppCompatActivity {
                 mLlTheScene.setVisibility(View.VISIBLE);
 
             }
-        });
+        });*/
 
 
         String caller_info = PrefUtils.getString(getApplicationContext(), "caller_info", null);
@@ -250,18 +265,98 @@ public class TimingActivity extends AppCompatActivity {
             Log.d(TAG, "getImgPath=" + mCallerBean.getImgPath());
 
             mTvOldManName.setText(mCallerBean.getName());
-            if (mCallerBean.getSex()==0){
+            if (mCallerBean.getSex() == 0) {
                 mTvGender.setText("男");
-            }else if (mCallerBean.getSex()==1){
+            } else if (mCallerBean.getSex() == 1) {
                 mTvGender.setText("女");
             }
 
-            mTvAge.setText(mCallerBean.getAge()+"");
+            mTvAge.setText(mCallerBean.getAge() + "");
             mTvBloodType.setText(mCallerBean.getBloodType());
             mTvKeyPosition.setText(mCallerBean.getHomeKeyPlace());
-            mTvAddress.setText("住址："+mCallerBean.getAddress());
-            mTvMedicalHistory.setText("病史："+mCallerBean.getJibing());
+            mTvAddress.setText("住址：" + mCallerBean.getAddress());
+            mTvMedicalHistory.setText("病史：" + mCallerBean.getJibing());
 
+            mIvFamilyScene.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                    if (mCallerBean != null) {
+
+                        //调用Android系统API打电话
+                        Uri uri = Uri.parse("tel:" + mCallerBean.linkPhone);
+                        Intent intent = new Intent(Intent.ACTION_CALL, uri);
+
+                        startActivity(intent);
+                    }
+
+
+                }
+            });
+
+            mIvCall120.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    //调用Android系统API打电话
+                    Uri uri = Uri.parse("tel:120");
+                    Intent intent = new Intent(Intent.ACTION_CALL, uri);
+
+                    startActivity(intent);
+
+                }
+            });
+
+            mIvScene120.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                    //调用Android系统API打电话
+                    Uri uri = Uri.parse("tel:120");
+                    Intent intent = new Intent(Intent.ACTION_CALL, uri);
+
+                    startActivity(intent);
+
+                }
+            });
+
+            mIvCallOldMan.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                    if (mCallerBean != null) {
+                        //调用Android系统API打电话
+                        Uri uri = Uri.parse("tel:" + mCallerBean.linkPhone);
+                        Intent intent = new Intent(Intent.ACTION_CALL, uri);
+
+                        startActivity(intent);
+                    }
+
+                }
+            });
+
+
+            mIvStartoffFamily.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                    mIvStartoffFamily.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+
+                            if (mCallerBean != null) {
+                                //调用Android系统API打电话
+                                Uri uri = Uri.parse("tel:" + mCallerBean.linkPhone);
+                                Intent intent = new Intent(Intent.ACTION_CALL, uri);
+
+                                startActivity(intent);
+                            }
+
+                        }
+                    });
+
+
+                }
+            });
 
 
         }
@@ -290,8 +385,16 @@ public class TimingActivity extends AppCompatActivity {
 
                                 String result = response.body().toString();
                                 Log.d(TAG, result);
+
                                 Toast.makeText(getApplicationContext(), "出动成功",
                                         Toast.LENGTH_SHORT).show();
+
+                                mIvStartoff.setImageResource(R.mipmap.startoff_pre);
+                                mIvHelp.setImageResource(R.mipmap.help_nor);
+                                mIvScene.setImageResource(R.mipmap.the_scene_nor);
+                                mLlHelp.setVisibility(View.GONE);
+                                mLlStartoff.setVisibility(View.VISIBLE);
+                                mLlTheScene.setVisibility(View.GONE);
 
 
                             }
@@ -323,7 +426,9 @@ public class TimingActivity extends AppCompatActivity {
 
                                 String result = response.body().toString();
                                 Log.d(TAG, result);
-                                Toast.makeText(getApplicationContext(), "拒绝出动成功", Toast.LENGTH_SHORT).show();
+
+                                startActivity(new Intent(getApplicationContext(), RefuseActivity.class));
+                                finish();
 
 
                             }
@@ -358,6 +463,22 @@ public class TimingActivity extends AppCompatActivity {
                                 Log.d(TAG, result);
                                 Toast.makeText(getApplicationContext(), "到达成功",
                                         Toast.LENGTH_SHORT).show();
+
+                                mIvStartoff.setImageResource(R.mipmap.startoff_nor);
+                                mIvHelp.setImageResource(R.mipmap.help_nor);
+                                mIvScene.setImageResource(R.mipmap.the_scene_pre);
+                                mLlHelp.setVisibility(View.GONE);
+                                mLlStartoff.setVisibility(View.GONE);
+                                mLlTheScene.setVisibility(View.VISIBLE);
+
+                                mIvSceneEnd.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View view) {
+
+                                        finish();
+
+                                    }
+                                });
 
 
                             }

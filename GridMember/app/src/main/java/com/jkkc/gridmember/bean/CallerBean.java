@@ -19,6 +19,7 @@ public class CallerBean {
      * name : 高金选
      * sex : 0
      * sosId : 1
+     * linkPhone  ：  13211111111
      */
 
     private String address;
@@ -32,6 +33,7 @@ public class CallerBean {
     private String name;
     private int sex;
     private int sosId;
+    public String linkPhone;
 
     public String getAddress() {
         return address;

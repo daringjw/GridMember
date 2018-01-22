@@ -121,12 +121,6 @@ public class HomeActivity1 extends AppCompatActivity implements DatePickerDialog
     protected void onDestroy() {
         super.onDestroy();
 
-        if (mMyConnectionListener!=null){
-
-            Log.d(TAG,"homeActivity1  removeConnectionListener(mMyConnectionListener)");
-            EMClient.getInstance().removeConnectionListener(mMyConnectionListener);
-
-        }
 
     }
 
@@ -138,7 +132,7 @@ public class HomeActivity1 extends AppCompatActivity implements DatePickerDialog
         ButterKnife.bind(this);
 
         //添加环信接口
-        if (mMyConnectionListener==null){
+        if (mMyConnectionListener == null) {
             mMyConnectionListener = new MyConnectionListener();
             EMClient.getInstance().addConnectionListener(mMyConnectionListener);
         }
