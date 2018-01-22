@@ -1,6 +1,9 @@
 package com.jkkc.gridmember.ui;
 
 import android.Manifest;
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.location.LocationManager;
@@ -50,6 +53,28 @@ public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = MainActivity.class.getSimpleName();
 
+    private NotificationManager notificationManager;
+
+    // 第二步：对Notification的一些属性进行设置比如：内容，图标，标题，相应notification的动作进行处理等等；
+    public void showNotification() {
+
+        Notification.Builder builder1 = new Notification.Builder(MainActivity.this);
+        builder1.setSmallIcon(R.mipmap.ic_launcher_round); //设置图标
+        builder1.setTicker("显示第二个通知");
+        builder1.setContentTitle("老人向你求助"); //设置标题
+        builder1.setContentText("点击查看详细内容"); //消息内容
+        builder1.setWhen(System.currentTimeMillis()); //发送时间
+        builder1.setDefaults(Notification.DEFAULT_VIBRATE); //设置默认的提示音，振动方式，灯光
+        builder1.setAutoCancel(true);//打开程序后图标消失
+        Intent intent =new Intent (MainActivity.this,TimingActivity.class);
+        PendingIntent pendingIntent =PendingIntent.getActivity(MainActivity.this, 0, intent, 0);
+        builder1.setContentIntent(pendingIntent);
+        Notification notification1 = builder1.build();
+        notificationManager.notify(124, notification1); // 通过通知管理器发送通知
+
+
+
+    }
 
     EMMessageListener msgListener = new EMMessageListener() {
 
@@ -72,9 +97,10 @@ public class MainActivity extends AppCompatActivity {
             //求助者 数据存sp
             PrefUtils.setString(getApplicationContext(), "caller_info", mMsg);
 
-            startActivity(new Intent(getApplicationContext(),TimingActivity.class));
+            startActivity(new Intent(getApplicationContext(), TimingActivity.class));
 
-
+            // notification
+            showNotification();
 
 
         }
@@ -241,12 +267,12 @@ public class MainActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
 
-        if (mMyConnectionListener!=null){
+       /* if (mMyConnectionListener != null) {
 
-            Log.d(TAG,"mainActivity  removeConnectionListener(mMyConnectionListener)");
+            Log.d(TAG, "mainActivity  removeConnectionListener(mMyConnectionListener)");
             EMClient.getInstance().removeConnectionListener(mMyConnectionListener);
 
-        }
+        }*/
 
 
     }
@@ -257,11 +283,13 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         //添加环信接口
-        if (mMyConnectionListener==null){
+        if (mMyConnectionListener == null) {
             mMyConnectionListener = new MyConnectionListener();
             EMClient.getInstance().addConnectionListener(mMyConnectionListener);
         }
 
+        // 第一步：通过getSystemService（）方法得到NotificationManager对象；
+        notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
 
 
         LocationManager locManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
@@ -362,7 +390,6 @@ public class MainActivity extends AppCompatActivity {
         tabLayout.setupWithViewPager(viewPager);
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
         tabLayout.setTabMode(TabLayout.MODE_FIXED);
-
 
 
     }

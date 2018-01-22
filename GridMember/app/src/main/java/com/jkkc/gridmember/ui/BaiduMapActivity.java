@@ -152,18 +152,17 @@ public class BaiduMapActivity extends AppCompatActivity {
         mBaiduMap.setMyLocationConfiguration(mConfig);
 
 
-
         mCaller_info = PrefUtils.getString(getApplicationContext(), "caller_info", null);
         if (!TextUtils.isEmpty(mCaller_info)) {
             Gson gson = new Gson();
             CallerBean callerBean = gson.fromJson(mCaller_info, CallerBean.class);
             Log.d(TAG, callerBean.getLat() + "longitude=" + callerBean.getLng());
-//            double latitude = Double.parseDouble(callerBean.getLat());
-//            double longitude = Double.parseDouble(callerBean.getLng());
+            double latitude = Double.parseDouble(callerBean.getLat());
+            double longitude = Double.parseDouble(callerBean.getLng());
             mBdLocation = new BDLocation();
             //22.5857814798,113.8761278926
-            mBdLocation.setLatitude(22.5857814798);
-            mBdLocation.setLongitude(113.8761278926);
+            mBdLocation.setLatitude(latitude);
+            mBdLocation.setLongitude(longitude);
 
             // 构造定位数据
             mLocData = new MyLocationData.Builder()
@@ -174,9 +173,9 @@ public class BaiduMapActivity extends AppCompatActivity {
             // 设置定位数据
             mBaiduMap.setMyLocationData(mLocData);
 
-        }else {
+        } else {
 
-            if (mBdLocation==null){
+            if (mBdLocation == null) {
                 mBdLocation = new BDLocation();
                 //22.5857814798,113.8761278926
                 mBdLocation.setLatitude(22.5857814798);
@@ -193,12 +192,6 @@ public class BaiduMapActivity extends AppCompatActivity {
             mBaiduMap.setMyLocationData(mLocData);
 
         }
-
-
-
-
-
-
 
 
     }
@@ -231,7 +224,6 @@ public class BaiduMapActivity extends AppCompatActivity {
                             public void onClick(SweetAlertDialog sDialog) {
 
 
-
                                 //确定，进入百度地图进行导航
                                 // 天安门坐标
                                 double mLat1 = mPositionBean.mBDLocation.getLatitude();
@@ -239,7 +231,7 @@ public class BaiduMapActivity extends AppCompatActivity {
 
                                 // 百度大厦坐标
 
-                                if (mBdLocation==null){
+                                if (mBdLocation == null) {
                                     mBdLocation = new BDLocation();
                                     //22.5857814798,113.8761278926
                                     mBdLocation.setLatitude(22.5857814798);
