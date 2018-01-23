@@ -1,14 +1,11 @@
 package com.jkkc.gridmember.ui;
 
-import android.Manifest;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
-import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
@@ -33,8 +30,7 @@ import java.util.TimerTask;
 import butterknife.ButterKnife;
 
 import static com.jkkc.gridmember.R.id.btnHelpRefuseStartoff;
-import static com.jkkc.gridmember.R.id.ivCallOldMan;
-import static com.jkkc.gridmember.R.id.ivStartoffFamily;
+
 
 /**
  * Created by Guan on 2018/1/9.
@@ -109,7 +105,6 @@ public class TimingActivity extends AppCompatActivity {
         }
 
     };
-    private TextView mTvOldManName1;
     private TextView mTvOldManName;
     private TextView mTvGender;
     private TextView mTvAge;
@@ -160,7 +155,7 @@ public class TimingActivity extends AppCompatActivity {
         mIvScene120 = (ImageView) findViewById(R.id.ivScene120);
         mIvSceneEnd = (ImageView) findViewById(R.id.ivSceneEnd);
 
-        mIvStartoffFamily = (ImageView) findViewById(ivStartoffFamily);
+        mIvStartoffFamily = (ImageView) findViewById(R.id.ivStartoffFamily);
 
         mIvCall120 = (ImageView) findViewById(R.id.ivCall120);
         mIvCallOldMan = (ImageView) findViewById(R.id.ivCallOldMan);
@@ -339,20 +334,14 @@ public class TimingActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View view) {
 
-                    mIvStartoffFamily.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
 
-                            if (mCallerBean != null) {
-                                //调用Android系统API打电话
-                                Uri uri = Uri.parse("tel:" + mCallerBean.linkPhone);
-                                Intent intent = new Intent(Intent.ACTION_CALL, uri);
+                    if (mCallerBean != null) {
+                        //调用Android系统API打电话
+                        Uri uri = Uri.parse("tel:" + mCallerBean.linkPhone);
+                        Intent intent = new Intent(Intent.ACTION_CALL, uri);
 
-                                startActivity(intent);
-                            }
-
-                        }
-                    });
+                        startActivity(intent);
+                    }
 
 
                 }
@@ -404,7 +393,7 @@ public class TimingActivity extends AppCompatActivity {
             }
         });
 
-        mBtnHelpRefuseStartoff = (ImageView) findViewById(btnHelpRefuseStartoff);
+        mBtnHelpRefuseStartoff = (ImageView) findViewById(R.id.btnHelpRefuseStartoff);
         mBtnHelpRefuseStartoff.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

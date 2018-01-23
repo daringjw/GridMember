@@ -273,6 +273,7 @@ public class BaiduMapActivity extends AppCompatActivity {
                         .setCancelClickListener(new SweetAlertDialog.OnSweetClickListener() {
                             @Override
                             public void onClick(SweetAlertDialog sDialog) {
+
                                 sDialog.cancel();
 
 
