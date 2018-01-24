@@ -310,6 +310,17 @@ public class MainActivity extends AppCompatActivity {
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
         tabLayout.setTabMode(TabLayout.MODE_FIXED);
 
+//        tabLayout.addTab(tabLayout.newTab().setText("回访").setIcon(R.mipmap.ic_launcher));
+//        tabLayout.addTab(tabLayout.newTab().setText("导航").setIcon(R.mipmap.ic_launcher));
+//        tabLayout.addTab(tabLayout.newTab().setText("求助").setIcon(R.mipmap.ic_launcher));
+//        tabLayout.addTab(tabLayout.newTab().setText("个人中心").setIcon(R.mipmap.ic_launcher));
+
+        tabLayout.getTabAt(0).setIcon(R.drawable.button_location_selector);
+        tabLayout.getTabAt(1).setIcon(R.drawable.button_location_selector);
+        tabLayout.getTabAt(2).setIcon(R.drawable.button_location_selector);
+        tabLayout.getTabAt(3).setIcon(R.drawable.button_location_selector);
+
+
 
     }
 
@@ -351,6 +362,8 @@ public class MainActivity extends AppCompatActivity {
         public CharSequence getPageTitle(int position) {
             return titles[position];
         }
+
+
     }
 
 }
