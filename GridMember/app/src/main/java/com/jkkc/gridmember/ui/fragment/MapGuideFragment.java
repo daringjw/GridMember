@@ -16,7 +16,8 @@ import com.jkkc.gridmember.ui.BaiduMapActivity;
  * Created by Guan on 2018/1/19.
  */
 
-public class MapGuideFragment extends Fragment{
+public class MapGuideFragment extends Fragment {
+
 
     @Nullable
     @Override
@@ -24,9 +25,10 @@ public class MapGuideFragment extends Fragment{
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
 
-        View view= View.inflate(getActivity(), R.layout.fragment_map_guide,null);
-        Button btnGuide = view.findViewById(R.id.btnGuide);
-        btnGuide.setOnClickListener(new View.OnClickListener() {
+
+        View view = View.inflate(getActivity(), R.layout.fragment_map_guide, null);
+        Button btnMapGuide = view.findViewById(R.id.btnMapGuide);
+        btnMapGuide.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
@@ -34,6 +36,7 @@ public class MapGuideFragment extends Fragment{
 
             }
         });
+
 
         return view;
 

@@ -19,6 +19,7 @@ import com.google.gson.Gson;
 import com.jkkc.gridmember.R;
 import com.jkkc.gridmember.bean.CallerBean;
 import com.jkkc.gridmember.common.Config;
+import com.jkkc.gridmember.ui.dialog.RefuseDialog;
 import com.jkkc.gridmember.utils.PrefUtils;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
@@ -28,8 +29,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import butterknife.ButterKnife;
-
-import static com.jkkc.gridmember.R.id.btnHelpRefuseStartoff;
+import cn.pedant.SweetAlert.SweetAlertDialog;
 
 
 /**
@@ -278,11 +278,32 @@ public class TimingActivity extends AppCompatActivity {
 
                     if (mCallerBean != null) {
 
-                        //调用Android系统API打电话
-                        Uri uri = Uri.parse("tel:" + mCallerBean.linkPhone);
-                        Intent intent = new Intent(Intent.ACTION_CALL, uri);
+                        new SweetAlertDialog(TimingActivity.this)
+                                .setTitleText("拨号?")
+                                .setContentText(mCallerBean.linkPhone)
+                                .setConfirmText("确定")
+                                .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                                    @Override
+                                    public void onClick(SweetAlertDialog sDialog) {
+                                        sDialog.dismissWithAnimation();
+                                        //调用Android系统API打电话
+                                        Uri uri = Uri.parse("tel:" + mCallerBean.linkPhone);
+                                        Intent intent = new Intent(Intent.ACTION_CALL, uri);
+                                        startActivity(intent);
 
-                        startActivity(intent);
+                                    }
+                                })
+                                .setCancelText("取消")
+                                .setCancelClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                                    @Override
+                                    public void onClick(SweetAlertDialog sweetAlertDialog) {
+                                        sweetAlertDialog.cancel();
+
+                                    }
+                                })
+                                .show();
+
+
                     }
 
 
@@ -292,11 +313,33 @@ public class TimingActivity extends AppCompatActivity {
             mIvCall120.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    //调用Android系统API打电话
-                    Uri uri = Uri.parse("tel:120");
-                    Intent intent = new Intent(Intent.ACTION_CALL, uri);
 
-                    startActivity(intent);
+                    new SweetAlertDialog(TimingActivity.this)
+                            .setTitleText("拨号?")
+                            .setContentText("120")
+                            .setConfirmText("确定")
+                            .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                                @Override
+                                public void onClick(SweetAlertDialog sDialog) {
+                                    sDialog.dismissWithAnimation();
+                                    //调用Android系统API打电话
+                                    Uri uri = Uri.parse("tel:120");
+                                    Intent intent = new Intent(Intent.ACTION_CALL, uri);
+
+                                    startActivity(intent);
+
+                                }
+                            })
+                            .setCancelText("取消")
+                            .setCancelClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                                @Override
+                                public void onClick(SweetAlertDialog sweetAlertDialog) {
+                                    sweetAlertDialog.cancel();
+
+                                }
+                            })
+                            .show();
+
 
                 }
             });
@@ -305,11 +348,32 @@ public class TimingActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View view) {
 
-                    //调用Android系统API打电话
-                    Uri uri = Uri.parse("tel:120");
-                    Intent intent = new Intent(Intent.ACTION_CALL, uri);
 
-                    startActivity(intent);
+                    new SweetAlertDialog(TimingActivity.this)
+                            .setTitleText("拨号?")
+                            .setContentText("120")
+                            .setConfirmText("确定")
+                            .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                                @Override
+                                public void onClick(SweetAlertDialog sDialog) {
+                                    sDialog.dismissWithAnimation();
+                                    //调用Android系统API打电话
+                                    Uri uri = Uri.parse("tel:120");
+                                    Intent intent = new Intent(Intent.ACTION_CALL, uri);
+
+                                    startActivity(intent);
+
+                                }
+                            })
+                            .setCancelText("取消")
+                            .setCancelClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                                @Override
+                                public void onClick(SweetAlertDialog sweetAlertDialog) {
+                                    sweetAlertDialog.cancel();
+
+                                }
+                            })
+                            .show();
 
                 }
             });
@@ -319,11 +383,30 @@ public class TimingActivity extends AppCompatActivity {
                 public void onClick(View view) {
 
                     if (mCallerBean != null) {
-                        //调用Android系统API打电话
-                        Uri uri = Uri.parse("tel:" + mCallerBean.linkPhone);
-                        Intent intent = new Intent(Intent.ACTION_CALL, uri);
+                        new SweetAlertDialog(TimingActivity.this)
+                                .setTitleText("拨号?")
+                                .setContentText(mCallerBean.linkPhone)
+                                .setConfirmText("确定")
+                                .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                                    @Override
+                                    public void onClick(SweetAlertDialog sDialog) {
+                                        sDialog.dismissWithAnimation();
+                                        //调用Android系统API打电话
+                                        Uri uri = Uri.parse("tel:" + mCallerBean.linkPhone);
+                                        Intent intent = new Intent(Intent.ACTION_CALL, uri);
+                                        startActivity(intent);
 
-                        startActivity(intent);
+                                    }
+                                })
+                                .setCancelText("取消")
+                                .setCancelClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                                    @Override
+                                    public void onClick(SweetAlertDialog sweetAlertDialog) {
+                                        sweetAlertDialog.cancel();
+
+                                    }
+                                })
+                                .show();
                     }
 
                 }
@@ -336,11 +419,30 @@ public class TimingActivity extends AppCompatActivity {
 
 
                     if (mCallerBean != null) {
-                        //调用Android系统API打电话
-                        Uri uri = Uri.parse("tel:" + mCallerBean.linkPhone);
-                        Intent intent = new Intent(Intent.ACTION_CALL, uri);
+                        new SweetAlertDialog(TimingActivity.this)
+                                .setTitleText("拨号?")
+                                .setContentText(mCallerBean.linkPhone)
+                                .setConfirmText("确定")
+                                .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                                    @Override
+                                    public void onClick(SweetAlertDialog sDialog) {
+                                        sDialog.dismissWithAnimation();
+                                        //调用Android系统API打电话
+                                        Uri uri = Uri.parse("tel:" + mCallerBean.linkPhone);
+                                        Intent intent = new Intent(Intent.ACTION_CALL, uri);
+                                        startActivity(intent);
 
-                        startActivity(intent);
+                                    }
+                                })
+                                .setCancelText("取消")
+                                .setCancelClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                                    @Override
+                                    public void onClick(SweetAlertDialog sweetAlertDialog) {
+                                        sweetAlertDialog.cancel();
+
+                                    }
+                                })
+                                .show();
                     }
 
 
@@ -416,8 +518,16 @@ public class TimingActivity extends AppCompatActivity {
                                 String result = response.body().toString();
                                 Log.d(TAG, result);
 
-                                startActivity(new Intent(getApplicationContext(), RefuseActivity.class));
-                                finish();
+                                RefuseDialog refuseDialog = new RefuseDialog(TimingActivity.this);
+                                refuseDialog.show();
+                                refuseDialog.setCanceledOnTouchOutside(true);
+
+
+
+
+
+//                                startActivity(new Intent(getApplicationContext(), RefuseActivity.class));
+//                                finish();
 
 
                             }

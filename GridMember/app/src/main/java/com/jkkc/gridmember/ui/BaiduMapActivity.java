@@ -70,7 +70,6 @@ public class BaiduMapActivity extends AppCompatActivity {
         mMapView = (TextureMapView) findViewById(R.id.mTexturemap);
         mBaiduMap = mMapView.getMap();
 
-
         //显示定位
         // 开启定位图层
         mBaiduMap.setMyLocationEnabled(true);

@@ -100,12 +100,7 @@
             </intent-filter>
         </activity>
 
-        <activity
-            android:name=".ui.HomeActivity"
-            android:launchMode="singleInstance"
-            android:screenOrientation="portrait"
-            >
-        </activity>
+
 
         <activity
             android:name=".ui.PersonalInfoActivity"

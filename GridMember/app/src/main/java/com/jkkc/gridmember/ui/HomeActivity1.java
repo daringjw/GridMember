@@ -1,13 +1,11 @@
 package com.jkkc.gridmember.ui;
 
 import android.app.DatePickerDialog;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,11 +19,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.blankj.utilcode.util.AppUtils;
-import com.hyphenate.EMConnectionListener;
-import com.hyphenate.EMError;
-import com.hyphenate.chat.EMClient;
-import com.hyphenate.util.NetUtils;
-import com.jkkc.gridmember.LoginActivity;
 import com.jkkc.gridmember.R;
 import com.tencent.bugly.Bugly;
 
@@ -60,62 +53,7 @@ public class HomeActivity1 extends AppCompatActivity implements DatePickerDialog
     Button mBtnSearch;
 
     private DatePickerDialog mDialog;
-    private MyConnectionListener mMyConnectionListener;
 
-
-    //实现ConnectionListener接口
-    private class MyConnectionListener implements EMConnectionListener {
-        @Override
-        public void onConnected() {
-
-            Log.d(TAG, "已连接上");
-
-        }
-
-        @Override
-        public void onDisconnected(final int error) {
-            runOnUiThread(new Runnable() {
-
-                @Override
-                public void run() {
-                    if (error == EMError.USER_REMOVED) {
-                        // 显示帐号已经被移除
-
-                        startActivity(new Intent(getApplicationContext(),
-                                LoginActivity.class));
-                        finish();
-
-
-                    } else if (error == EMError.USER_LOGIN_ANOTHER_DEVICE) {
-                        // 显示帐号在其他设备登录
-                        startActivity(new Intent(getApplicationContext(),
-                                LoginActivity.class));
-                        finish();
-
-
-                    } else {
-                        if (NetUtils.hasNetwork(HomeActivity1.this)) {
-                            //连接不到聊天服务器
-
-                            startActivity(new Intent(getApplicationContext(),
-                                    LoginActivity.class));
-                            finish();
-
-
-                        } else {
-                            //当前网络不可用，请检查网络设置
-
-                            startActivity(new Intent(getApplicationContext(),
-                                    LoginActivity.class));
-                            finish();
-
-
-                        }
-                    }
-                }
-            });
-        }
-    }
 
     @Override
     protected void onDestroy() {
@@ -130,12 +68,6 @@ public class HomeActivity1 extends AppCompatActivity implements DatePickerDialog
 
         setContentView(R.layout.activity_home1);
         ButterKnife.bind(this);
-
-        //添加环信接口
-        if (mMyConnectionListener == null) {
-            mMyConnectionListener = new MyConnectionListener();
-            EMClient.getInstance().addConnectionListener(mMyConnectionListener);
-        }
 
 
         String isDebugStr = AppUtils.isAppDebug() ? "内测版本" : "正式版本";

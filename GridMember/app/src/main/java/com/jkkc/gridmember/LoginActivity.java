@@ -48,6 +48,8 @@ public class LoginActivity extends AppCompatActivity {
     Button mBtnLogin;
     private SweetAlertDialog mPDialog;
     private MyConnectionListener mMyConnectionListener;
+    private String mAccount;
+    private String mPwd;
 
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions,
@@ -158,17 +160,39 @@ public class LoginActivity extends AppCompatActivity {
                     if (error == EMError.USER_REMOVED) {
                         // 显示帐号已经被移除
 
+                        startActivity(new Intent(getApplicationContext(),
+                                LoginActivity.class));
+
+
 
                     } else if (error == EMError.USER_LOGIN_ANOTHER_DEVICE) {
                         // 显示帐号在其他设备登录
+                        startActivity(new Intent(getApplicationContext(),
+                                LoginActivity.class));
+
 
 
                     } else {
                         if (NetUtils.hasNetwork(LoginActivity.this)) {
                             //连接不到聊天服务器
 
+                            startActivity(new Intent(getApplicationContext(),
+                                    LoginActivity.class));
+
+
+
                         } else {
                             //当前网络不可用，请检查网络设置
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Toast.makeText(getApplicationContext(),
+                                            "当前网络不可用，请检查网络设置",
+                                            Toast.LENGTH_SHORT).show();
+                                }
+                            });
+
+
 
 
                         }
@@ -197,13 +221,16 @@ public class LoginActivity extends AppCompatActivity {
                 finish();
             }
         },1500);*/
+        mAccount = mEtUserName.getText().toString().trim();
+        mPwd = mEtPwd.getText().toString().trim();
+
 
 
         OkGo.<String>post(Config.GRIDMAN_URL + Config.LOGIN_URL)
                 .tag(this)
                 //
-                .params("account", "18518030828")
-                .params("pwd", MD5.md5Encode("12345678"))
+                .params("account", mAccount)
+                .params("pwd", MD5.md5Encode(mPwd))
                 .execute(new StringCallback() {
                     @Override
                     public void onSuccess(Response<String> response) {
@@ -236,7 +263,7 @@ public class LoginActivity extends AppCompatActivity {
                             PrefUtils.setString(getApplicationContext(), "Id", data.getId() + "");
 
                             //登陆环信
-                            EMClient.getInstance().login("18518030828", "12345678", new EMCallBack() {//回调
+                            EMClient.getInstance().login(mAccount, mPwd, new EMCallBack() {//回调
                                 @Override
                                 public void onSuccess() {
                                     EMClient.getInstance().groupManager().loadAllGroups();
@@ -302,11 +329,6 @@ public class LoginActivity extends AppCompatActivity {
             mPDialog.dismiss();
         }
 
-        if (mMyConnectionListener != null) {
-            EMClient.getInstance().removeConnectionListener(mMyConnectionListener);
-            Log.d(TAG, "removeConnectionListener");
-
-        }
 
 
     }

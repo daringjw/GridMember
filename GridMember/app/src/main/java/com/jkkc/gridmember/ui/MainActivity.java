@@ -24,13 +24,9 @@ import com.baidu.location.BDLocationListener;
 import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
 import com.google.gson.Gson;
-import com.hyphenate.EMConnectionListener;
-import com.hyphenate.EMError;
 import com.hyphenate.EMMessageListener;
 import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMMessage;
-import com.hyphenate.util.NetUtils;
-import com.jkkc.gridmember.LoginActivity;
 import com.jkkc.gridmember.R;
 import com.jkkc.gridmember.bean.CallerBean;
 import com.jkkc.gridmember.bean.PositionBean;
@@ -66,12 +62,11 @@ public class MainActivity extends AppCompatActivity {
         builder1.setWhen(System.currentTimeMillis()); //发送时间
         builder1.setDefaults(Notification.DEFAULT_VIBRATE); //设置默认的提示音，振动方式，灯光
         builder1.setAutoCancel(true);//打开程序后图标消失
-        Intent intent =new Intent (MainActivity.this,TimingActivity.class);
-        PendingIntent pendingIntent =PendingIntent.getActivity(MainActivity.this, 0, intent, 0);
+        Intent intent = new Intent(MainActivity.this, TimingActivity.class);
+        PendingIntent pendingIntent = PendingIntent.getActivity(MainActivity.this, 0, intent, 0);
         builder1.setContentIntent(pendingIntent);
         Notification notification1 = builder1.build();
         notificationManager.notify(124, notification1); // 通过通知管理器发送通知
-
 
 
     }
@@ -206,87 +201,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    private MyConnectionListener mMyConnectionListener;
-
-
-    //实现ConnectionListener接口
-    private class MyConnectionListener implements EMConnectionListener {
-        @Override
-        public void onConnected() {
-
-            Log.d(TAG, "已连接上");
-
-        }
-
-        @Override
-        public void onDisconnected(final int error) {
-            runOnUiThread(new Runnable() {
-
-                @Override
-                public void run() {
-                    if (error == EMError.USER_REMOVED) {
-                        // 显示帐号已经被移除
-
-                        startActivity(new Intent(getApplicationContext(),
-                                LoginActivity.class));
-                        finish();
-
-
-                    } else if (error == EMError.USER_LOGIN_ANOTHER_DEVICE) {
-                        // 显示帐号在其他设备登录
-                        startActivity(new Intent(getApplicationContext(),
-                                LoginActivity.class));
-                        finish();
-
-
-                    } else {
-                        if (NetUtils.hasNetwork(MainActivity.this)) {
-                            //连接不到聊天服务器
-
-                            startActivity(new Intent(getApplicationContext(),
-                                    LoginActivity.class));
-                            finish();
-
-
-                        } else {
-                            //当前网络不可用，请检查网络设置
-
-                            startActivity(new Intent(getApplicationContext(),
-                                    LoginActivity.class));
-                            finish();
-
-
-                        }
-                    }
-                }
-            });
-        }
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-
-       /* if (mMyConnectionListener != null) {
-
-            Log.d(TAG, "mainActivity  removeConnectionListener(mMyConnectionListener)");
-            EMClient.getInstance().removeConnectionListener(mMyConnectionListener);
-
-        }*/
-
-
-    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //添加环信接口
-        if (mMyConnectionListener == null) {
-            mMyConnectionListener = new MyConnectionListener();
-            EMClient.getInstance().addConnectionListener(mMyConnectionListener);
-        }
 
         // 第一步：通过getSystemService（）方法得到NotificationManager对象；
         notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
