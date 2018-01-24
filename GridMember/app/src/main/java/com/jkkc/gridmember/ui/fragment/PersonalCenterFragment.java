@@ -14,11 +14,13 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.blankj.utilcode.util.AppUtils;
 import com.hyphenate.EMCallBack;
 import com.hyphenate.chat.EMClient;
 import com.jkkc.gridmember.LoginActivity;
 import com.jkkc.gridmember.R;
 import com.jkkc.gridmember.utils.PrefUtils;
+import com.tencent.bugly.Bugly;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
@@ -33,6 +35,7 @@ public class PersonalCenterFragment extends Fragment {
     private SweetAlertDialog mPDialog;
     private TextView mTvUserLoginInfo;
     private String mUser_info;
+    private TextView mTvVersionCode;
 
 
     @Nullable
@@ -42,6 +45,21 @@ public class PersonalCenterFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
 
         View view = View.inflate(getActivity(), R.layout.fragment_personal_center, null);
+        mTvVersionCode = view.findViewById(R.id.tvVersionCode);
+
+        String isDebugStr = AppUtils.isAppDebug() ? "内测版本" : "正式版本";
+        mTvVersionCode.setText("当前版本：" + isDebugStr +
+                AppUtils.getAppVersionName() + "." +
+                AppUtils.getAppVersionCode());
+        if (AppUtils.isAppDebug()) {
+            //内测版本
+            Bugly.init(getActivity(), "8711747843", false);
+        } else {
+            //正式版本
+            Bugly.init(getActivity(), "001e1b77fe", false);
+        }
+
+
 
         mTvUserLoginInfo = view.findViewById(R.id.tvUserLoginInfo);
         mUser_info = PrefUtils.getString(getActivity(), "user_info", null);

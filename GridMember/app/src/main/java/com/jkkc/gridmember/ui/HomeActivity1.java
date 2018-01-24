@@ -56,13 +56,6 @@ public class HomeActivity1 extends AppCompatActivity implements DatePickerDialog
 
 
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
-
-
-    }
-
-    @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
