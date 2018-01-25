@@ -1,6 +1,8 @@
 package com.jkkc.gridmember.ui.fragment;
 
 import android.app.DatePickerDialog;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -36,6 +38,8 @@ import com.lzy.okgo.model.Response;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+
+import cn.pedant.SweetAlert.SweetAlertDialog;
 
 import static com.jkkc.gridmember.R.id.spinner;
 
@@ -105,8 +109,7 @@ public class ReturnVisitFragment extends Fragment implements DatePickerDialog.On
                                 @Override
                                 public void onItemClick(View view, String data) {
 
-                                    Toast.makeText(getActivity(), data,
-                                            Toast.LENGTH_SHORT).show();
+
                                 }
                             });
                         }
@@ -227,7 +230,7 @@ public class ReturnVisitFragment extends Fragment implements DatePickerDialog.On
 
         //将数据与界面进行绑定的操作
         @Override
-        public void onBindViewHolder(ViewHolder viewHolder, int position) {
+        public void onBindViewHolder(ViewHolder viewHolder, final int position) {
 //            viewHolder.mTextView.setText(datas.get(position));
             viewHolder.tvName.setText(datas.get(position).getName());
             viewHolder.tvHomeAddress.setText(datas.get(position).getAddress());
@@ -238,9 +241,84 @@ public class ReturnVisitFragment extends Fragment implements DatePickerDialog.On
                 viewHolder.tvDay.setText(day);
             }
 
-
             //将数据保存在itemView的Tag中，以便点击时进行获取
             viewHolder.itemView.setTag(datas.get(position).getName());
+
+
+            viewHolder.ivGuide.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                    //驾车导航
+                    new SweetAlertDialog(getActivity())
+                            .setTitleText("导航?")
+                            .setContentText(datas.get(position).getAddress())
+                            .setConfirmText("确定")
+                            .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                                @Override
+                                public void onClick(SweetAlertDialog sDialog) {
+                                    sDialog.dismissWithAnimation();
+
+                                    Intent i1 = new Intent();
+                                    // 地址解析
+                                    i1.setData(Uri.parse("baidumap://map/geocoder?src=openApiDemo&" +
+                                            "address="
+                                            +mDatas.get(position).getAddress()));
+
+                                    getActivity().startActivity(i1);
+
+
+                                }
+                            })
+                            .setCancelText("取消")
+                            .setCancelClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                                @Override
+                                public void onClick(SweetAlertDialog sweetAlertDialog) {
+                                    sweetAlertDialog.cancel();
+
+                                }
+                            })
+                            .show();
+
+
+                }
+            });
+
+
+            viewHolder.ivCall.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+
+                    //打电话
+                    new SweetAlertDialog(getActivity())
+                            .setTitleText("拨号?")
+                            .setContentText(datas.get(position).getPhone())
+                            .setConfirmText("确定")
+                            .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                                @Override
+                                public void onClick(SweetAlertDialog sDialog) {
+                                    sDialog.dismissWithAnimation();
+                                    //调用Android系统API打电话
+                                    Uri uri = Uri.parse("tel:" + datas.get(position).getPhone());
+                                    Intent intent = new Intent(Intent.ACTION_CALL, uri);
+                                    startActivity(intent);
+
+                                }
+                            })
+                            .setCancelText("取消")
+                            .setCancelClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                                @Override
+                                public void onClick(SweetAlertDialog sweetAlertDialog) {
+                                    sweetAlertDialog.cancel();
+
+                                }
+                            })
+                            .show();
+
+
+                }
+            });
 
         }
 
