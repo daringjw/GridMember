@@ -207,6 +207,22 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
 
+       /* RefreshLayout refreshLayout = (RefreshLayout) findViewById(R.id.refreshLayout);
+        FunGameHitBlockHeader funGameHitBlockHeader = new FunGameHitBlockHeader(this);
+        refreshLayout.setRefreshHeader(funGameHitBlockHeader);
+        refreshLayout.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefresh(RefreshLayout refreshlayout) {
+                refreshlayout.finishRefresh(3000*//*,false*//*);//传入false表示刷新失败
+            }
+        });
+        refreshLayout.setOnLoadmoreListener(new OnLoadmoreListener() {
+            @Override
+            public void onLoadmore(RefreshLayout refreshlayout) {
+                refreshlayout.finishLoadmore(3000*//*,false*//*);//传入false表示加载失败
+            }
+        });*/
+
         // 第一步：通过getSystemService（）方法得到NotificationManager对象；
         notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
 

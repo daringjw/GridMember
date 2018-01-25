@@ -22,6 +22,11 @@ public class Config {
     //到达现场
     public static final String ARRIVE_URL = "/gridMemberApp/arrive.do";
 
+    //回访
+    public static final String RETURN_VISIT_URL = "/gridMemberApp/returnVisitList.do";
+
+
+
 
 
 }

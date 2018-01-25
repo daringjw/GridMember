@@ -17,7 +17,8 @@ import okhttp3.OkHttpClient;
  * Created by Guan on 2017/12/23.
  */
 
-public class MyApplication extends Application{
+public class MyApplication extends Application {
+
 
     @Override
     public void onCreate() {
@@ -50,7 +51,6 @@ public class MyApplication extends Application{
         builder.writeTimeout(OkGo.DEFAULT_MILLISECONDS, TimeUnit.MILLISECONDS);
         //全局的连接超时时间
         builder.connectTimeout(OkGo.DEFAULT_MILLISECONDS, TimeUnit.MILLISECONDS);
-
 
 
     }

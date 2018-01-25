@@ -6,6 +6,8 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,11 +16,22 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.jkkc.gridmember.R;
+import com.jkkc.gridmember.bean.LoginInfo;
+import com.jkkc.gridmember.bean.ReturnVisitList;
+import com.jkkc.gridmember.bean.ReturnVisitListData;
+import com.jkkc.gridmember.common.Config;
+import com.jkkc.gridmember.utils.PrefUtils;
+import com.lzy.okgo.OkGo;
+import com.lzy.okgo.callback.StringCallback;
+import com.lzy.okgo.model.Response;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -38,7 +51,11 @@ public class ReturnVisitFragment extends Fragment implements DatePickerDialog.On
     private EditText mEtName;
     private EditText mEtSelectDate;
     private Button mBtnSearch;
+    private LoginInfo mLoginInfo;
 
+    private static final String TAG = "ReturnVisitFragment";
+    //回访数据列表
+    private List<ReturnVisitListData> mDatas;
 
     @Nullable
     @Override
@@ -54,8 +71,49 @@ public class ReturnVisitFragment extends Fragment implements DatePickerDialog.On
         mEtSelectDate = view.findViewById(R.id.etSelectDate);
         mBtnSearch = view.findViewById(R.id.btnSearch);
 
+        String user_info = PrefUtils.getString(getActivity(), "user_info", "");
+        Gson gson = new Gson();
+        mLoginInfo = gson.fromJson(user_info, LoginInfo.class);
 
 
+        //回访列表
+        OkGo.<String>post(Config.GRIDMAN_URL + Config.RETURN_VISIT_URL)
+                .tag(this)
+                .params("token", mLoginInfo.getData().getToken())
+                .params("gridMemberId", mLoginInfo.getData().getId())
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+
+                        String result = response.body().toString();
+//                        Log.d(TAG, result);
+                        Gson gson1 = new Gson();
+                        ReturnVisitList returnVisitList = gson1.fromJson(result, ReturnVisitList.class);
+                        String data = returnVisitList.getData();
+                        Log.d(TAG, data);
+
+                        Gson gson2 = new Gson();
+                        mDatas = gson2.fromJson(data, new TypeToken<List<ReturnVisitListData>>() {
+                        }.getType());
+
+                        if (mDatas != null) {
+
+                            mAdapter = new MyAdapter(mDatas);
+                            mRecyclerView.setAdapter(mAdapter);
+
+                            mAdapter.setOnItemClickListener(new OnRecyclerViewItemClickListener() {
+                                @Override
+                                public void onItemClick(View view, String data) {
+
+                                    Toast.makeText(getActivity(), data,
+                                            Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                        }
+
+                    }
+
+                });
 
 
         //数据
@@ -133,17 +191,6 @@ public class ReturnVisitFragment extends Fragment implements DatePickerDialog.On
         itemList.add("条目5");
         itemList.add("条目6");
 
-        mAdapter = new MyAdapter(itemList);
-        mRecyclerView.setAdapter(mAdapter);
-
-        mAdapter.setOnItemClickListener(new OnRecyclerViewItemClickListener() {
-            @Override
-            public void onItemClick(View view, String data) {
-
-                Toast.makeText(getActivity(), data,
-                        Toast.LENGTH_SHORT).show();
-            }
-        });
 
         return view;
 
@@ -157,16 +204,19 @@ public class ReturnVisitFragment extends Fragment implements DatePickerDialog.On
     public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> implements
             View.OnClickListener {
 
-        public List<String> datas = null;
+        public List<ReturnVisitListData> datas = null;
 
-        public MyAdapter(List<String> datas) {
+        public MyAdapter(List<ReturnVisitListData> datas) {
             this.datas = datas;
         }
 
         //创建新View，被LayoutManager所调用
         @Override
         public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
-            View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item, viewGroup, false);
+            View view = LayoutInflater.from(viewGroup.getContext())
+                    .inflate(R.layout.item_return_visit, viewGroup, false);
+
+
             ViewHolder vh = new ViewHolder(view);
 
             //将创建的View注册点击事件
@@ -178,10 +228,19 @@ public class ReturnVisitFragment extends Fragment implements DatePickerDialog.On
         //将数据与界面进行绑定的操作
         @Override
         public void onBindViewHolder(ViewHolder viewHolder, int position) {
-            viewHolder.mTextView.setText(datas.get(position));
+//            viewHolder.mTextView.setText(datas.get(position));
+            viewHolder.tvName.setText(datas.get(position).getName());
+            viewHolder.tvHomeAddress.setText(datas.get(position).getAddress());
+            String day = datas.get(position).day;
+            if (TextUtils.isEmpty(day)) {
+                viewHolder.tvDay.setText("还未回访");
+            } else {
+                viewHolder.tvDay.setText(day);
+            }
+
 
             //将数据保存在itemView的Tag中，以便点击时进行获取
-            viewHolder.itemView.setTag(datas.get(position));
+            viewHolder.itemView.setTag(datas.get(position).getName());
 
         }
 
@@ -205,11 +264,22 @@ public class ReturnVisitFragment extends Fragment implements DatePickerDialog.On
 
         //自定义的ViewHolder，持有每个Item的的所有界面元素
         public class ViewHolder extends RecyclerView.ViewHolder {
-            public TextView mTextView;
+            //            public TextView mTextView;
+            public TextView tvName, tvHomeAddress, tvDay;
+            public ImageView ivCall, ivGuide, viewById;
+
 
             public ViewHolder(View view) {
                 super(view);
-                mTextView = view.findViewById(R.id.tvCity);
+//                mTextView = view.findViewById(R.id.tvCity);
+                tvName = view.findViewById(R.id.tvName);
+                tvHomeAddress = view.findViewById(R.id.tvHomeAddress);
+                tvDay = view.findViewById(R.id.tvDay);
+                ivCall = view.findViewById(R.id.ivCall);
+                ivGuide = view.findViewById(R.id.ivGuide);
+                viewById = view.findViewById(R.id.ivfu);
+
+
             }
         }
 

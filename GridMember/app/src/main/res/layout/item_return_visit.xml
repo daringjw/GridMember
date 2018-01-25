@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="80dp"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tvName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="20dp"
+        android:text="张三"/>
+
+    <TextView
+        android:id="@+id/tvHomeAddress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvName"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="10dp"
+        android:text="住址：长春市沁园春江南小学115号"/>
+
+    <ImageView
+        android:id="@+id/ivCall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toLeftOf="@+id/ivGuide"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="13dp"
+        android:src="@mipmap/call"/>
+
+    <ImageView
+        android:id="@+id/ivGuide"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toLeftOf="@+id/ivfu"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="13dp"
+        android:src="@mipmap/map_guide"/>
+
+    <ImageView
+        android:id="@+id/ivfu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="15dp"
+        android:layout_marginRight="14dp"
+        android:layout_alignParentRight="true"
+        android:src="@mipmap/fu"/>
+
+
+    <TextView
+        android:id="@+id/tvDay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="100dp"
+        android:layout_marginTop="20dp"
+        android:layout_toRightOf="@id/tvName"
+        android:text="5天"/>
+
+
+</RelativeLayout>
