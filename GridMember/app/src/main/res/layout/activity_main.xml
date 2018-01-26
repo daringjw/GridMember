@@ -25,6 +25,10 @@
         app:tabIndicatorColor="#0ff"
         app:tabMode="fixed"
         app:tabSelectedTextColor="#ffaa25"
+        app:tabBackground="@color/float_transparent"
+
+
+
         />
 
 

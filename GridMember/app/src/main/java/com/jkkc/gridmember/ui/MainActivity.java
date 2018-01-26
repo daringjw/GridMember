@@ -34,7 +34,6 @@ import com.jkkc.gridmember.event.PositionEvent;
 import com.jkkc.gridmember.manager.CallerInfoManager;
 import com.jkkc.gridmember.manager.PositionManager;
 import com.jkkc.gridmember.ui.fragment.ForHelpFragment;
-import com.jkkc.gridmember.ui.fragment.MapGuideFragment;
 import com.jkkc.gridmember.ui.fragment.PersonalCenterFragment;
 import com.jkkc.gridmember.ui.fragment.ReturnVisitFragment;
 import com.jkkc.gridmember.utils.PrefUtils;
@@ -206,26 +205,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
-       /* RefreshLayout refreshLayout = (RefreshLayout) findViewById(R.id.refreshLayout);
-        FunGameHitBlockHeader funGameHitBlockHeader = new FunGameHitBlockHeader(this);
-        refreshLayout.setRefreshHeader(funGameHitBlockHeader);
-        refreshLayout.setOnRefreshListener(new OnRefreshListener() {
-            @Override
-            public void onRefresh(RefreshLayout refreshlayout) {
-                refreshlayout.finishRefresh(3000*//*,false*//*);//传入false表示刷新失败
-            }
-        });
-        refreshLayout.setOnLoadmoreListener(new OnLoadmoreListener() {
-            @Override
-            public void onLoadmore(RefreshLayout refreshlayout) {
-                refreshlayout.finishLoadmore(3000*//*,false*//*);//传入false表示加载失败
-            }
-        });*/
-
         // 第一步：通过getSystemService（）方法得到NotificationManager对象；
         notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-
 
         LocationManager locManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         if (!locManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
@@ -251,17 +232,17 @@ public class MainActivity extends AppCompatActivity {
         LocationClientOption option = new LocationClientOption();
 
         option.setLocationMode(LocationClientOption.LocationMode.Hight_Accuracy);
-//可选，设置定位模式，默认高精度
-//LocationMode.Hight_Accuracy：高精度；
-//LocationMode. Battery_Saving：低功耗；
-//LocationMode. Device_Sensors：仅使用设备；
+        //可选，设置定位模式，默认高精度
+        //LocationMode.Hight_Accuracy：高精度；
+        //LocationMode. Battery_Saving：低功耗；
+        //LocationMode. Device_Sensors：仅使用设备；
 
         option.setCoorType("bd09ll");
-//可选，设置返回经纬度坐标类型，默认gcj02
-//gcj02：国测局坐标；
-//bd09ll：百度经纬度坐标；
-//bd09：百度墨卡托坐标；
-//海外地区定位，无需设置坐标类型，统一返回wgs84类型坐标
+        //可选，设置返回经纬度坐标类型，默认gcj02
+        //gcj02：国测局坐标；
+        //bd09ll：百度经纬度坐标；
+        //bd09：百度墨卡托坐标；
+        //海外地区定位，无需设置坐标类型，统一返回wgs84类型坐标
 
         option.setScanSpan(5000);
 //可选，设置发起定位请求的间隔，int类型，单位ms
@@ -334,8 +315,6 @@ public class MainActivity extends AppCompatActivity {
         tabLayout.getTabAt(0).setIcon(R.drawable.button_location_selector);
         tabLayout.getTabAt(1).setIcon(R.drawable.button_location_selector);
         tabLayout.getTabAt(2).setIcon(R.drawable.button_location_selector);
-        tabLayout.getTabAt(3).setIcon(R.drawable.button_location_selector);
-
 
 
     }
@@ -344,7 +323,7 @@ public class MainActivity extends AppCompatActivity {
     class MyFragmentPagerAdapter extends FragmentPagerAdapter {
 
 
-        private String[] titles = new String[]{"回访", "导航", "求助", "个人中心"};
+        private String[] titles = new String[]{"回访", "老人求助", "个人中心"};
         private SparseArray<Fragment> fragmentMap;
 
         private Context context;
@@ -356,9 +335,8 @@ public class MainActivity extends AppCompatActivity {
             if (fragmentMap == null) {
                 fragmentMap = new SparseArray();
                 fragmentMap.put(0, new ReturnVisitFragment());
-                fragmentMap.put(1, new MapGuideFragment());
-                fragmentMap.put(2, new ForHelpFragment());
-                fragmentMap.put(3, new PersonalCenterFragment());
+                fragmentMap.put(1, new ForHelpFragment());
+                fragmentMap.put(2, new PersonalCenterFragment());
             }
 
 

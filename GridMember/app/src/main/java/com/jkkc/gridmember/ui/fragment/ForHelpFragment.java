@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.jkkc.gridmember.R;
+import com.jkkc.gridmember.ui.BaiduMapActivity;
 import com.jkkc.gridmember.ui.TimingActivity;
 
 /**
@@ -32,6 +33,19 @@ public class ForHelpFragment extends Fragment {
             public void onClick(View view) {
 
                 startActivity(new Intent(getActivity(), TimingActivity.class));
+
+            }
+        });
+
+
+        Button btnLocation = view.findViewById(R.id.btnLocation);
+        btnLocation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                startActivity(new Intent(getActivity(),
+                        BaiduMapActivity.class));
+
 
             }
         });

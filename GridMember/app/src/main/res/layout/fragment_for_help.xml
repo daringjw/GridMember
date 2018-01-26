@@ -5,12 +5,20 @@
               android:background="@mipmap/splash"
               android:orientation="vertical">
 
-
     <Button
         android:id="@+id/btnHelp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="求助"
         android:textAllCaps="false"/>
+
+
+    <Button
+        android:id="@+id/btnLocation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="求助老人所在位置"/>
+
+
 
 </LinearLayout>

@@ -5,9 +5,6 @@
               android:background="@mipmap/splash"
               android:orientation="vertical">
 
-
-
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -20,21 +17,21 @@
             />
 
         <EditText
-            android:focusable="true"
-            android:focusableInTouchMode="true"
             android:id="@+id/etName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
             android:hint="姓名"/>
 
         <EditText
-            android:focusable="true"
-            android:focusableInTouchMode="true"
             android:id="@+id/etSelectDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
             android:hint="日期选择"/>
 
         <Button
@@ -44,21 +41,24 @@
             android:text="搜索"/>
 
 
-
     </LinearLayout>
 
-    <DatePicker
-        android:id="@+id/dpDatePicker"
+
+    <com.scwang.smartrefresh.layout.SmartRefreshLayout
+        android:id="@+id/refreshLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:visibility="gone"></DatePicker>
+        android:layout_height="match_parent">
 
 
-    <android.support.v7.widget.RecyclerView
-        android:layout_marginTop="10dp"
-        android:id="@+id/my_recycler_view"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scrollbars="vertical"/>
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/my_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="10dp"
+            android:scrollbars="vertical"/>
+
+
+    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+
 
 </LinearLayout>

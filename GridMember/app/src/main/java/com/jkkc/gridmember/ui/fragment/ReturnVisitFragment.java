@@ -34,6 +34,12 @@ import com.jkkc.gridmember.utils.PrefUtils;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
+import com.scwang.smartrefresh.header.FunGameHitBlockHeader;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.constant.SpinnerStyle;
+import com.scwang.smartrefresh.layout.footer.BallPulseFooter;
+import com.scwang.smartrefresh.layout.listener.OnLoadmoreListener;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -79,6 +85,26 @@ public class ReturnVisitFragment extends Fragment implements DatePickerDialog.On
         Gson gson = new Gson();
         mLoginInfo = gson.fromJson(user_info, LoginInfo.class);
 
+
+        RefreshLayout refreshLayout = view.findViewById(R.id.refreshLayout);
+        refreshLayout.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefresh(RefreshLayout refreshlayout) {
+                refreshlayout.finishRefresh(2000/*,false*/);//传入false表示刷新失败
+            }
+        });
+        refreshLayout.setOnLoadmoreListener(new OnLoadmoreListener() {
+            @Override
+            public void onLoadmore(RefreshLayout refreshlayout) {
+                refreshlayout.finishLoadmore(2000/*,false*/);//传入false表示加载失败
+            }
+        });
+
+        FunGameHitBlockHeader funGameHitBlockHeader = new FunGameHitBlockHeader(getActivity());
+        //设置 Header 为 Material样式
+        refreshLayout.setRefreshHeader(funGameHitBlockHeader);
+        //设置 Footer 为 球脉冲
+        refreshLayout.setRefreshFooter(new BallPulseFooter(getActivity()).setSpinnerStyle(SpinnerStyle.Scale));
 
         //回访列表
         OkGo.<String>post(Config.GRIDMAN_URL + Config.RETURN_VISIT_URL)
@@ -263,7 +289,7 @@ public class ReturnVisitFragment extends Fragment implements DatePickerDialog.On
                                     // 地址解析
                                     i1.setData(Uri.parse("baidumap://map/geocoder?src=openApiDemo&" +
                                             "address="
-                                            +mDatas.get(position).getAddress()));
+                                            + mDatas.get(position).getAddress()));
 
                                     getActivity().startActivity(i1);
 
