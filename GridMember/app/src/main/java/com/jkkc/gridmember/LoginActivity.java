@@ -145,14 +145,8 @@ public class LoginActivity extends AppCompatActivity {
         public void onConnected() {
 
             Log.d(TAG, "已连接上");
-            Intent intent = getIntent();
-            boolean logout = intent.getBooleanExtra("logout", false);
-            Log.d(TAG,"logout = "+logout);
-            if (!logout){
-                startActivity(new Intent(getApplicationContext(), MainActivity.class));
-                finish();
-            }
-
+            startActivity(new Intent(getApplicationContext(), MainActivity.class));
+            finish();
 
 
         }

@@ -3,9 +3,11 @@ package com.jkkc.gridmember.ui.fragment;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -117,18 +119,7 @@ public class PersonalCenterFragment extends Fragment {
                     @Override
                     public void onSuccess() {
                         // TODO Auto-generated method stub
-                        getActivity().runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                Toast.makeText(getActivity(), "用户退出", Toast.LENGTH_SHORT).show();
-                                mLogoutDialog.cancel();
-                            }
-                        });
-
-                        Intent intent = new Intent(getActivity(), LoginActivity.class);
-                        intent.putExtra("logout", true);
-                        startActivity(intent);
-                        getActivity().finish();
+                        Log.d("person","用户退出");
 
                     }
 
@@ -145,6 +136,19 @@ public class PersonalCenterFragment extends Fragment {
 
                     }
                 });
+
+
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(getActivity(), "用户退出", Toast.LENGTH_SHORT).show();
+                        mLogoutDialog.cancel();
+                        Intent intent = new Intent(getActivity(), LoginActivity.class);
+                        startActivity(intent);
+                        getActivity().finish();
+                    }
+                }, 2000);
+
 
             }
         });
