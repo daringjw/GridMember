@@ -30,6 +30,7 @@ import com.jkkc.gridmember.bean.LoginInfo;
 import com.jkkc.gridmember.bean.ReturnVisitList;
 import com.jkkc.gridmember.bean.ReturnVisitListData;
 import com.jkkc.gridmember.common.Config;
+import com.jkkc.gridmember.ui.ReturnVisitRecordActivity;
 import com.jkkc.gridmember.utils.PrefUtils;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
@@ -270,6 +271,18 @@ public class ReturnVisitFragment extends Fragment implements DatePickerDialog.On
             //将数据保存在itemView的Tag中，以便点击时进行获取
             viewHolder.itemView.setTag(datas.get(position).getName());
 
+            viewHolder.ivfu.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                    Intent intent = new Intent(getActivity(), ReturnVisitRecordActivity.class);
+                    intent.putExtra("oldName",datas.get(position).getName());
+                    startActivity(intent);
+
+
+
+                }
+            });
 
             viewHolder.ivGuide.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -370,7 +383,7 @@ public class ReturnVisitFragment extends Fragment implements DatePickerDialog.On
         public class ViewHolder extends RecyclerView.ViewHolder {
             //            public TextView mTextView;
             public TextView tvName, tvHomeAddress, tvDay;
-            public ImageView ivCall, ivGuide, viewById;
+            public ImageView ivCall, ivGuide, ivfu;
 
 
             public ViewHolder(View view) {
@@ -381,7 +394,7 @@ public class ReturnVisitFragment extends Fragment implements DatePickerDialog.On
                 tvDay = view.findViewById(R.id.tvDay);
                 ivCall = view.findViewById(R.id.ivCall);
                 ivGuide = view.findViewById(R.id.ivGuide);
-                viewById = view.findViewById(R.id.ivfu);
+                ivfu = view.findViewById(R.id.ivfu);
 
 
             }

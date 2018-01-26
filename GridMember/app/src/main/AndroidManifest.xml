@@ -117,6 +117,15 @@
         </activity>
 
         <activity
+            android:name=".ui.ReturnVisitRecordActivity"
+            android:launchMode="singleInstance"
+            android:screenOrientation="portrait"
+            >
+        </activity>
+
+
+
+        <activity
             android:name=".ui.BaiduMapActivity"
             android:launchMode="singleInstance"
             android:screenOrientation="portrait"
