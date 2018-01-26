@@ -89,7 +89,6 @@ public class LoginActivity extends AppCompatActivity {
             //正式版本
             Bugly.init(getApplicationContext(), "001e1b77fe", false);
 
-
         }
 
 
@@ -146,8 +145,15 @@ public class LoginActivity extends AppCompatActivity {
         public void onConnected() {
 
             Log.d(TAG, "已连接上");
-            startActivity(new Intent(getApplicationContext(), MainActivity.class));
-            finish();
+            Intent intent = getIntent();
+            boolean logout = intent.getBooleanExtra("logout", false);
+            Log.d(TAG,"logout = "+logout);
+            if (!logout){
+                startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                finish();
+            }
+
+
 
         }
 
@@ -164,21 +170,18 @@ public class LoginActivity extends AppCompatActivity {
                                 LoginActivity.class));
 
 
-
                     } else if (error == EMError.USER_LOGIN_ANOTHER_DEVICE) {
                         // 显示帐号在其他设备登录
                         startActivity(new Intent(getApplicationContext(),
                                 LoginActivity.class));
 
 
-
                     } else {
                         if (NetUtils.hasNetwork(LoginActivity.this)) {
-                            //连接不到聊天服务器
 
+                            //连接不到聊天服务器
                             startActivity(new Intent(getApplicationContext(),
                                     LoginActivity.class));
-
 
 
                         } else {
@@ -191,8 +194,6 @@ public class LoginActivity extends AppCompatActivity {
                                             Toast.LENGTH_SHORT).show();
                                 }
                             });
-
-
 
 
                         }
@@ -213,17 +214,9 @@ public class LoginActivity extends AppCompatActivity {
         mPDialog.setCancelable(true);
         mPDialog.show();
 
-        /*new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                mPDialog.dismiss();
-                startActivity(new Intent(getApplicationContext(), MainActivity.class));
-                finish();
-            }
-        },1500);*/
+
         mAccount = mEtUserName.getText().toString().trim();
         mPwd = mEtPwd.getText().toString().trim();
-
 
 
         OkGo.<String>post(Config.GRIDMAN_URL + Config.LOGIN_URL)
@@ -328,7 +321,6 @@ public class LoginActivity extends AppCompatActivity {
         if (mPDialog != null) {
             mPDialog.dismiss();
         }
-
 
 
     }
