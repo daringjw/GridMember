@@ -5,6 +5,7 @@ import android.content.Context;
 import android.support.multidex.MultiDex;
 
 import com.blankj.utilcode.util.Utils;
+import com.facebook.drawee.backends.pipeline.Fresco;
 import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMOptions;
 import com.lzy.okgo.OkGo;
@@ -24,6 +25,8 @@ public class MyApplication extends Application {
     public void onCreate() {
         super.onCreate();
 
+        // the following line is important
+        Fresco.initialize(getApplicationContext());
 
         // init it in the function of onCreate in ur Application
         Utils.init(this);

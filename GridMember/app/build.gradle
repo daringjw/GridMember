@@ -115,15 +115,15 @@ dependencies {
     //    compile 'com.android.support:appcompat-v7:26.+'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     testCompile 'junit:junit:4.12'
-    compile 'com.android.support:design:26.0.0-alpha1'
+    compile 'com.android.support:design:23.3.0'
 
 
     //
     compile 'com.scwang.smartrefresh:SmartRefreshLayout:1.0.4-7'
     compile 'com.scwang.smartrefresh:SmartRefreshHeader:1.0.4-7'//没有使用特殊Header，可以不加这行
 
-    compile 'com.android.support:appcompat-v7:26.0.0-alpha1'//版本随意（必须）
-    compile 'com.android.support:design:26.0.0-alpha1'//版本随意（非必须，引用可以解决无法预览问题）
+    compile 'com.android.support:appcompat-v7:23.3.0'//版本随意（必须）
+    compile 'com.android.support:design:23.3.0'//版本随意（非必须，引用可以解决无法预览问题）
 
 //1.0.4 出现问题可以回退到 1.0.3
     compile 'com.scwang.smartrefresh:SmartRefreshLayout:1.0.3'
@@ -150,6 +150,8 @@ dependencies {
     compile 'com.blankj:utilcode:1.11.1'
 
     compile 'com.android.support:recyclerview-v7:21.0.+'
+
+    compile 'com.zfdang.multiple-images-selector:multiple-images-selector:1.+'
 
 
 }

@@ -167,7 +167,6 @@ public class ReturnVisitFragment extends Fragment implements DatePickerDialog.On
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 
                 String data = data_list.get(i);//从spinner中获取被选择的数据
-                Toast.makeText(getActivity(), "选中" + data, Toast.LENGTH_SHORT).show();
 
             }
 
