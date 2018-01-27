@@ -47,11 +47,11 @@
     <uses-permission android:name="android.permission.CALL_PHONE"/>
     <uses-permission android:name="android.permission.SEND_SMS"/>
 
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
     <!--the following two permissions are required if you want to take photo in selector-->
-    <uses-permission android:name="android.permission.CAMERA" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 
 
     <application
@@ -108,9 +108,8 @@
 
         <activity
             android:name="com.zfdang.multiple_images_selector.ImagesSelectorActivity"
-            android:hardwareAccelerated="false"
-            android:configChanges="orientation|screenSize"/>
-
+            android:configChanges="orientation|screenSize"
+            android:hardwareAccelerated="false"/>
 
 
         <activity
@@ -135,7 +134,6 @@
         </activity>
 
 
-
         <activity
             android:name=".ui.BaiduMapActivity"
             android:launchMode="singleInstance"
@@ -150,6 +148,13 @@
             android:screenOrientation="portrait"
             >
         </activity>
+
+        <activity
+            android:name=".ui.PicsContainerActivity"
+            android:launchMode="singleInstance"
+            android:screenOrientation="portrait"
+            ></activity>
+
 
         <activity
             android:name=".ui.HomeActivity1"
