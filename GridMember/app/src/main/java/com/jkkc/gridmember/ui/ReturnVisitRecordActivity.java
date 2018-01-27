@@ -23,12 +23,14 @@ import java.util.ArrayList;
 
 public class ReturnVisitRecordActivity extends AppCompatActivity {
 
+    private static final String TAG = ReturnVisitRecordActivity.class.getSimpleName();
     private Button mBtnTakePic;
 
     // class variables
     private static final int REQUEST_CODE = 123;
     private ArrayList<String> mResults = new ArrayList<>();
     private TextView mTvPicDir;
+    private String mPicStr;
 
 
     @Override
@@ -90,17 +92,37 @@ public class ReturnVisitRecordActivity extends AppCompatActivity {
 
                 // show results in textview
                 StringBuffer sb = new StringBuffer();
-                sb.append(String.format("Totally %d images selected:", mResults.size())).append("\n");
+                sb.append(String.format("", mResults.size())).append("\n");
                 for (String result : mResults) {
                     sb.append(result).append("\n");
                 }
 
-                mTvPicDir.setText(sb.toString());
+                mTvPicDir.setText(sb.toString().trim());
+
+                mPicStr = sb.toString().trim();
+
+
+                /*mTvPicDir.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+
+                        File file = new File(mPicStr);
+                        //打开指定的一张照片
+                        //使用Intent
+                        Intent intent = new Intent(Intent.ACTION_VIEW);
+                        intent.setDataAndType(Uri.fromFile(file), "image*//*");
+                        startActivity(intent);
+
+
+                    }
+                });*/
+
             }
         }
+
         super.onActivityResult(requestCode, resultCode, data);
 
-        
+
     }
 
 
