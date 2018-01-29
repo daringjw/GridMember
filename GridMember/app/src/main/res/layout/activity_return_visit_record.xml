@@ -86,7 +86,21 @@
         />
 
 
+    <Button
+        android:id="@+id/btnUpload"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="80dp"
+        android:text="上传服务器"
+        android:visibility="gone"
+        />
 
+
+    <Button
+        android:id="@+id/btnGetPicFromServer"
+        android:text="从服务器获取已经上传了的图片"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
 
 
 

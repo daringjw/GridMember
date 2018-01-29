@@ -125,7 +125,8 @@ public class LoginActivity extends AppCompatActivity {
                         Manifest.permission.READ_CONTACTS,
                         Manifest.permission.RECORD_AUDIO,
                         Manifest.permission.GET_ACCOUNTS,
-                        Manifest.permission.CALL_PHONE
+                        Manifest.permission.CALL_PHONE,
+                        Manifest.permission.RECORD_AUDIO
 
                 )
                 .request();

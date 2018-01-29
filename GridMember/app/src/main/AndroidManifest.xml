@@ -155,6 +155,18 @@
             android:screenOrientation="portrait"
             ></activity>
 
+        <activity
+            android:name=".ui.view.ImagesSelectorActivity1"
+            android:launchMode="singleInstance"
+            android:screenOrientation="portrait"
+            ></activity>
+
+        <activity
+            android:name="com.jkkc.gridmember.ui.view.ReturnVisitRecordActivity1"
+            android:launchMode="singleInstance"
+            android:screenOrientation="portrait"
+            ></activity>
+
 
         <activity
             android:name=".ui.HomeActivity1"
