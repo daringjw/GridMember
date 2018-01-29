@@ -1,4 +1,4 @@
-package com.jkkc.gridmember.ui.view;
+package com.jkkc.gridmember.ui;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -22,6 +22,9 @@ public class ReturnVisitRecordActivity1 extends AppCompatActivity{
         String oldName = getIntent().getStringExtra("oldName");
         TextView tvOldName = (TextView) findViewById(R.id.tvOldName);
         tvOldName.setText(oldName);
+
+
+
 
     }
 

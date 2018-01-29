@@ -30,7 +30,7 @@ import com.jkkc.gridmember.bean.LoginInfo;
 import com.jkkc.gridmember.bean.ReturnVisitList;
 import com.jkkc.gridmember.bean.ReturnVisitListData;
 import com.jkkc.gridmember.common.Config;
-import com.jkkc.gridmember.ui.view.ReturnVisitRecordActivity1;
+import com.jkkc.gridmember.ui.ReturnVisitRecordActivity;
 import com.jkkc.gridmember.utils.PrefUtils;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
@@ -274,7 +274,7 @@ public class ReturnVisitFragment extends Fragment implements DatePickerDialog.On
                 @Override
                 public void onClick(View view) {
 
-                    Intent intent = new Intent(getActivity(), ReturnVisitRecordActivity1.class);
+                    Intent intent = new Intent(getActivity(), ReturnVisitRecordActivity.class);
                     intent.putExtra("oldName",datas.get(position).getName());
                     startActivity(intent);
 
