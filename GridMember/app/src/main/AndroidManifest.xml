@@ -149,6 +149,17 @@
             >
         </activity>
 
+         <activity
+
+            android:name=".ui.RecordActivity"
+            android:launchMode="singleInstance"
+            android:screenOrientation="portrait"
+            >
+        </activity>
+
+
+
+
         <activity
             android:name=".ui.PicsContainerActivity"
             android:launchMode="singleInstance"

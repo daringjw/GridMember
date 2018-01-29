@@ -47,6 +47,7 @@ public class ReturnVisitRecordActivity extends AppCompatActivity {
     private String mPicStr0;
     private Button mBtnUpload;
     private ArrayList<File> mFiles;
+    private Button mBtnRecord;
 
 
     @Override
@@ -54,6 +55,17 @@ public class ReturnVisitRecordActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_return_visit_record);
+
+        mBtnRecord = (Button) findViewById(R.id.btnRecord);
+        mBtnRecord.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                startActivity(new Intent(getApplicationContext(),RecordActivity.class));
+
+            }
+        });
+
 
         mBtnUpload = (Button) findViewById(R.id.btnUpload);
 
