@@ -196,6 +196,7 @@ public class BaiduMapActivity extends AppCompatActivity {
     }
 
 
+
     @Subscribe(threadMode = ThreadMode.MAIN) //在ui线程执行
     public void onDataSynEvent(PositionEvent event) {
 

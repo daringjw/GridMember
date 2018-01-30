@@ -178,6 +178,14 @@
             android:screenOrientation="portrait"
             ></activity>
 
+        <activity
+            android:name="com.jkkc.gridmember.ui.YourLocationActivity"
+            android:launchMode="singleInstance"
+            android:screenOrientation="portrait"
+            ></activity>
+
+
+
 
         <activity
             android:name=".ui.HomeActivity1"

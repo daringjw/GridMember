@@ -12,6 +12,7 @@ import android.widget.Button;
 import com.jkkc.gridmember.R;
 import com.jkkc.gridmember.ui.BaiduMapActivity;
 import com.jkkc.gridmember.ui.TimingActivity;
+import com.jkkc.gridmember.ui.YourLocationActivity;
 
 /**
  * Created by Guan on 2018/1/19.
@@ -46,6 +47,17 @@ public class ForHelpFragment extends Fragment {
                 startActivity(new Intent(getActivity(),
                         BaiduMapActivity.class));
 
+
+            }
+        });
+
+
+        Button btnYourLocation = view.findViewById(R.id.btnYourLocation);
+        btnYourLocation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                startActivity(new Intent(getActivity(),YourLocationActivity.class));
 
             }
         });
