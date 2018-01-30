@@ -59,6 +59,9 @@ public class ReturnVisitRecordActivity extends AppCompatActivity {
     private int pgo;
     private LoginInfo mLoginInfo;
     private String mRecord;
+    private String mToken;
+    private int mGridMemberId;
+    private String mImgPath;
 
 
     @Override
@@ -209,7 +212,7 @@ public class ReturnVisitRecordActivity extends AppCompatActivity {
 
 
                                     }
-                                }, 3000);
+                                }, 1000*10);
 
 
                             }
@@ -230,43 +233,66 @@ public class ReturnVisitRecordActivity extends AppCompatActivity {
 
                 Log.d(TAG, "所有图片=" + mSb.toString());
                 mRecord = PrefUtils.getString(getApplicationContext(), "record", null);
-                Log.d(TAG, mRecord);
-
-                String token = mLoginInfo.getData().getToken();
-                int gridMemberId = mLoginInfo.getData().getId();
+//                Log.d(TAG, mRecord);
+                mToken = mLoginInfo.getData().getToken();
+                mGridMemberId = mLoginInfo.getData().getId();
                 //  imgPath    mSb.toString());
                 // oldId    1
                 // filePath
 
+                if (!TextUtils.isEmpty(mSb.toString())) {
+                    mImgPath = mSb.toString().substring(1, mSb.toString().length());
+                    Log.d(TAG, mToken + "\n" + mGridMemberId + "\n" + mImgPath
+                            + "\n" + 1 + "\n"
+                            + (TextUtils.isEmpty(mRecord) ? "null" : mRecord)
+                    );
+                    new SweetAlertDialog(ReturnVisitRecordActivity.this)
+                            .setTitleText("提交?")
+                            .setContentText("录音和图片提交")
+                            .setConfirmText("确定")
+                            .setCancelText("取消")
+                            .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                                @Override
+                                public void onClick(final SweetAlertDialog sDialog) {
 
-                String imgPath = mSb.toString().substring(1, mSb.toString().length());
+                                    OkGo.<String>post(Config.GRIDMAN_URL + Config.ADD_RETURN_URL)//
+                                            .tag(this)
+                                            .params("token", mToken)
+                                            .params("gridMemberId", mGridMemberId)
+                                            .params("imgPath", mImgPath)
+                                            .params("oldId", 1)
+                                            .params("filePath", (TextUtils.isEmpty(mRecord) ? "null" : mRecord))
+                                            .execute(new StringCallback() {
+                                                @Override
+                                                public void onSuccess(Response<String> response) {
 
-                Log.d(TAG, token + "\n" + gridMemberId + "\n" + imgPath
-                        + "\n" + 1 + "\n"
-                        + (TextUtils.isEmpty(mRecord) ? "null" : mRecord)
-                );
+                                                    Log.d(TAG, "全部提交完毕" + response.body().toString());
+                                                    Toast.makeText(getApplicationContext(), "全部提交完毕",
+                                                            Toast.LENGTH_SHORT).show();
+
+                                                    sDialog
+                                                            .setTitleText("上传成功!")
+                                                            .setContentText("提交成功")
+                                                            .setConfirmText("确定")
+                                                            .setCancelText("恭喜")
+                                                            .setConfirmClickListener(null)
+                                                            .changeAlertType(SweetAlertDialog.SUCCESS_TYPE);
+
+                                                }
 
 
-                OkGo.<String>post(Config.GRIDMAN_URL + Config.ADD_RETURN_URL)//
-                        .tag(this)
-                        .params("token", token)
-                        .params("gridMemberId", gridMemberId)
-                        .params("imgPath", imgPath)
-                        .params("oldId", 1)
-                        .params("filePath", (TextUtils.isEmpty(mRecord) ? "null" : mRecord))
-                        .execute(new StringCallback() {
-                            @Override
-                            public void onSuccess(Response<String> response) {
-
-                                Log.d(TAG, "全部提交完毕" + response.body().toString());
-                                Toast.makeText(getApplicationContext(), "全部提交完毕",
-                                        Toast.LENGTH_SHORT).show();
+                                            });
 
 
-                            }
 
 
-                        });
+                                }
+                            })
+                            .show();
+
+
+
+                }
 
 
             }
