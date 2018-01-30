@@ -62,6 +62,9 @@ public class PersonalCenterFragment extends Fragment {
 
         mRlVersion = view.findViewById(R.id.rlVersion);
 
+        String size = PrefUtils.getString(getActivity(), "size", null);
+        Log.d("PersonalCenterFragment",size);
+        mTvReturnVisitCount.setText(size);
 
         if (AppUtils.isAppDebug()) {
             mTvVersion.setText("测试版本 " + AppUtils.getAppVersionName() +
@@ -119,7 +122,7 @@ public class PersonalCenterFragment extends Fragment {
                     @Override
                     public void onSuccess() {
                         // TODO Auto-generated method stub
-                        Log.d("person","用户退出");
+                        Log.d("person", "用户退出");
 
                     }
 

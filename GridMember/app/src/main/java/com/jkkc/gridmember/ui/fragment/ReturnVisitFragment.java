@@ -68,6 +68,7 @@ public class ReturnVisitFragment extends Fragment implements DatePickerDialog.On
     //回访数据列表
     private List<ReturnVisitListData> mDatas;
 
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater,
@@ -128,6 +129,9 @@ public class ReturnVisitFragment extends Fragment implements DatePickerDialog.On
                         }.getType());
 
                         if (mDatas != null) {
+
+                            int size = mDatas.size();
+                            PrefUtils.setString(getActivity(), "size", size + "");
 
                             mAdapter = new MyAdapter(mDatas);
                             mRecyclerView.setAdapter(mAdapter);
@@ -275,10 +279,9 @@ public class ReturnVisitFragment extends Fragment implements DatePickerDialog.On
                 public void onClick(View view) {
 
                     Intent intent = new Intent(getActivity(), ReturnVisitRecordActivity.class);
-                    intent.putExtra("oldName",datas.get(position).getName());
+                    intent.putExtra("oldName", datas.get(position).getName());
 //                    intent.putExtra("", datas.get(position).getAddress());
                     startActivity(intent);
-
 
 
                 }
