@@ -39,11 +39,11 @@ public class AudioRecorder {
             myDir.mkdir();
         }
 
-        fileName = mDir + System.currentTimeMillis() + ".amr";
+        fileName = mDir + System.currentTimeMillis() + ".3gp";
         mMediaRecorder=new MediaRecorder();
 
         mMediaRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
-        mMediaRecorder.setOutputFormat(MediaRecorder.OutputFormat.AMR_NB);
+        mMediaRecorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
         mMediaRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
         mMediaRecorder.setAudioSamplingRate(8000);
         mMediaRecorder.setOutputFile(fileName);

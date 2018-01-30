@@ -165,10 +165,12 @@ public class LoginActivity extends AppCompatActivity {
                                 LoginActivity.class));
 
 
+
                     } else if (error == EMError.USER_LOGIN_ANOTHER_DEVICE) {
                         // 显示帐号在其他设备登录
                         startActivity(new Intent(getApplicationContext(),
                                 LoginActivity.class));
+
 
 
                     } else {

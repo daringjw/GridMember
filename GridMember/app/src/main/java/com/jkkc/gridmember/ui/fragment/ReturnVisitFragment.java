@@ -276,6 +276,7 @@ public class ReturnVisitFragment extends Fragment implements DatePickerDialog.On
 
                     Intent intent = new Intent(getActivity(), ReturnVisitRecordActivity.class);
                     intent.putExtra("oldName",datas.get(position).getName());
+//                    intent.putExtra("", datas.get(position).getAddress());
                     startActivity(intent);
 
 
