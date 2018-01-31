@@ -62,9 +62,12 @@ public class PersonalCenterFragment extends Fragment {
 
         mRlVersion = view.findViewById(R.id.rlVersion);
 
-        String size = PrefUtils.getString(getActivity(), "size", null);
-        Log.d("PersonalCenterFragment",size);
-        mTvReturnVisitCount.setText(size);
+        String customer_visits = PrefUtils.getString(getActivity(), "customer_visits", null);
+        if (!TextUtils.isEmpty(customer_visits)) {
+            mTvReturnVisitCount.setText(customer_visits);
+        } else {
+            mTvReturnVisitCount.setText("0");
+        }
 
         if (AppUtils.isAppDebug()) {
             mTvVersion.setText("测试版本 " + AppUtils.getAppVersionName() +

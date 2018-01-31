@@ -23,9 +23,15 @@
     <Button
         android:id="@+id/btnYourLocation"
         android:layout_width="wrap_content"
-        android:text="您现在所在的位置"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:text="您现在所在的位置"/>
 
+
+    <Button
+        android:id="@+id/btnReturnRecordList"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="回访记录"/>
 
 
 </LinearLayout>

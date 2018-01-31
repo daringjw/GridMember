@@ -11,6 +11,7 @@ import android.widget.Button;
 
 import com.jkkc.gridmember.R;
 import com.jkkc.gridmember.ui.BaiduMapActivity;
+import com.jkkc.gridmember.ui.ReturnRecordListActivity;
 import com.jkkc.gridmember.ui.TimingActivity;
 import com.jkkc.gridmember.ui.YourLocationActivity;
 
@@ -59,6 +60,16 @@ public class ForHelpFragment extends Fragment {
 
                 startActivity(new Intent(getActivity(),YourLocationActivity.class));
 
+            }
+        });
+
+
+        Button btnReturnRecordList = view.findViewById(R.id.btnReturnRecordList);
+        btnReturnRecordList.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                startActivity(new Intent(getActivity(), ReturnRecordListActivity.class));
             }
         });
 

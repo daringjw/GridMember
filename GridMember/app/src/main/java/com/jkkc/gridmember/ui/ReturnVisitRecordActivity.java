@@ -5,6 +5,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
+import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
@@ -16,6 +17,7 @@ import android.widget.Toast;
 
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.google.gson.Gson;
+import com.jkkc.gridmember.BuildConfig;
 import com.jkkc.gridmember.R;
 import com.jkkc.gridmember.bean.LoginInfo;
 import com.jkkc.gridmember.common.Config;
@@ -62,6 +64,7 @@ public class ReturnVisitRecordActivity extends AppCompatActivity {
     private String mToken;
     private int mGridMemberId;
     private String mImgPath;
+    private String mOldId;
 
 
     @Override
@@ -103,6 +106,9 @@ public class ReturnVisitRecordActivity extends AppCompatActivity {
         String oldName = getIntent().getStringExtra("oldName");
         TextView tvOldName = (TextView) findViewById(R.id.tvOldName);
         tvOldName.setText(oldName);
+
+        mOldId = getIntent().getStringExtra("oldId");
+
 
         mBtnTakePic = (Button) findViewById(R.id.btnTakePic);
         mBtnTakePic.setOnClickListener(new View.OnClickListener() {
@@ -212,7 +218,7 @@ public class ReturnVisitRecordActivity extends AppCompatActivity {
 
 
                                     }
-                                }, 1000*10);
+                                }, 1000 * 15);
 
 
                             }
@@ -255,12 +261,12 @@ public class ReturnVisitRecordActivity extends AppCompatActivity {
                                 @Override
                                 public void onClick(final SweetAlertDialog sDialog) {
 
-                                    OkGo.<String>post(Config.GRIDMAN_URL + Config.ADD_RETURN_URL)//
-                                            .tag(this)
+                                    OkGo.<String>post(Config.GRIDMAN_URL + Config.ADD_RETURN_URL)
+                                            .tag(ReturnVisitRecordActivity.class)
                                             .params("token", mToken)
                                             .params("gridMemberId", mGridMemberId)
                                             .params("imgPath", mImgPath)
-                                            .params("oldId", 1)
+                                            .params("oldId", mOldId)
                                             .params("filePath", (TextUtils.isEmpty(mRecord) ? "null" : mRecord))
                                             .execute(new StringCallback() {
                                                 @Override
@@ -275,8 +281,24 @@ public class ReturnVisitRecordActivity extends AppCompatActivity {
                                                             .setContentText("提交成功")
                                                             .setConfirmText("确定")
                                                             .setCancelText("恭喜")
-                                                            .setConfirmClickListener(null)
-                                                            .changeAlertType(SweetAlertDialog.SUCCESS_TYPE);
+                                                            .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                                                                @Override
+                                                                public void onClick(SweetAlertDialog sweetAlertDialog) {
+
+
+                                                                    startActivity(new Intent(getApplicationContext(),
+                                                                            ReturnRecordListActivity.class));
+                                                                    sweetAlertDialog.cancel();
+                                                                    finish();
+
+
+                                                                }
+                                                            })
+
+                                                            .changeAlertType(SweetAlertDialog.SUCCESS_TYPE)
+
+
+                                                    ;
 
                                                 }
 
@@ -284,13 +306,16 @@ public class ReturnVisitRecordActivity extends AppCompatActivity {
                                             });
 
 
-
-
                                 }
                             })
                             .show();
 
 
+                }else {
+
+
+                    Toast.makeText(getApplicationContext(),"抱歉服务器有延时，请稍后",
+                            Toast.LENGTH_SHORT).show();
 
                 }
 
@@ -334,12 +359,17 @@ public class ReturnVisitRecordActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View view) {
 
-                       /* File file = new File(mPicStr0);
+                        File file = new File(mPicStr0);
                         //打开指定的一张照片
                         //使用Intent
                         Intent intent = new Intent(Intent.ACTION_VIEW);
-                        intent.setDataAndType(Uri.fromFile(file), "image");
-                        startActivity(intent);*/
+                        intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                        Uri contentUri = FileProvider.getUriForFile(getApplicationContext(),
+                                BuildConfig.APPLICATION_ID + ".fileProvider", file);
+
+//                        intent.setDataAndType(contentUri, "application/vnd.android.package-archive");
+                        intent.setDataAndType(contentUri, "image");
+                        startActivity(intent);
 
 
                     }

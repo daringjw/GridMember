@@ -140,6 +140,7 @@ public class ReturnVisitFragment extends Fragment implements DatePickerDialog.On
                                 @Override
                                 public void onItemClick(View view, String data) {
 
+//                                    Toast.makeText(getActivity(), data, Toast.LENGTH_SHORT).show();
 
                                 }
                             });
@@ -278,9 +279,10 @@ public class ReturnVisitFragment extends Fragment implements DatePickerDialog.On
                 @Override
                 public void onClick(View view) {
 
+                    Log.d(TAG, "oldId==" + datas.get(position).oldId);
                     Intent intent = new Intent(getActivity(), ReturnVisitRecordActivity.class);
                     intent.putExtra("oldName", datas.get(position).getName());
-//                    intent.putExtra("", datas.get(position).getAddress());
+                    intent.putExtra("oldId", datas.get(position).oldId);
                     startActivity(intent);
 
 

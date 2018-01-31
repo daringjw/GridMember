@@ -19,6 +19,7 @@ public class ReturnVisitListData {
     private String name;
     private String phone;
     public String day;
+    public String oldId;
 
     public String getAddress() {
         return address;

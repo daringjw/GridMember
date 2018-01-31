@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="@mipmap/guide_bar">
+
+        <ImageView
+            android:id="@+id/ivBack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20dp"
+            android:src="@mipmap/logout"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="回访记录详情"
+            android:textColor="#fff"/>
+
+    </RelativeLayout>
+
+    <!--  /**
+         *    "address": "吉林省长春市二道区经开一区16栋4单元307",
+         "filePath": "null",
+         "gridMemberId": 2,
+         "gridMemberName": "陈双飞",
+         "imgPath": "/files/gridMemberApp/7e13e148ae69793aa353ce9c7e0d4ca7.png",
+         "name": "徐浩",
+         "phone": "13943187200",
+         "returnVisitDate": "2018-01-31 11:29:54"
+         */ -->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tvOldAddress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="地址：吉林省长春市二道区经开一区16栋4单元307"/>
+
+        <TextView
+            android:id="@+id/tvOldName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="老人姓名：王军山"/>
+
+        <TextView
+            android:id="@+id/tvOldPhoneNumber"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="老人电话：132999999999"/>
+
+        <TextView
+            android:id="@+id/tvReturnDateTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="回访时间：2018-01-31 11:29:54"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="20dp"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btnPlay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="录音文件播放"/>
+
+        <Button
+            android:id="@+id/btnStopPlay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:text="录音文件停止播放"/>
+
+    </LinearLayout>
+
+
+</LinearLayout>

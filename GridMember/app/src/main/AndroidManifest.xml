@@ -149,15 +149,13 @@
             >
         </activity>
 
-         <activity
+        <activity
 
             android:name=".ui.RecordActivity"
             android:launchMode="singleInstance"
             android:screenOrientation="portrait"
             >
         </activity>
-
-
 
 
         <activity
@@ -184,7 +182,18 @@
             android:screenOrientation="portrait"
             ></activity>
 
+        <activity
+            android:name="com.jkkc.gridmember.ui.ReturnRecordDetailActivity"
+            android:launchMode="singleInstance"
+            android:screenOrientation="portrait"
+            ></activity>
 
+
+        <activity
+            android:name="com.jkkc.gridmember.ui.ReturnRecordListActivity"
+            android:launchMode="singleInstance"
+            android:screenOrientation="portrait"
+            ></activity>
 
 
         <activity
