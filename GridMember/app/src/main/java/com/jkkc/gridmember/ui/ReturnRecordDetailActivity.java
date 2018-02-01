@@ -39,6 +39,8 @@ public class ReturnRecordDetailActivity extends AppCompatActivity {
     private List<ReturnRecordInfo.DataBean> mReturnDatas;
     private AudioPlayer mAudioPlayer;
     private ArrayList<String> mImgList;
+    private ArrayList<String> mPicPathList;
+    private SimpleDraweeView mDraweeView;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -69,6 +71,9 @@ public class ReturnRecordDetailActivity extends AppCompatActivity {
             Log.d(TAG, imgPath);
             String[] split = imgPath.split(",");
             mImgList = new ArrayList<>();
+
+            mPicPathList = new ArrayList<>();
+
             for (int j = 0; j < split.length; j++) {
                 if (!"".equals(split[j])) {
                     String ss = split[j];
@@ -77,8 +82,10 @@ public class ReturnRecordDetailActivity extends AppCompatActivity {
 
                     mImgList.add(imgUrl);
 
+
                 }
             }
+
 
             Log.d(TAG, mImgList.size() + "张");
 
@@ -159,13 +166,15 @@ public class ReturnRecordDetailActivity extends AppCompatActivity {
             }
         });
 
-        Uri uri = Uri.parse(mImgList.get(0));
-        final SimpleDraweeView draweeView = (SimpleDraweeView) findViewById(R.id.dvPic);
-        draweeView.setImageURI(uri);
 
-        draweeView.setOnClickListener(new View.OnClickListener() {
+        Uri uri = Uri.parse(mImgList.get(0));
+        mDraweeView = (SimpleDraweeView) findViewById(R.id.dvPic);
+        mDraweeView.setImageURI(uri);
+
+        mDraweeView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
 
                 Intent intent = new Intent(getApplicationContext(),
                         PicDetailActivity.class);
