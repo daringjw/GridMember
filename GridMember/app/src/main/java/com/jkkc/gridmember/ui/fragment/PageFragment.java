@@ -47,21 +47,22 @@ public class PageFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_page, container, false);
 
         mImgList = getActivity().getIntent().getStringArrayListExtra("imgList");
-        Log.d(TAG,mPage+"");
+        Log.d(TAG, mPage + "");
         Uri uri = Uri.parse(mImgList.get(mPage - 1));
         SimpleDraweeView draweeView = view.findViewById(R.id.sdvPic);
         draweeView.setImageURI(uri);
+
 
         draweeView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                Log.d(TAG, mImgList.get(mPage-1));
+                Log.d(TAG, mImgList.get(mPage - 1));
 
                 Intent intent = new Intent();
                 //Intent intent = new Intent(Intent.ACTION_VIEW,uri);
                 intent.setAction("android.intent.action.VIEW");
-                Uri content_url = Uri.parse(mImgList.get(mPage-1));
+                Uri content_url = Uri.parse(mImgList.get(mPage - 1));
                 intent.setData(content_url);
                 startActivity(intent);
 
