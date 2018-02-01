@@ -97,5 +97,17 @@
 
     </LinearLayout>
 
+    <com.facebook.drawee.view.SimpleDraweeView
+        android:id="@+id/dvPic"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+
+
+
+
+
+
+
 
 </LinearLayout>

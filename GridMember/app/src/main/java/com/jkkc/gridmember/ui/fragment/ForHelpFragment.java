@@ -55,10 +55,12 @@ public class ForHelpFragment extends Fragment {
 
         Button btnYourLocation = view.findViewById(R.id.btnYourLocation);
         btnYourLocation.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View view) {
 
-                startActivity(new Intent(getActivity(),YourLocationActivity.class));
+                startActivity(new Intent(getActivity(),
+                        YourLocationActivity.class));
 
             }
         });

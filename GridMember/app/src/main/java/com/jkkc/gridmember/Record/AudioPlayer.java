@@ -20,6 +20,7 @@ public class AudioPlayer {
     public void setPlayerPath(String playerPath) {
 
         this.playerPath = playerPath;
+
     }
 
     public void play() {
@@ -59,7 +60,10 @@ public class AudioPlayer {
             mMediaPlayer.stop();
             mMediaPlayer.release();
             mMediaPlayer = null;
+
         }
+
+
     }
 
 

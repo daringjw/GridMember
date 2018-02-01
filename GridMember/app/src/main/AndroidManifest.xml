@@ -188,6 +188,12 @@
             android:screenOrientation="portrait"
             ></activity>
 
+        <activity
+            android:name="com.jkkc.gridmember.ui.PicDetailActivity"
+            android:launchMode="singleInstance"
+            android:screenOrientation="portrait"
+            ></activity>
+
 
         <activity
             android:name="com.jkkc.gridmember.ui.ReturnRecordListActivity"

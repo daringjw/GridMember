@@ -1,6 +1,7 @@
 package com.jkkc.gridmember.ui;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -12,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.facebook.drawee.view.SimpleDraweeView;
 import com.google.gson.Gson;
 import com.jkkc.gridmember.R;
 import com.jkkc.gridmember.Record.AudioPlayer;
@@ -23,6 +25,7 @@ import com.lzy.okgo.callback.FileCallback;
 import com.lzy.okgo.model.Response;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -35,6 +38,7 @@ public class ReturnRecordDetailActivity extends AppCompatActivity {
     private Intent mIntent;
     private List<ReturnRecordInfo.DataBean> mReturnDatas;
     private AudioPlayer mAudioPlayer;
+    private ArrayList<String> mImgList;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -60,6 +64,25 @@ public class ReturnRecordDetailActivity extends AppCompatActivity {
             Gson gson1 = new Gson();
             ReturnRecordInfo returnRecordInfo = gson1.fromJson(result, ReturnRecordInfo.class);
             mReturnDatas = returnRecordInfo.getData();
+
+            String imgPath = mReturnDatas.get(detail_position).getImgPath();
+            Log.d(TAG, imgPath);
+            String[] split = imgPath.split(",");
+            mImgList = new ArrayList<>();
+            for (int j = 0; j < split.length; j++) {
+                if (!"".equals(split[j])) {
+                    String ss = split[j];
+                    String imgUrl = Config.GRIDMAN_URL + ss;
+                    Log.d(TAG, imgUrl);
+
+                    mImgList.add(imgUrl);
+
+                }
+            }
+
+            Log.d(TAG, mImgList.size() + "张");
+
+
         }
 
         /**
@@ -103,7 +126,9 @@ public class ReturnRecordDetailActivity extends AppCompatActivity {
 
                                     File file = response.body().getAbsoluteFile();
                                     String path = file.getAbsolutePath();
-                                    mAudioPlayer = new AudioPlayer();
+                                    if (mAudioPlayer == null) {
+                                        mAudioPlayer = new AudioPlayer();
+                                    }
                                     mAudioPlayer.setPlayerPath(path);
                                     mAudioPlayer.play();
 
@@ -134,6 +159,23 @@ public class ReturnRecordDetailActivity extends AppCompatActivity {
             }
         });
 
+        Uri uri = Uri.parse(mImgList.get(0));
+        final SimpleDraweeView draweeView = (SimpleDraweeView) findViewById(R.id.dvPic);
+        draweeView.setImageURI(uri);
+
+        draweeView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent intent = new Intent(getApplicationContext(),
+                        PicDetailActivity.class);
+                intent.putStringArrayListExtra("imgList", mImgList);
+                startActivity(intent);
+
+
+            }
+        });
+
 
     }
 
@@ -146,6 +188,8 @@ public class ReturnRecordDetailActivity extends AppCompatActivity {
         if (mAudioPlayer != null) {
             mAudioPlayer.stop();
         }
+
+
     }
 
 
