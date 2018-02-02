@@ -22,6 +22,12 @@ import com.jkkc.gridmember.utils.PrefUtils;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
+import com.scwang.smartrefresh.header.FunGameHitBlockHeader;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.constant.SpinnerStyle;
+import com.scwang.smartrefresh.layout.footer.BallPulseFooter;
+import com.scwang.smartrefresh.layout.listener.OnLoadmoreListener;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 import java.util.List;
 
@@ -58,6 +64,31 @@ public class ReturnRecordListActivity extends AppCompatActivity {
         Log.d(TAG, mLoginInfo.getData().getToken() + "\n" + mLoginInfo.getData().getId());
 
 
+        //回弹
+
+        RefreshLayout refreshLayout = (RefreshLayout) findViewById(R.id.refreshLayout);
+        refreshLayout.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefresh(RefreshLayout refreshlayout) {
+                refreshlayout.finishRefresh(2000/*,false*/);//传入false表示刷新失败
+            }
+        });
+        refreshLayout.setOnLoadmoreListener(new OnLoadmoreListener() {
+            @Override
+            public void onLoadmore(RefreshLayout refreshlayout) {
+                refreshlayout.finishLoadmore(2000/*,false*/);//传入false表示加载失败
+            }
+        });
+
+        FunGameHitBlockHeader funGameHitBlockHeader = new FunGameHitBlockHeader(this);
+        //设置 Header 为 Material样式
+        refreshLayout.setRefreshHeader(funGameHitBlockHeader);
+        //设置 Footer 为 球脉冲
+        refreshLayout.setRefreshFooter(new BallPulseFooter(this)
+                .setSpinnerStyle(SpinnerStyle.Scale));
+
+
+
         OkGo.<String>post(Config.GRIDMAN_URL + Config.FIND_RETURN_VISIT_LIST)
                 .tag(this)
                 .params("token", mLoginInfo.getData().getToken())
@@ -75,7 +106,7 @@ public class ReturnRecordListActivity extends AppCompatActivity {
 
                         if (mReturnDatas != null) {
                             int size = mReturnDatas.size();
-                            PrefUtils.setString(getApplicationContext(),"customer_visits",size+"");
+                            PrefUtils.setString(getApplicationContext(), "customer_visits", size + "");
                             mAdapter = new MyAdapter(mReturnDatas);
                             mRecyclerView.setAdapter(mAdapter);
 
@@ -87,10 +118,9 @@ public class ReturnRecordListActivity extends AppCompatActivity {
                                             "" + data, Toast.LENGTH_SHORT).show();*/
                                     Intent intent = new Intent(getApplicationContext(),
                                             ReturnRecordDetailActivity.class);
-                                    intent.putExtra("detail_position",data);
+                                    intent.putExtra("detail_position", data);
 
                                     startActivity(intent);
-
 
 
                                 }

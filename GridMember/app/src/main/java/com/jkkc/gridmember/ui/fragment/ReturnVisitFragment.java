@@ -106,7 +106,8 @@ public class ReturnVisitFragment extends Fragment implements DatePickerDialog.On
         //设置 Header 为 Material样式
         refreshLayout.setRefreshHeader(funGameHitBlockHeader);
         //设置 Footer 为 球脉冲
-        refreshLayout.setRefreshFooter(new BallPulseFooter(getActivity()).setSpinnerStyle(SpinnerStyle.Scale));
+        refreshLayout.setRefreshFooter(new BallPulseFooter(getActivity())
+                .setSpinnerStyle(SpinnerStyle.Scale));
 
         //回访列表
         OkGo.<String>post(Config.GRIDMAN_URL + Config.RETURN_VISIT_URL)
