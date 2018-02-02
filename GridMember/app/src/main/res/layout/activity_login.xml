@@ -8,35 +8,67 @@
     tools:context="com.jkkc.gridmember.LoginActivity">
 
     <ImageView
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:layout_gravity="center"
-        android:layout_marginTop="20dp"
-        android:src="@mipmap/ic_launcher_round"/>
-
-    <EditText
-        android:id="@+id/etUserName"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="18518030828"
-        android:hint="请输入用户名"/>
+        android:src="@mipmap/login_head"
+        />
 
-    <EditText
-        android:text="12345678"
-        android:id="@+id/etPwd"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="请输入密码"/>
-
-    <Button
-        android:id="@+id/btnLogin"
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text="登录"/>
+        android:layout_marginTop="30dp"
+        android:background="@mipmap/user_bg"
+        android:gravity="center"
+        android:orientation="horizontal"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="账号："/>
+
+        <EditText
+            android:id="@+id/etUserName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:hint="请输入用户名"
+            android:text="18518030828"/>
+
+    </LinearLayout>
 
 
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="30dp"
+        android:background="@mipmap/user_bg"
+        android:gravity="center"
+        >
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="密码："/>
+
+        <EditText
+            android:id="@+id/etPwd"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:hint="请输入密码"
+            android:text="12345678"/>
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/ivLogin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="40dp"
+        android:src="@mipmap/login_btn_normal"/>
 
 
 </LinearLayout>

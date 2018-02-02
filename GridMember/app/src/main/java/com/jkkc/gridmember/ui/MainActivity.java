@@ -312,9 +312,9 @@ public class MainActivity extends AppCompatActivity {
 //        tabLayout.addTab(tabLayout.newTab().setText("求助").setIcon(R.mipmap.ic_launcher));
 //        tabLayout.addTab(tabLayout.newTab().setText("个人中心").setIcon(R.mipmap.ic_launcher));
 
-        tabLayout.getTabAt(0).setIcon(R.drawable.button_location_selector);
-        tabLayout.getTabAt(1).setIcon(R.drawable.button_location_selector);
-        tabLayout.getTabAt(2).setIcon(R.drawable.button_location_selector);
+        tabLayout.getTabAt(0).setIcon(R.drawable.return_visit_selector);
+        tabLayout.getTabAt(1).setIcon(R.drawable.for_help_selector);
+        tabLayout.getTabAt(2).setIcon(R.drawable.personal_center_selector);
 
 
     }

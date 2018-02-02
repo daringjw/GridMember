@@ -72,10 +72,10 @@ public class ReturnRecordListActivity extends AppCompatActivity {
                         Gson gson1 = new Gson();
                         ReturnRecordInfo returnRecordInfo = gson1.fromJson(result, ReturnRecordInfo.class);
                         mReturnDatas = returnRecordInfo.getData();
-                        int size = mReturnDatas.size();
-                        PrefUtils.setString(getApplicationContext(),"customer_visits",size+"");
 
                         if (mReturnDatas != null) {
+                            int size = mReturnDatas.size();
+                            PrefUtils.setString(getApplicationContext(),"customer_visits",size+"");
                             mAdapter = new MyAdapter(mReturnDatas);
                             mRecyclerView.setAdapter(mAdapter);
 

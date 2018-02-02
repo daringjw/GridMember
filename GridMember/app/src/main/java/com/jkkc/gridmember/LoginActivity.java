@@ -7,8 +7,8 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.blankj.utilcode.util.AppUtils;
@@ -44,10 +44,9 @@ public class LoginActivity extends AppCompatActivity {
     EditText mEtUserName;
     @BindView(R.id.etPwd)
     EditText mEtPwd;
-    @BindView(R.id.btnLogin)
-    Button mBtnLogin;
+    @BindView(R.id.ivLogin)
+    ImageView ivLogin;
     private SweetAlertDialog mPDialog;
-    private MyConnectionListener mMyConnectionListener;
     private String mAccount;
     private String mPwd;
 
@@ -139,6 +138,7 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
+    private MyConnectionListener mMyConnectionListener;
 
     //实现ConnectionListener接口
     private class MyConnectionListener implements EMConnectionListener {
@@ -148,7 +148,6 @@ public class LoginActivity extends AppCompatActivity {
             Log.d(TAG, "已连接上");
             startActivity(new Intent(getApplicationContext(), MainActivity.class));
             finish();
-
 
         }
 
@@ -165,16 +164,14 @@ public class LoginActivity extends AppCompatActivity {
                                 LoginActivity.class));
 
 
-
                     } else if (error == EMError.USER_LOGIN_ANOTHER_DEVICE) {
                         // 显示帐号在其他设备登录
                         startActivity(new Intent(getApplicationContext(),
                                 LoginActivity.class));
 
 
-
                     } else {
-                        if (NetUtils.hasNetwork(LoginActivity.this)) {
+                        if (NetUtils.hasNetwork(getApplicationContext())) {
 
                             //连接不到聊天服务器
                             startActivity(new Intent(getApplicationContext(),
@@ -200,7 +197,7 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
-    @OnClick(R.id.btnLogin)
+    @OnClick(R.id.ivLogin)
     public void onViewClicked(View view) {
 
         if (mPDialog == null) {

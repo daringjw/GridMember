@@ -22,13 +22,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:tabGravity="fill"
-        app:tabIndicatorColor="#0ff"
         app:tabMode="fixed"
-        app:tabSelectedTextColor="#ffaa25"
-        app:tabBackground="@mipmap/splash"
-
-
-
+        app:tabSelectedTextColor="#009944"
         />
 
 
