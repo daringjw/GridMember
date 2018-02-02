@@ -11,7 +11,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -38,7 +38,7 @@ public class PersonalCenterFragment extends Fragment {
     private TextView mTvUserName;
     private TextView mTvVersion;
     private TextView mTvReturnVisitCount;
-    private Button mBtnLogout;
+
     private TextView mTvAddress;
     private TextView mTvPhone;
     private RelativeLayout mRlVersion;
@@ -55,7 +55,7 @@ public class PersonalCenterFragment extends Fragment {
         mTvUserName = view.findViewById(R.id.tvUserName);
         mTvVersion = view.findViewById(R.id.tvVersion);
         mTvReturnVisitCount = view.findViewById(R.id.tvReturnVisitCount);
-        mBtnLogout = view.findViewById(R.id.btnLogout);
+
 
         mTvAddress = view.findViewById(R.id.tvAddress);
         mTvPhone = view.findViewById(R.id.tvPhone);
@@ -108,7 +108,11 @@ public class PersonalCenterFragment extends Fragment {
         }
 
 
-        mBtnLogout.setOnClickListener(new View.OnClickListener() {
+
+
+
+        ImageView ivLogout = view.findViewById(R.id.ivLogout);
+        ivLogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
