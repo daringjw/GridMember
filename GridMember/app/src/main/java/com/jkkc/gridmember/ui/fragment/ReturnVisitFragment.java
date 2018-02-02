@@ -248,7 +248,7 @@ public class ReturnVisitFragment extends Fragment implements DatePickerDialog.On
         @Override
         public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
             View view = LayoutInflater.from(viewGroup.getContext())
-                    .inflate(R.layout.item_return_visit, viewGroup, false);
+                    .inflate(R.layout.item_return_visit1, viewGroup, false);
 
 
             ViewHolder vh = new ViewHolder(view);
@@ -263,13 +263,13 @@ public class ReturnVisitFragment extends Fragment implements DatePickerDialog.On
         @Override
         public void onBindViewHolder(ViewHolder viewHolder, final int position) {
 //            viewHolder.mTextView.setText(datas.get(position));
-            viewHolder.tvName.setText(datas.get(position).getName());
-            viewHolder.tvHomeAddress.setText(datas.get(position).getAddress());
+            viewHolder.tvName.setText("姓名："+datas.get(position).getName());
+            viewHolder.tvHomeAddress.setText("地址："+datas.get(position).getAddress());
             String day = datas.get(position).day;
             if (TextUtils.isEmpty(day)) {
-                viewHolder.tvDay.setText("还未回访");
+                viewHolder.tvDay.setText("状态：还未回访");
             } else {
-                viewHolder.tvDay.setText(day);
+                viewHolder.tvDay.setText("状态：" + day + " 天");
             }
 
             //将数据保存在itemView的Tag中，以便点击时进行获取
@@ -386,20 +386,20 @@ public class ReturnVisitFragment extends Fragment implements DatePickerDialog.On
 
         //自定义的ViewHolder，持有每个Item的的所有界面元素
         public class ViewHolder extends RecyclerView.ViewHolder {
-            //            public TextView mTextView;
+
             public TextView tvName, tvHomeAddress, tvDay;
             public ImageView ivCall, ivGuide, ivfu;
 
 
             public ViewHolder(View view) {
                 super(view);
-//                mTextView = view.findViewById(R.id.tvCity);
+
                 tvName = view.findViewById(R.id.tvName);
-                tvHomeAddress = view.findViewById(R.id.tvHomeAddress);
-                tvDay = view.findViewById(R.id.tvDay);
+                tvHomeAddress = view.findViewById(R.id.tvOldPeopleAddress);
+                tvDay = view.findViewById(R.id.tvState);
                 ivCall = view.findViewById(R.id.ivCall);
                 ivGuide = view.findViewById(R.id.ivGuide);
-                ivfu = view.findViewById(R.id.ivfu);
+                ivfu = view.findViewById(R.id.ivStartVisit);
 
 
             }
